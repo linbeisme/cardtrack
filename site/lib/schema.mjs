@@ -1,4 +1,4 @@
-export const APP_VERSION = "5.0.1";
+export const APP_VERSION = "5.1.0";
 export const SCHEMA_VERSION = 5;
 export const LEGACY_OFFER_SCHEMA_VERSION = 3;
 export const DATABASE_COMPATIBILITY_VERSION = 2;

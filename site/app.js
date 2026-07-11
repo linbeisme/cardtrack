@@ -15,7 +15,8 @@ import {
   effectiveTemplateContent,
   filterCards,
   migratePromptLibrary,
-  resolvePrompt,
+  promptVariantLabel,
+  resolvePromptVariant,
   restoreTemplateDefault,
   updateTemplateContent,
   validatePromptLibrary
@@ -55,6 +56,9 @@ const state = {
   validation: null,
   promptManagerOpen: false,
   selectedTemplateId: "full-data-refresh",
+  promptWorkflow: localStorage.getItem("cardtrack-prompt-workflow") === "two-step" ? "two-step" : "one-step",
+  promptProvider: localStorage.getItem("cardtrack-prompt-provider") === "gemini" ? "gemini" : "chatgpt",
+  promptStage: localStorage.getItem("cardtrack-prompt-stage") === "json" ? "json" : "research",
   promptTestText: "",
   promptTestPayload: null,
   promptTestResult: null,
@@ -247,7 +251,7 @@ function headerHtml() {
       <div class="header-actions">
         <span class="version-chip">App v${escapeHtml(APP_VERSION)} · Schema v${escapeHtml(schemaLabel())}</span>
         <span class="badge ${state.stagedDatabase.dataStatus === "live" ? "elevated" : "targeted"}">${escapeHtml(state.stagedDatabase.dataStatus.toUpperCase())} · ${escapeHtml(fmtDateTime(state.stagedDatabase.generatedAt))}</span>
-        <button class="button small" data-action="toggle-theme" title="Toggle light/dark mode">◐</button>
+        <button class="theme-toggle" data-action="toggle-theme" title="Switch between day and night mode" aria-label="Switch between day and night mode"><span class="theme-choice ${state.theme === "light" ? "active" : ""}" aria-hidden="true">☀️</span><span class="theme-choice ${state.theme === "dark" ? "active" : ""}" aria-hidden="true">🌙</span></button>
         <button class="button" data-action="reload">Reload GitHub data</button>
       </div>
     </div>
@@ -505,9 +509,16 @@ function promptManagerHtml() {
   if (!state.promptManagerOpen) return "";
   const template = state.stagedPrompts.templates.find((item) => item.id === state.selectedTemplateId) || state.stagedPrompts.templates[0];
   const content = effectiveTemplateContent(state.stagedPrompts, template);
-  const resolved = resolvePrompt(state.stagedPrompts, template, state.stagedDatabase.cards, new Date(), state.stagedDatabase);
+  const variantOptions = {workflow: state.promptWorkflow, provider: state.promptProvider, stage: state.promptStage};
+  const resolved = resolvePromptVariant(state.stagedPrompts, template, state.stagedDatabase.cards, new Date(), state.stagedDatabase, variantOptions);
   const selectedCount = filterCards(state.stagedDatabase.cards, template.filter).length;
-  return `<div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="prompt-manager-title"><div class="modal"><div class="modal-header"><div><h2 id="prompt-manager-title">Prompt Manager</h2><div class="subtext">Saved templates, syntax highlighting, automatic date/catalog injection, JSON testing, import/export, and GitHub publishing.</div></div><button class="button" data-action="close-prompts">✕</button></div><div class="modal-body"><div class="prompt-toolbar"><div class="field"><label>Saved template</label><select id="template-select">${state.stagedPrompts.templates.map((item) => `<option value="${escapeHtml(item.id)}" ${item.id === template.id ? "selected" : ""}>${escapeHtml(item.name)}</option>`).join("")}</select><div class="template-meta">${escapeHtml(template.description)} · ${selectedCount} active card${selectedCount === 1 ? "" : "s"}</div></div><div class="prompt-actions"><button class="button primary" data-action="copy-prompt">📋 Copy Prompt</button><button class="button" data-action="save-template-local">Save Edit</button><button class="button" data-action="restore-template">Restore Default</button><button class="button" data-action="import-prompts">Import</button><button class="button" data-action="export-current-prompt">Export Current</button><button class="button" data-action="export-prompts">Export Library</button></div></div><div class="prompt-layout"><div><div class="editor-label"><span>Editable template</span><span class="subtext">Keep required {{...}} placeholders</span></div><div class="editor-wrap"><pre id="prompt-highlight" class="editor-highlight" aria-hidden="true">${highlightPrompt(content)}</pre><textarea id="prompt-editor" class="editor-input" spellcheck="false">${escapeHtml(content)}</textarea></div></div><div><div class="editor-label"><span>Resolved preview</span><span class="subtext">Date, catalog and current data injected</span></div><pre id="resolved-prompt" class="resolved-preview">${escapeHtml(resolved)}</pre></div></div><div class="modal-footer"><div style="flex:1;min-width:280px"><div class="field"><label>Fine-grained GitHub token</label><input id="prompt-github-token" type="password" autocomplete="off"></div><div class="button-row" style="margin-top:8px"><button class="button purple" data-action="save-prompts-github">💾 Save Prompt Library to GitHub</button><span class="subtext">Writes only ${PROMPTS_PATH}.</span></div></div><span class="subtext">${state.promptDirty ? "Unsaved prompt changes" : "Prompt library unchanged"}</span></div><div class="test-box"><h3>🧪 Test returned JSON against CardTrack schema</h3><p class="subtext">The tester auto-detects welcome offers, card facts, transfer partners, transfer bonuses, valuations, or a complete dataset.</p><textarea id="prompt-test-json" placeholder="Paste returned JSON here">${escapeHtml(state.promptTestText)}</textarea><div class="button-row" style="margin-top:9px"><button class="button primary" data-action="test-json">Test JSON</button><button class="button" data-action="copy-to-publisher" ${state.promptTestResult?.valid ? "" : "disabled"}>Copy to Publisher</button></div>${promptTestHtml()}</div></div></div></div>`;
+  const variant = promptVariantLabel(variantOptions);
+  const copyLabel = state.promptWorkflow === "two-step" ? (state.promptStage === "json" ? "📋 Copy Step 2 — JSON Prompt" : "📋 Copy Step 1 — Research Prompt") : "📋 Copy One-Step JSON Prompt";
+  const lastSaved = state.stagedPrompts.lastSavedToGitHubAt ? fmtDateTime(state.stagedPrompts.lastSavedToGitHubAt) : "Not yet saved from this version";
+  const usage = state.promptWorkflow === "two-step"
+    ? (state.promptStage === "json" ? "Paste this into the same Deep Research conversation after Step 1 finishes." : "Start a new Deep Research conversation with this prompt. When the report finishes, return here and copy Step 2.")
+    : `Paste this into a normal ${state.promptProvider === "gemini" ? "Gemini chat with Google Search" : "ChatGPT chat with Search enabled"}; do not select Deep Research.`;
+  return `<div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="prompt-manager-title"><div class="modal"><div class="modal-header"><div><h2 id="prompt-manager-title">Prompt Manager</h2><div class="subtext">Choose the data category first, then choose one-step Search or two-step Deep Research for ChatGPT or Gemini.</div></div><button class="button" data-action="close-prompts">✕</button></div><div class="modal-body"><div class="prompt-choice-grid"><div class="field"><label>1. Data category / saved template</label><select id="template-select" class="saved-template-select">${state.stagedPrompts.templates.map((item) => `<option value="${escapeHtml(item.id)}" ${item.id === template.id ? "selected" : ""}>${escapeHtml(item.name)}</option>`).join("")}</select><div class="template-meta">${escapeHtml(template.description)} · ${selectedCount} active card${selectedCount === 1 ? "" : "s"}</div></div><div class="prompt-choice"><div class="choice-label">2. Workflow</div><div class="segmented prompt-segment"><button class="${state.promptWorkflow === "one-step" ? "active" : ""}" data-action="set-prompt-workflow" data-value="one-step">1-Step · Regular Search</button><button class="${state.promptWorkflow === "two-step" ? "active" : ""}" data-action="set-prompt-workflow" data-value="two-step">2-Step · Deep Research</button></div></div><div class="prompt-choice"><div class="choice-label">3. Platform</div><div class="segmented prompt-segment"><button class="${state.promptProvider === "chatgpt" ? "active" : ""}" data-action="set-prompt-provider" data-value="chatgpt">ChatGPT</button><button class="${state.promptProvider === "gemini" ? "active" : ""}" data-action="set-prompt-provider" data-value="gemini">Gemini</button></div></div>${state.promptWorkflow === "two-step" ? `<div class="prompt-choice"><div class="choice-label">4. Deep Research step</div><div class="segmented prompt-segment"><button class="${state.promptStage === "research" ? "active" : ""}" data-action="set-prompt-stage" data-value="research">Step 1 · Research Report</button><button class="${state.promptStage === "json" ? "active" : ""}" data-action="set-prompt-stage" data-value="json">Step 2 · JSON Conversion</button></div></div>` : ""}</div><div class="workflow-summary"><strong>${escapeHtml(variant)}</strong><span>${escapeHtml(usage)}</span></div><div class="prompt-actions prompt-actions-main"><button class="button primary" data-action="copy-prompt">${copyLabel}</button><button class="button" data-action="save-template-local">Save Category Edit</button><button class="button" data-action="restore-template">Restore Default</button><button class="button" data-action="import-prompts">Import</button><button class="button" data-action="export-current-prompt">Export Current</button><button class="button" data-action="export-prompts">Export Library</button></div><div class="prompt-layout"><div><div class="editor-label"><span>Editable category template</span><span class="subtext">The app adds the selected platform/workflow instructions automatically. Keep required {{...}} placeholders.</span></div><div class="editor-wrap"><pre id="prompt-highlight" class="editor-highlight" aria-hidden="true">${highlightPrompt(content)}</pre><textarea id="prompt-editor" class="editor-input" spellcheck="false">${escapeHtml(content)}</textarea></div></div><div><div class="editor-label"><span>Resolved prompt to copy</span><span class="subtext">Current date, active catalog and stored data are injected automatically</span></div><pre id="resolved-prompt" class="resolved-preview">${escapeHtml(resolved)}</pre></div></div><div class="modal-footer"><div style="flex:1;min-width:280px"><div class="field"><label>Fine-grained GitHub token</label><input id="prompt-github-token" type="password" autocomplete="off"></div><div class="button-row" style="margin-top:8px"><button class="button purple" data-action="save-prompts-github">💾 Save Prompt Library to GitHub</button><span class="prompt-saved-time"><strong>Last saved to GitHub:</strong> ${escapeHtml(lastSaved)}</span></div><div class="subtext">Writes only ${PROMPTS_PATH}. Newly added active cards are inserted into every resolved prompt automatically.</div></div><span class="subtext">${state.promptDirty ? "Unsaved prompt changes" : "Prompt library unchanged"}</span></div><div class="test-box"><h3>🧪 Test returned JSON against CardTrack schema</h3><p class="subtext">The tester auto-detects welcome offers, card facts, transfer partners, transfer bonuses, valuations, or a complete dataset.</p><textarea id="prompt-test-json" placeholder="Paste returned JSON here">${escapeHtml(state.promptTestText)}</textarea><div class="button-row" style="margin-top:9px"><button class="button primary" data-action="test-json">Test JSON</button><button class="button" data-action="copy-to-publisher" ${state.promptTestResult?.valid ? "" : "disabled"}>Copy to Publisher</button></div>${promptTestHtml()}</div></div></div></div>`;
 }
 
 function highlightPrompt(content) {
@@ -594,7 +605,7 @@ function updateResolvedPreview(content) {
   const temporary = structuredClone(state.stagedPrompts);
   temporary.templates.find((item) => item.id === template.id).customPrompt = content;
   const preview = document.querySelector("#resolved-prompt");
-  if (preview) preview.textContent = resolvePrompt(temporary, temporary.templates.find((item) => item.id === template.id), state.stagedDatabase.cards, new Date(), state.stagedDatabase);
+  if (preview) preview.textContent = resolvePromptVariant(temporary, temporary.templates.find((item) => item.id === template.id), state.stagedDatabase.cards, new Date(), state.stagedDatabase, {workflow: state.promptWorkflow, provider: state.promptProvider, stage: state.promptStage});
 }
 
 function saveCurrentEditorToState(notify = true) {
@@ -620,6 +631,23 @@ async function handleAction(event) {
       state.theme = state.theme === "light" ? "dark" : "light";
       localStorage.setItem("cardtrack-theme", state.theme);
       document.documentElement.dataset.theme = state.theme;
+      render();
+    } else if (action === "set-prompt-workflow") {
+      saveCurrentEditorToState(false);
+      state.promptWorkflow = event.currentTarget.dataset.value === "two-step" ? "two-step" : "one-step";
+      localStorage.setItem("cardtrack-prompt-workflow", state.promptWorkflow);
+      state.promptStage = state.promptWorkflow === "one-step" ? "json" : "research";
+      localStorage.setItem("cardtrack-prompt-stage", state.promptStage);
+      render();
+    } else if (action === "set-prompt-provider") {
+      saveCurrentEditorToState(false);
+      state.promptProvider = event.currentTarget.dataset.value === "gemini" ? "gemini" : "chatgpt";
+      localStorage.setItem("cardtrack-prompt-provider", state.promptProvider);
+      render();
+    } else if (action === "set-prompt-stage") {
+      saveCurrentEditorToState(false);
+      state.promptStage = event.currentTarget.dataset.value === "json" ? "json" : "research";
+      localStorage.setItem("cardtrack-prompt-stage", state.promptStage);
       render();
     } else if (action === "reload") {
       if ((state.promptDirty || JSON.stringify(state.stagedDatabase) !== JSON.stringify(state.database)) && !confirm("Reloading will discard staged browser changes. Continue?")) return;
@@ -661,8 +689,9 @@ async function handleAction(event) {
     } else if (action === "copy-prompt") {
       if (state.promptDirty) saveCurrentEditorToState(false);
       const template = state.stagedPrompts.templates.find((item) => item.id === state.selectedTemplateId);
-      await navigator.clipboard.writeText(resolvePrompt(state.stagedPrompts, template, state.stagedDatabase.cards, new Date(), state.stagedDatabase));
-      toast("Resolved prompt copied.");
+      const resolvedPrompt = resolvePromptVariant(state.stagedPrompts, template, state.stagedDatabase.cards, new Date(), state.stagedDatabase, {workflow: state.promptWorkflow, provider: state.promptProvider, stage: state.promptStage});
+      await navigator.clipboard.writeText(resolvedPrompt);
+      toast(`${promptVariantLabel({workflow: state.promptWorkflow, provider: state.promptProvider, stage: state.promptStage})} copied.`);
     } else if (action === "save-template-local") {
       saveCurrentEditorToState(true); render();
     } else if (action === "restore-template") {
@@ -736,7 +765,8 @@ function addCard(event) {
   while (existing.has(candidate)) candidate = `${id}-${n++}`;
   const now = new Date().toISOString();
   state.stagedDatabase.cards.push({id: candidate, name, issuer: String(data.get("issuer") || "").trim(), program: String(data.get("program") || "").trim(), annualFee: Number(data.get("annualFee")), baselineOffer: Number(data.get("baselineOffer")), historicalHigh: data.get("historicalHigh") === "" ? null : Number(data.get("historicalHigh")), bonusUnit: String(data.get("bonusUnit")), applyUrl: String(data.get("applyUrl") || "").trim(), isArchived: false, archivedAt: null, createdAt: now, updatedAt: now});
-  render(); toast(`Added ${name} to the staged catalog.`);
+  state.promptTestResult = null;
+  render(); toast(`Added ${name}. Every resolved research prompt now includes this active card automatically.`);
 }
 
 function archiveCard(cardId) {
@@ -798,11 +828,16 @@ async function runGithub(mode) {
       setGithubStatus("TPG valuations saved to GitHub.", true);
       toast("TPG valuations saved to GitHub.");
     } else if (mode === "prompts") {
-      const check = validatePromptLibrary(state.stagedPrompts);
+      const nextPrompts = structuredClone(state.stagedPrompts);
+      nextPrompts.lastSavedToGitHubAt = new Date().toISOString();
+      nextPrompts.updatedAt = nextPrompts.lastSavedToGitHubAt;
+      const check = validatePromptLibrary(nextPrompts);
       if (!check.valid) throw new Error(`Prompt library is invalid: ${check.errors[0]}`);
-      await putJsonFile({...base, path: state.repository.promptsPath, value: state.stagedPrompts, message: "Update CardTrack v5 prompt library"});
-      state.prompts = structuredClone(state.stagedPrompts); state.promptDirty = false;
-      toast("Prompt library saved to GitHub."); render();
+      await putJsonFile({...base, path: state.repository.promptsPath, value: nextPrompts, message: "Update CardTrack v5.1 prompt library"});
+      state.stagedPrompts = structuredClone(nextPrompts);
+      state.prompts = structuredClone(nextPrompts);
+      state.promptDirty = false;
+      toast(`Prompt library saved to GitHub at ${fmtDateTime(nextPrompts.lastSavedToGitHubAt)}.`); render();
     }
   } finally {
     document.querySelectorAll("#github-token, #prompt-github-token").forEach((field) => { field.value = ""; });

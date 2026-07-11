@@ -1,6 +1,13 @@
-# CardTrack v5 Research JSON Formats
+# CardTrack v5.1 Research JSON Formats
 
-The Prompt Manager contains complete prompts and exact field instructions. Each response must be one JSON object without Markdown fences.
+The Prompt Manager now generates four workflow variants for every category:
+
+1. ChatGPT one-step regular Search
+2. Gemini one-step regular Search
+3. ChatGPT two-step Deep Research
+4. Gemini two-step Deep Research
+
+For two-step Deep Research, run Step 1 first, then paste Step 2 into the same conversation. The final response must be one raw JSON object without Markdown fences.
 
 ## Welcome offers
 

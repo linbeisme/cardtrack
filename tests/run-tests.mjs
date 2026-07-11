@@ -16,7 +16,9 @@ import {
 import {
   filterCards,
   migratePromptLibrary,
+  promptVariantLabel,
   resolvePrompt,
+  resolvePromptVariant,
   restoreTemplateDefault,
   updateTemplateContent,
   validatePromptLibrary
@@ -61,7 +63,7 @@ const bonus = {
   transferBonusId: "chase-hyatt-test", sourceProgramId: "chase-ultimate-rewards", destinationProgramId: "world-of-hyatt", destinationProgramName: "World of Hyatt", bonusPercent: 20, standardRatio: "1:1", effectiveRatio: "1:1.2", publicOrTargeted: "public", startDate: "2026-07-01", endDate: "2026-12-31", enrollmentRequired: false, note: "Test bonus", lastVerifiedAt: "2026-07-10T12:00:00Z", sources: [{name: "Chase", url: "https://www.chase.com/", sourceType: "issuer"}]
 };
 
-await test("app version is v5", () => assert.equal(APP_VERSION, "5.0.1"));
+await test("app version is v5.1", () => assert.equal(APP_VERSION, "5.1.0"));
 await test("saved v5 database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
 await test("prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
 await test("default library has required feature prompts", () => {
@@ -69,6 +71,45 @@ await test("default library has required feature prompts", () => {
   for (const id of ["full-data-refresh", "full-catalog", "card-facts", "transfer-partners", "transfer-bonuses", "tpg-valuations", "american-express", "chase", "hotels", "airlines"]) assert.ok(ids.has(id));
 });
 await test("valuation snapshot validates", () => assert.equal(validateSectionPayload(valuations, database, {type: "valuations"}).valid, true));
+
+await test("prompt library schema supports workflow metadata", () => {
+  assert.equal(defaults.schemaVersion, 3);
+  assert.ok(Object.hasOwn(defaults, "lastSavedToGitHubAt"));
+});
+await test("one-step ChatGPT prompt requests regular Search and raw JSON", () => {
+  const template = prompts.templates.find((item) => item.id === "full-catalog");
+  const resolved = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "one-step", provider: "chatgpt", stage: "json"});
+  assert.match(resolved, /normal ChatGPT chat with Search enabled/);
+  assert.match(resolved, /raw JSON object/);
+  assert.match(resolved, /chase-sapphire-preferred/);
+});
+await test("one-step Gemini prompt is provider-specific", () => {
+  const template = prompts.templates.find((item) => item.id === "card-facts");
+  const resolved = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "one-step", provider: "gemini", stage: "json"});
+  assert.match(resolved, /normal Gemini chat with Google Search/);
+  assert.match(resolved, /Do NOT use Gemini Deep Research/);
+});
+await test("two-step deep research has separate report and JSON prompts", () => {
+  const template = prompts.templates.find((item) => item.id === "transfer-partners");
+  const research = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "two-step", provider: "chatgpt", stage: "research"});
+  const json = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "two-step", provider: "chatgpt", stage: "json"});
+  assert.match(research, /STEP 1 OF 2/);
+  assert.match(research, /structured evidence report/);
+  assert.match(json, /STEP 2 OF 2/);
+  assert.match(json, /SAME ChatGPT Deep Research conversation/);
+  assert.match(json, /Return exactly one raw JSON object/);
+});
+await test("newly added active cards appear in every resolved prompt", () => {
+  const cards = structuredClone(database.cards);
+  cards.push({id: "new-test-card", name: "New Test Card", issuer: "Test Bank", program: "Test Rewards", annualFee: 0, baselineOffer: 0, historicalHigh: null, bonusUnit: "points", applyUrl: "https://example.com", isArchived: false, archivedAt: null});
+  const template = prompts.templates.find((item) => item.id === "full-catalog");
+  const resolved = resolvePromptVariant(prompts, template, cards, new Date("2026-07-11T12:00:00Z"), {...database, cards}, {workflow: "one-step", provider: "chatgpt"});
+  assert.match(resolved, /new-test-card/);
+});
+await test("prompt variant labels identify workflow and platform", () => {
+  assert.match(promptVariantLabel({workflow: "one-step", provider: "gemini"}), /Gemini/);
+  assert.match(promptVariantLabel({workflow: "two-step", provider: "chatgpt", stage: "json"}), /Step 2 JSON conversion/);
+});
 await test("legacy v3 database migrates to v5", () => {
   const legacy = structuredClone(database); legacy.schemaVersion = 3; delete legacy.cardDetails; delete legacy.transferPrograms; delete legacy.transferBonuses; delete legacy.compatibilityVersion;
   for (const item of legacy.cards) { delete item.archivedAt; delete item.isArchived; }
@@ -177,6 +218,22 @@ await test("promotion badges are larger and flash", () => {
 await test("header remains normal flow and table header is contained", () => {
   assert.match(cssSource, /\.site-header \{ position:relative/);
   assert.match(cssSource, /\.offer-table thead \{ position:sticky/);
+});
+
+await test("prompt manager exposes category workflow provider and step controls", () => {
+  for (const text of ["1-Step · Regular Search", "2-Step · Deep Research", "ChatGPT", "Gemini", "Step 1 · Research Report", "Step 2 · JSON Conversion"]) assert.ok(appSource.includes(text));
+});
+await test("prompt library shows GitHub save time and dynamic card update notice", () => {
+  assert.match(appSource, /Last saved to GitHub/);
+  assert.match(appSource, /Every resolved research prompt now includes this active card automatically/);
+  assert.match(appSource, /lastSavedToGitHubAt/);
+});
+await test("theme toggle and yellow saved-template styling are present", () => {
+  assert.match(appSource, /theme-toggle/);
+  assert.match(appSource, /☀️/);
+  assert.match(appSource, /🌙/);
+  assert.match(cssSource, /\.saved-template-select/);
+  assert.match(cssSource, /#fff6c7/);
 });
 
 if (process.exitCode) process.exit(process.exitCode);

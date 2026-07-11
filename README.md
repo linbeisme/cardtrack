@@ -1,45 +1,43 @@
-# CardTrack v4.1.1 — Backward-Compatible Prompt Manager Upgrade
+# CardTrack v5.1.0
 
-CardTrack is a dependency-free GitHub Pages application for researching, validating, staging, and publishing U.S. credit-card welcome offers.
+CardTrack is a static GitHub Pages application for researching, validating, storing, and comparing U.S. credit-card welcome offers, benefits, transfer partners, active transfer bonuses, and editorial CPP valuations.
 
-## Major features
+## Prompt Manager workflow
 
-- Prompt Manager with Full Catalog, Amex, Chase, Hotel, and Airline templates.
-- Editable prompts, resolved previews, copy, import/export, restore defaults, schema testing, and GitHub prompt publishing.
-- Automatic current-date and active-card-catalog insertion.
-- Estimated welcome-offer value using the included TPG CPP snapshot.
-- Dedicated annual-fee display and first-year-waiver badge.
-- Non-sticky offer-table header that does not cover the first result.
-- Backward-compatible validation for legacy databases missing archive fields.
-- Automatic in-memory normalization of legacy archive and fee-waiver fields.
-- Application and data-compatibility version indicator.
+For every category, select the category first, then choose one of four provider/workflow combinations:
 
-## Existing repository update
+- ChatGPT · 1-Step Regular Search
+- Gemini · 1-Step Regular Search
+- ChatGPT · 2-Step Deep Research
+- Gemini · 2-Step Deep Research
 
-Use the update-only ZIP. It intentionally excludes `site/data/cardtrack.json`, so it preserves the live card and offer database. Upload the package contents to the repository root and overwrite matching files.
+The one-step prompt performs research and asks for the CardTrack JSON in one response. The two-step workflow provides a Step 1 research-report prompt and a Step 2 JSON-conversion prompt for use in the same Deep Research conversation.
 
-The critical v4.1.1 files are:
+CardTrack automatically injects today's date, the current active card catalog, and the relevant stored data into the resolved prompt. Adding or restoring a card updates every resolved prompt immediately; archived cards are excluded.
 
-```text
-site/lib/schema.mjs
-site/app.js
-site/styles.css
-scripts/validate-data.mjs
-tests/run-tests.mjs
-.github/workflows/update-and-deploy.yml
-```
+## Standard workflow
 
-## Compatibility behavior
+1. Open **Admin Publisher → Prompt Manager**.
+2. Select the data category.
+3. Select one-step or two-step.
+4. Select ChatGPT or Gemini.
+5. Copy the resolved prompt.
+6. Run it in the selected service.
+7. Paste the returned JSON into the CardTrack schema tester.
+8. Copy the validated JSON to Publisher, apply it, and save the appropriate file to GitHub.
 
-Old databases may omit `isArchived` and `archivedAt`. The validator accepts those omissions, while CardTrack normalizes them to `false` and `null` before use. A malformed value remains an error.
+## Prompt Library publishing
 
-## Local validation
+The Prompt Manager stores template edits in `site/data/prompts.json`. After a successful save, it displays the exact local date and time the library was last saved to GitHub. GitHub tokens are cleared after every attempt.
 
-```bash
-node scripts/validate-data.mjs
-node tests/run-tests.mjs
-```
+## Data sections
+
+- `offers`: current public and non-public welcome offers
+- `cardDetails`: recurring credits, perks, protections, earning rates, lounge access, status and airline/hotel benefits
+- `transferPrograms`: standard transfer partners and ratios
+- `transferBonuses`: active promotional transfer bonuses
+- `tpg-valuations.json`: editorial cents-per-point estimates
 
 ## Security
 
-Use a fine-grained GitHub personal access token restricted to the CardTrack repository with **Contents: Read and write**. CardTrack does not save it in localStorage, cookies, or repository files and clears token fields after each GitHub attempt.
+Use a fine-grained GitHub personal access token limited to the CardTrack repository with only **Contents: Read and write**. CardTrack does not store the token in local storage or GitHub.
