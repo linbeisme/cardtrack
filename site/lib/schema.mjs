@@ -1,4 +1,4 @@
-export const APP_VERSION = "5.2.1";
+export const APP_VERSION = "5.2.2";
 export const SCHEMA_VERSION = 5;
 export const LEGACY_OFFER_SCHEMA_VERSION = 3;
 export const DATABASE_COMPATIBILITY_VERSION = 2;
@@ -111,21 +111,61 @@ function domainMatches(host, domain) {
 }
 
 function sourceHost(value) {
-  try { return new URL(value).hostname.toLowerCase(); }
+  try { return new URL(String(value || "").trim()).hostname.toLowerCase(); }
   catch { return ""; }
 }
 
-export function approvedSourceUrl(value, policy = "cardDetails") {
-  try {
-    const url = new URL(value);
-    if (url.protocol !== "https:" || url.username || url.password) return false;
-    const host = url.hostname.toLowerCase();
-    const domains = SOURCE_POLICY_DOMAINS[policy];
-    if (!domains) return false;
-    return domains.some((domain) => domainMatches(host, domain));
-  } catch {
-    return false;
+const TRACKING_PARAMETERS = new Set([
+  "gclid", "dclid", "fbclid", "msclkid", "mc_cid", "mc_eid", "ref", "referrer"
+]);
+
+function extractUrlCandidate(value) {
+  if (typeof value !== "string") return "";
+  const trimmed = value.trim();
+  const markdown = trimmed.match(/^\[[^\]]*\]\((https:\/\/[^)]+)\)$/i);
+  return markdown ? markdown[1].trim() : trimmed;
+}
+
+function unwrapKnownRedirect(url) {
+  const host = url.hostname.toLowerCase();
+  if (domainMatches(host, "google.com") && url.pathname === "/url") {
+    return url.searchParams.get("url") || url.searchParams.get("q") || "";
   }
+  return "";
+}
+
+export function normalizeApprovedSourceUrl(value, policy = "cardDetails") {
+  const domains = SOURCE_POLICY_DOMAINS[policy];
+  if (!domains) return null;
+  let candidate = extractUrlCandidate(value);
+  if (!candidate) return null;
+
+  for (let pass = 0; pass < 3; pass += 1) {
+    try {
+      const url = new URL(candidate);
+      const redirected = unwrapKnownRedirect(url);
+      if (redirected) {
+        candidate = redirected;
+        continue;
+      }
+      if (url.protocol !== "https:" || url.username || url.password) return null;
+      const host = url.hostname.toLowerCase();
+      if (!domains.some((domain) => domainMatches(host, domain))) return null;
+      url.hash = "";
+      for (const key of [...url.searchParams.keys()]) {
+        const lower = key.toLowerCase();
+        if (lower.startsWith("utm_") || TRACKING_PARAMETERS.has(lower)) url.searchParams.delete(key);
+      }
+      return url.toString();
+    } catch {
+      return null;
+    }
+  }
+  return null;
+}
+
+export function approvedSourceUrl(value, policy = "cardDetails") {
+  return Boolean(normalizeApprovedSourceUrl(value, policy));
 }
 
 function clone(value) {
@@ -198,10 +238,14 @@ function validateSource(source, path, {policy = "cardDetails"} = {}) {
   const errors = [];
   if (!isPlainObject(source)) return [`${path} must be an object.`];
   if (typeof source.name !== "string" || !source.name.trim()) errors.push(`${path}.name is required.`);
-  if (!approvedSourceUrl(source.url, policy)) {
+  const normalizedUrl = normalizeApprovedSourceUrl(source.url, policy);
+  if (!normalizedUrl) {
     const host = sourceHost(source?.url);
     const received = host ? ` Received host '${host}'.` : "";
-    errors.push(`${path}.url must be a direct approved HTTPS URL for ${SOURCE_POLICY_LABELS[policy] || policy}.${received}`);
+    const supplied = typeof source?.url === "string" && source.url.trim() ? ` Supplied URL: '${source.url.trim()}'.` : "";
+    errors.push(`${path}.url must be a direct approved HTTPS URL for ${SOURCE_POLICY_LABELS[policy] || policy}.${received}${supplied}`);
+  } else {
+    source.url = normalizedUrl;
   }
   if (!SOURCE_TYPES.has(source.sourceType)) errors.push(`${path}.sourceType is not allowed.`);
   return errors;
@@ -253,10 +297,16 @@ export function validateCardDetail(item, cardsById, index = 0) {
     if (benefit.isTopBenefit !== undefined && typeof benefit.isTopBenefit !== "boolean") errors.push(`${bp}.isTopBenefit must be boolean when provided.`);
     if (benefit.isUniqueBenefit !== undefined && typeof benefit.isUniqueBenefit !== "boolean") errors.push(`${bp}.isUniqueBenefit must be boolean when provided.`);
     if (benefit.displayOrder !== undefined && (!Number.isInteger(benefit.displayOrder) || benefit.displayOrder < 0)) errors.push(`${bp}.displayOrder must be a non-negative integer when provided.`);
-    if (benefit.sourceUrl !== undefined && benefit.sourceUrl !== null && !approvedSourceUrl(benefit.sourceUrl, "cardDetails")) {
-      const host = sourceHost(benefit.sourceUrl);
-      const received = host ? ` Received host '${host}'.` : "";
-      errors.push(`${bp}.sourceUrl must be a direct approved HTTPS URL for card facts and benefits.${received}`);
+    if (benefit.sourceUrl !== undefined && benefit.sourceUrl !== null) {
+      const normalizedUrl = normalizeApprovedSourceUrl(benefit.sourceUrl, "cardDetails");
+      if (!normalizedUrl) {
+        const host = sourceHost(benefit.sourceUrl);
+        const received = host ? ` Received host '${host}'.` : "";
+        const supplied = typeof benefit.sourceUrl === "string" && benefit.sourceUrl.trim() ? ` Supplied URL: '${benefit.sourceUrl.trim()}'.` : "";
+        errors.push(`${bp}.sourceUrl must be a direct approved HTTPS URL for card facts and benefits.${received}${supplied}`);
+      } else {
+        benefit.sourceUrl = normalizedUrl;
+      }
     }
   }));
   (item.credits || []).forEach((credit, i) => {

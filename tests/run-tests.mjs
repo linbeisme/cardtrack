@@ -10,6 +10,7 @@ import {
   effectiveStatus,
   estimateFirstYearValue,
   migrateDatabase,
+  normalizeApprovedSourceUrl,
   parseResearchJson,
   validateDatabase,
   validateSectionPayload,
@@ -65,7 +66,7 @@ const bonus = {
   transferBonusId: "chase-hyatt-test", sourceProgramId: "chase-ultimate-rewards", destinationProgramId: "world-of-hyatt", destinationProgramName: "World of Hyatt", bonusPercent: 20, standardRatio: "1:1", effectiveRatio: "1:1.2", publicOrTargeted: "public", startDate: "2026-07-01", endDate: "2026-12-31", enrollmentRequired: false, note: "Test bonus", lastVerifiedAt: "2026-07-10T12:00:00Z", sources: [{name: "Chase", url: "https://www.chase.com/", sourceType: "issuer"}]
 };
 
-await test("app version is v5.2.1", () => assert.equal(APP_VERSION, "5.2.1"));
+await test("app version is v5.2.2", () => assert.equal(APP_VERSION, "5.2.2"));
 await test("saved v5 database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
 await test("prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
 await test("default library has required feature prompts", () => {
@@ -139,7 +140,8 @@ await test("category-specific source policies accept official fact and loyalty d
 await test("welcome offers remain restricted to approved issuer and editorial domains", () => {
   assert.equal(approvedSourceUrl("https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred", "offers"), true);
   assert.equal(approvedSourceUrl("https://www.marriott.com/credit-cards.mi", "offers"), false);
-  assert.equal(approvedSourceUrl("https://www.google.com/url?q=https://www.chase.com/", "offers"), false);
+  assert.equal(approvedSourceUrl("https://www.google.com/url?q=https://www.chase.com/", "offers"), true);
+  assert.equal(approvedSourceUrl("https://www.google.com/url?q=https://www.marriott.com/credit-cards.mi", "offers"), false);
 });
 await test("card fact import accepts official benefit-provider sources", () => {
   const officialFact = structuredClone(fact);
@@ -147,14 +149,25 @@ await test("card fact import accepts official benefit-provider sources", () => {
   officialFact.loungeAccess = [{name: "Priority Pass", summary: "Membership terms", sourceUrl: "https://www.prioritypass.com/", isTopBenefit: true, isUniqueBenefit: false, displayOrder: 1}];
   assert.equal(validateSectionPayload({schemaVersion: 5, dataType: "cardDetails", cardDetails: [officialFact]}, database).valid, true);
 });
-await test("card fact import rejects unapproved and redirect source URLs with host detail", () => {
+await test("Google redirect URLs are normalized to approved direct sources", () => {
+  const redirected = "https://www.google.com/url?sa=t&url=https%3A%2F%2Fwww.chase.com%2Fpersonal%2Fcredit-cards%2Feducation%2Frewards-benefits%2Fchase-transfer-partners&utm_source=test";
+  assert.equal(normalizeApprovedSourceUrl(redirected, "cardDetails"), "https://www.chase.com/personal/credit-cards/education/rewards-benefits/chase-transfer-partners");
+  const redirectedFact = structuredClone(fact);
+  redirectedFact.sources = [{name: "Chase", url: redirected, sourceType: "issuer"}];
+  const result = validateSectionPayload({schemaVersion: 5, dataType: "cardDetails", cardDetails: [redirectedFact]}, database);
+  assert.equal(result.valid, true);
+  assert.equal(result.accepted[0].sources[0].url, "https://www.chase.com/personal/credit-cards/education/rewards-benefits/chase-transfer-partners");
+});
+await test("unapproved source URLs include host and supplied URL diagnostics", () => {
   const badFact = structuredClone(fact);
-  badFact.sources = [{name: "Search result", url: "https://www.google.com/url?q=https://www.chase.com/", sourceType: "news"}];
+  badFact.sources = [{name: "Unsupported", url: "https://example.invalid/card-benefits", sourceType: "news"}];
   const result = validateSectionPayload({schemaVersion: 5, dataType: "cardDetails", cardDetails: [badFact]}, database);
   assert.equal(result.valid, false);
   assert.match(result.errors.join(" "), /card facts and benefits/);
-  assert.match(result.errors.join(" "), /google.com/);
+  assert.match(result.errors.join(" "), /example.invalid/);
+  assert.match(result.errors.join(" "), /Supplied URL/);
 });
+
 await test("invalid fact card is rejected", () => {
   const result = validateSectionPayload({dataType: "cardDetails", cardDetails: [{...fact, cardId: "nope"}]}, database);
   assert.match(result.errors.join(" "), /not in the catalog/);
@@ -321,6 +334,14 @@ await test("Current Offers KPI cards are clickable filters", () => {
   assert.match(appSource, /state\.kpiFilter === "promotional"/);
   assert.match(appSource, /state\.kpiFilter === "review"/);
   assert.match(cssSource, /\.kpi-button\.selected/);
+});
+
+await test("versioned asset URLs prevent stale browser modules", async () => {
+  const indexSource = await fs.readFile(path.join(root, "site/index.html"), "utf8");
+  assert.match(indexSource, /app\.js\?v=5\.2\.2/);
+  assert.match(indexSource, /styles\.css\?v=5\.2\.2/);
+  assert.match(appSource, /schema\.mjs\?v=5\.2\.2/);
+  assert.match(appSource, /prompts\.mjs\?v=5\.2\.2/);
 });
 
 if (process.exitCode) process.exit(process.exitCode);

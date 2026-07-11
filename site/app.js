@@ -10,7 +10,7 @@ import {
   validateDatabase,
   validateSectionPayload,
   valueTier
-} from "./lib/schema.mjs";
+} from "./lib/schema.mjs?v=5.2.2";
 import {
   effectiveTemplateContent,
   filterCards,
@@ -20,8 +20,8 @@ import {
   restoreTemplateDefault,
   updateTemplateContent,
   validatePromptLibrary
-} from "./lib/prompts.mjs";
-import {inferRepoFromLocation, putJsonFile, testRepositoryAccess} from "./lib/github.mjs";
+} from "./lib/prompts.mjs?v=5.2.2";
+import {inferRepoFromLocation, putJsonFile, testRepositoryAccess} from "./lib/github.mjs?v=5.2.2";
 
 const DATA_PATH = "site/data/cardtrack.json";
 const PROMPTS_PATH = "site/data/prompts.json";

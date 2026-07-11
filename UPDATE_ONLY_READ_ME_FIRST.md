@@ -1,13 +1,5 @@
-# CardTrack v5.2.0 Update-Only Package
+# CardTrack v5.2.2 Update-Only
 
-Upload the contents of this folder to the root of the existing GitHub repository.
+This package preserves your existing `site/data/cardtrack.json`, `site/data/prompts.json`, and `site/data/tpg-valuations.json` files.
 
-This package intentionally excludes:
-
-- `site/data/cardtrack.json`
-- `site/data/prompts.json`
-- `site/data/tpg-valuations.json`
-
-Your saved cards, offers, transfer data, fact sheets, prompt edits, and valuations are therefore preserved.
-
-After deployment, open **Admin Publisher → Prompt Manager** and save the Prompt Library to GitHub once. This persists the revised Card Facts prompt that requests every benefit and marks top/unique benefits.
+Upload the contents of this package to the repository root. After deployment, clean up the misspelled `.hithub` folder and stale root-level `lib` folder using `docs/REPOSITORY_CLEANUP.md`.

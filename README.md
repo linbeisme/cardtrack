@@ -1,4 +1,4 @@
-# CardTrack v5.2.1
+# CardTrack v5.2.2
 
 CardTrack is a static GitHub Pages application for researching, validating, storing, and comparing U.S. credit-card welcome offers, benefits, transfer partners, active transfer bonuses, and editorial CPP valuations.
 
