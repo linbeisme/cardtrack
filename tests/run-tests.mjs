@@ -4,6 +4,8 @@ import path from "node:path";
 import {fileURLToPath} from "node:url";
 import {
   APP_VERSION,
+  SOURCE_POLICY_DOMAINS,
+  approvedSourceUrl,
   applySectionImport,
   effectiveStatus,
   estimateFirstYearValue,
@@ -63,7 +65,7 @@ const bonus = {
   transferBonusId: "chase-hyatt-test", sourceProgramId: "chase-ultimate-rewards", destinationProgramId: "world-of-hyatt", destinationProgramName: "World of Hyatt", bonusPercent: 20, standardRatio: "1:1", effectiveRatio: "1:1.2", publicOrTargeted: "public", startDate: "2026-07-01", endDate: "2026-12-31", enrollmentRequired: false, note: "Test bonus", lastVerifiedAt: "2026-07-10T12:00:00Z", sources: [{name: "Chase", url: "https://www.chase.com/", sourceType: "issuer"}]
 };
 
-await test("app version is v5.2", () => assert.equal(APP_VERSION, "5.2.0"));
+await test("app version is v5.2.1", () => assert.equal(APP_VERSION, "5.2.1"));
 await test("saved v5 database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
 await test("prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
 await test("default library has required feature prompts", () => {
@@ -127,6 +129,32 @@ await test("unknown offer card is rejected", () => {
   assert.match(result.errors.join(" "), /not in the active catalog/);
 });
 await test("card fact import validates", () => assert.equal(validateSectionPayload({schemaVersion: 5, dataType: "cardDetails", cardDetails: [fact]}, database).valid, true));
+await test("category-specific source policies accept official fact and loyalty domains", () => {
+  assert.equal(approvedSourceUrl("https://www.marriott.com/credit-cards.mi", "cardDetails"), true);
+  assert.equal(approvedSourceUrl("https://world.hyatt.com/content/gp/en/rewards.html", "transferPrograms"), true);
+  assert.equal(approvedSourceUrl("https://www.delta.com/us/en/skymiles/overview", "transferBonuses"), true);
+  assert.equal(approvedSourceUrl("https://thepointsguy.com/loyalty-programs/monthly-valuations/", "valuations"), true);
+  assert.ok(SOURCE_POLICY_DOMAINS.cardDetails.includes("prioritypass.com"));
+});
+await test("welcome offers remain restricted to approved issuer and editorial domains", () => {
+  assert.equal(approvedSourceUrl("https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred", "offers"), true);
+  assert.equal(approvedSourceUrl("https://www.marriott.com/credit-cards.mi", "offers"), false);
+  assert.equal(approvedSourceUrl("https://www.google.com/url?q=https://www.chase.com/", "offers"), false);
+});
+await test("card fact import accepts official benefit-provider sources", () => {
+  const officialFact = structuredClone(fact);
+  officialFact.sources = [{name: "Priority Pass", url: "https://www.prioritypass.com/", sourceType: "benefit-provider"}];
+  officialFact.loungeAccess = [{name: "Priority Pass", summary: "Membership terms", sourceUrl: "https://www.prioritypass.com/", isTopBenefit: true, isUniqueBenefit: false, displayOrder: 1}];
+  assert.equal(validateSectionPayload({schemaVersion: 5, dataType: "cardDetails", cardDetails: [officialFact]}, database).valid, true);
+});
+await test("card fact import rejects unapproved and redirect source URLs with host detail", () => {
+  const badFact = structuredClone(fact);
+  badFact.sources = [{name: "Search result", url: "https://www.google.com/url?q=https://www.chase.com/", sourceType: "news"}];
+  const result = validateSectionPayload({schemaVersion: 5, dataType: "cardDetails", cardDetails: [badFact]}, database);
+  assert.equal(result.valid, false);
+  assert.match(result.errors.join(" "), /card facts and benefits/);
+  assert.match(result.errors.join(" "), /google.com/);
+});
 await test("invalid fact card is rejected", () => {
   const result = validateSectionPayload({dataType: "cardDetails", cardDetails: [{...fact, cardId: "nope"}]}, database);
   assert.match(result.errors.join(" "), /not in the catalog/);
@@ -276,6 +304,17 @@ await test("Card Facts prompt requests complete benefit inventories", () => {
   assert.match(template.defaultPrompt, /isTopBenefit/);
   assert.match(template.defaultPrompt, /isUniqueBenefit/);
   assert.match(template.defaultPrompt, /displayOrder/);
+});
+await test("resolved prompts include category-specific approved-domain rules", () => {
+  const factTemplate = prompts.templates.find((item) => item.id === "card-facts");
+  const factPrompt = resolvePromptVariant(prompts, factTemplate, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "one-step", provider: "chatgpt"});
+  assert.match(factPrompt, /APPROVED DOMAINS FOR CARD FACTS AND BENEFITS/);
+  assert.match(factPrompt, /marriott\.com/);
+  assert.match(factPrompt, /prioritypass\.com/);
+  const offerTemplate = prompts.templates.find((item) => item.id === "full-catalog");
+  const offerPrompt = resolvePromptVariant(prompts, offerTemplate, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "one-step", provider: "gemini"});
+  assert.match(offerPrompt, /APPROVED DOMAINS FOR WELCOME OFFERS/);
+  assert.doesNotMatch(offerPrompt, /prioritypass\.com/);
 });
 await test("Current Offers KPI cards are clickable filters", () => {
   assert.match(appSource, /data-action="filter-kpi"/);

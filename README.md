@@ -1,4 +1,4 @@
-# CardTrack v5.2.0
+# CardTrack v5.2.1
 
 CardTrack is a static GitHub Pages application for researching, validating, storing, and comparing U.S. credit-card welcome offers, benefits, transfer partners, active transfer bonuses, and editorial CPP valuations.
 
@@ -11,9 +11,21 @@ For every category, select the category first, then choose one of four provider/
 - ChatGPT · 2-Step Deep Research
 - Gemini · 2-Step Deep Research
 
-The one-step prompt performs research and asks for the CardTrack JSON in one response. The two-step workflow provides a Step 1 research-report prompt and a Step 2 JSON-conversion prompt for use in the same Deep Research conversation.
+The one-step prompt performs research and asks for CardTrack JSON in one response. The two-step workflow provides a Step 1 research-report prompt and a Step 2 JSON-conversion prompt for use in the same Deep Research conversation.
 
-CardTrack automatically injects today's date, the current active card catalog, and the relevant stored data into the resolved prompt. Adding or restoring a card updates every resolved prompt immediately; archived cards are excluded.
+CardTrack automatically injects today's date, the current active card catalog, relevant stored data, and the exact approved source-domain list for the selected data category. Adding or restoring a card updates every resolved prompt immediately; archived cards are excluded.
+
+## Category-specific source validation
+
+CardTrack applies a different URL policy to each import type:
+
+- `offers`: approved issuer and trusted editorial domains
+- `cardDetails`: issuer, airline, hotel, loyalty-program, payment-network, lounge, government, selected benefit-provider, and trusted editorial domains
+- `transferPrograms`: issuer, airline, hotel, loyalty-program, and trusted editorial domains
+- `transferBonuses`: issuer, airline, hotel, loyalty-program, and trusted editorial domains
+- `valuations`: direct The Points Guy URLs only
+
+All accepted URLs must be direct HTTPS pages. Search-result links, citation wrappers, redirects, shortened links, affiliate redirects, cached pages, and unapproved hosts are rejected.
 
 ## Standard workflow
 

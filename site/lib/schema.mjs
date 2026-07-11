@@ -1,4 +1,4 @@
-export const APP_VERSION = "5.2.0";
+export const APP_VERSION = "5.2.1";
 export const SCHEMA_VERSION = 5;
 export const LEGACY_OFFER_SCHEMA_VERSION = 3;
 export const DATABASE_COMPATIBILITY_VERSION = 2;
@@ -7,16 +7,68 @@ export const BONUS_UNITS = new Set(["points", "miles", "cash", "free-night certi
 export const CHANNELS = new Set(["public", "targeted", "referral", "branch", "mailer"]);
 export const STATUSES = new Set(["standard", "elevated", "limited", "targeted", "review"]);
 export const CONFIDENCE = new Set(["high", "medium", "low"]);
-export const SOURCE_TYPES = new Set(["issuer", "aggregator", "news", "loyalty-program"]);
+export const SOURCE_TYPES = new Set(["issuer", "aggregator", "news", "loyalty-program", "airline", "hotel", "payment-network", "benefit-provider", "government"]);
 export const DATA_STATUSES = new Set(["seed", "live", "partial"]);
 export const IMPORT_TYPES = new Set(["offers", "cardDetails", "transferPrograms", "transferBonuses", "valuations", "complete"]);
 
-export const OFFER_SOURCE_DOMAINS = [
-  "americanexpress.com", "chase.com", "capitalone.com", "citi.com",
-  "bankofamerica.com", "barclaycardus.com", "wellsfargo.com",
+export const TRUSTED_EDITORIAL_DOMAINS = Object.freeze([
   "doctorofcredit.com", "frequentmiler.com", "onemileatatime.com",
   "thepointsguy.com", "nerdwallet.com"
-];
+]);
+
+export const ISSUER_SOURCE_DOMAINS = Object.freeze([
+  "americanexpress.com", "chase.com", "capitalone.com", "citi.com",
+  "bankofamerica.com", "barclaycardus.com", "wellsfargo.com",
+  "usbank.com", "discover.com", "synchrony.com", "comenity.com",
+  "comenity.net", "fnbo.com", "td.com", "truist.com"
+]);
+
+export const LOYALTY_SOURCE_DOMAINS = Object.freeze([
+  "aa.com", "aerlingus.com", "aeroplan.com", "aircanada.com",
+  "airfrance.com", "alaskaair.com", "ana.co.jp", "avianca.com",
+  "britishairways.com", "cathaypacific.com", "delta.com",
+  "emirates.com", "etihad.com", "finnair.com", "flyingblue.com",
+  "hawaiianairlines.com", "iberia.com", "jetblue.com", "klm.com",
+  "lifemiles.com", "qantas.com", "qatarairways.com",
+  "singaporeair.com", "southwest.com", "tapairportugal.com",
+  "turkishairlines.com", "united.com", "virginatlantic.com",
+  "accor.com", "choicehotels.com", "hilton.com", "hyatt.com",
+  "ihg.com", "marriott.com", "wyndhamhotels.com", "bilt.com",
+  "biltrewards.com"
+]);
+
+export const BENEFIT_SOURCE_DOMAINS = Object.freeze([
+  "visa.com", "mastercard.com", "prioritypass.com",
+  "plazapremiumlounge.com", "loungebuddy.com", "clearme.com",
+  "tsa.gov", "cbp.gov", "resy.com", "uber.com", "lyft.com",
+  "doordash.com", "instacart.com", "walmart.com", "equinox.com",
+  "lululemon.com", "dunkindonuts.com", "saksfifthavenue.com",
+  "disneyplus.com", "hulu.com", "peacocktv.com", "hertz.com",
+  "nationalcar.com", "avis.com"
+]);
+
+function uniqueDomains(...groups) {
+  return Object.freeze([...new Set(groups.flat())].sort());
+}
+
+export const SOURCE_POLICY_DOMAINS = Object.freeze({
+  offers: uniqueDomains(ISSUER_SOURCE_DOMAINS, TRUSTED_EDITORIAL_DOMAINS),
+  cardDetails: uniqueDomains(ISSUER_SOURCE_DOMAINS, LOYALTY_SOURCE_DOMAINS, BENEFIT_SOURCE_DOMAINS, TRUSTED_EDITORIAL_DOMAINS),
+  transferPrograms: uniqueDomains(ISSUER_SOURCE_DOMAINS, LOYALTY_SOURCE_DOMAINS, TRUSTED_EDITORIAL_DOMAINS),
+  transferBonuses: uniqueDomains(ISSUER_SOURCE_DOMAINS, LOYALTY_SOURCE_DOMAINS, TRUSTED_EDITORIAL_DOMAINS),
+  valuations: Object.freeze(["thepointsguy.com"])
+});
+
+export const SOURCE_POLICY_LABELS = Object.freeze({
+  offers: "welcome offers",
+  cardDetails: "card facts and benefits",
+  transferPrograms: "transfer partners",
+  transferBonuses: "transfer bonuses",
+  valuations: "CPP valuations"
+});
+
+// Backward-compatible export used by older integrations.
+export const OFFER_SOURCE_DOMAINS = SOURCE_POLICY_DOMAINS.offers;
 
 function isPlainObject(value) {
   return Boolean(value) && typeof value === "object" && !Array.isArray(value);
@@ -54,12 +106,23 @@ function isHttps(value) {
   catch { return false; }
 }
 
-function approvedOfferUrl(value) {
+function domainMatches(host, domain) {
+  return host === domain || host.endsWith(`.${domain}`);
+}
+
+function sourceHost(value) {
+  try { return new URL(value).hostname.toLowerCase(); }
+  catch { return ""; }
+}
+
+export function approvedSourceUrl(value, policy = "cardDetails") {
   try {
     const url = new URL(value);
-    if (url.protocol !== "https:") return false;
+    if (url.protocol !== "https:" || url.username || url.password) return false;
     const host = url.hostname.toLowerCase();
-    return OFFER_SOURCE_DOMAINS.some((domain) => host === domain || host.endsWith(`.${domain}`));
+    const domains = SOURCE_POLICY_DOMAINS[policy];
+    if (!domains) return false;
+    return domains.some((domain) => domainMatches(host, domain));
   } catch {
     return false;
   }
@@ -131,11 +194,15 @@ export function validateCard(card, index = 0) {
   return errors;
 }
 
-function validateSource(source, path, {strictOfferDomain = false} = {}) {
+function validateSource(source, path, {policy = "cardDetails"} = {}) {
   const errors = [];
   if (!isPlainObject(source)) return [`${path} must be an object.`];
   if (typeof source.name !== "string" || !source.name.trim()) errors.push(`${path}.name is required.`);
-  if (!(strictOfferDomain ? approvedOfferUrl(source.url) : isHttps(source.url))) errors.push(`${path}.url must be an approved HTTPS URL.`);
+  if (!approvedSourceUrl(source.url, policy)) {
+    const host = sourceHost(source?.url);
+    const received = host ? ` Received host '${host}'.` : "";
+    errors.push(`${path}.url must be a direct approved HTTPS URL for ${SOURCE_POLICY_LABELS[policy] || policy}.${received}`);
+  }
   if (!SOURCE_TYPES.has(source.sourceType)) errors.push(`${path}.sourceType is not allowed.`);
   return errors;
 }
@@ -160,7 +227,7 @@ export function validateOffer(offer, cardsById, index = 0, options = {}) {
   if (!CONFIDENCE.has(offer.confidence)) errors.push(`${p}.confidence is not allowed.`);
   if (typeof offer.note !== "string" || !offer.note.trim() || offer.note.length > 500) errors.push(`${p}.note is required and must be at most 500 characters.`);
   if (!Array.isArray(offer.sources) || offer.sources.length === 0) errors.push(`${p}.sources must contain at least one source.`);
-  else offer.sources.forEach((source, sourceIndex) => errors.push(...validateSource(source, `${p}.sources[${sourceIndex}]`, {strictOfferDomain: true})));
+  else offer.sources.forEach((source, sourceIndex) => errors.push(...validateSource(source, `${p}.sources[${sourceIndex}]`, {policy: "offers"})));
   if (offer.expirationDate && options.rejectExpired !== false) {
     const today = options.today || new Date().toISOString().slice(0, 10);
     if (offer.expirationDate < today) errors.push(`${p} is expired (${offer.expirationDate}).`);
@@ -186,13 +253,18 @@ export function validateCardDetail(item, cardsById, index = 0) {
     if (benefit.isTopBenefit !== undefined && typeof benefit.isTopBenefit !== "boolean") errors.push(`${bp}.isTopBenefit must be boolean when provided.`);
     if (benefit.isUniqueBenefit !== undefined && typeof benefit.isUniqueBenefit !== "boolean") errors.push(`${bp}.isUniqueBenefit must be boolean when provided.`);
     if (benefit.displayOrder !== undefined && (!Number.isInteger(benefit.displayOrder) || benefit.displayOrder < 0)) errors.push(`${bp}.displayOrder must be a non-negative integer when provided.`);
+    if (benefit.sourceUrl !== undefined && benefit.sourceUrl !== null && !approvedSourceUrl(benefit.sourceUrl, "cardDetails")) {
+      const host = sourceHost(benefit.sourceUrl);
+      const received = host ? ` Received host '${host}'.` : "";
+      errors.push(`${bp}.sourceUrl must be a direct approved HTTPS URL for card facts and benefits.${received}`);
+    }
   }));
   (item.credits || []).forEach((credit, i) => {
     const cp = `${p}.credits[${i}]`;
     if (!nonNegativeOrNull(credit.faceValueAnnual)) errors.push(`${cp}.faceValueAnnual must be non-negative or null.`);
     if (credit.estimatedUtilization !== undefined && (typeof credit.estimatedUtilization !== "number" || credit.estimatedUtilization < 0 || credit.estimatedUtilization > 1)) errors.push(`${cp}.estimatedUtilization must be 0 through 1.`);
   });
-  (item.sources || []).forEach((source, i) => errors.push(...validateSource(source, `${p}.sources[${i}]`)));
+  (item.sources || []).forEach((source, i) => errors.push(...validateSource(source, `${p}.sources[${i}]`, {policy: "cardDetails"})));
   return errors;
 }
 
@@ -211,7 +283,7 @@ export function validateTransferProgram(item, cardsById, index = 0) {
     for (const field of ["partnerId", "partnerName", "partnerType", "ratioDisplay"]) if (typeof partner[field] !== "string" || !partner[field].trim()) errors.push(`${pp}.${field} is required.`);
     if (!isIsoUtc(partner.lastVerifiedAt)) errors.push(`${pp}.lastVerifiedAt must be ISO UTC.`);
     if (!Array.isArray(partner.sources) || !partner.sources.length) errors.push(`${pp}.sources must contain at least one source.`);
-    else partner.sources.forEach((source, sourceIndex) => errors.push(...validateSource(source, `${pp}.sources[${sourceIndex}]`)));
+    else partner.sources.forEach((source, sourceIndex) => errors.push(...validateSource(source, `${pp}.sources[${sourceIndex}]`, {policy: "transferPrograms"})));
   });
   return errors;
 }
@@ -228,7 +300,7 @@ export function validateTransferBonus(item, programIds, index = 0, options = {})
   if (!isDateOnlyOrNull(item.endDate) || item.endDate === null) errors.push(`${p}.endDate must be YYYY-MM-DD.`);
   if (!isIsoUtc(item.lastVerifiedAt)) errors.push(`${p}.lastVerifiedAt must be ISO UTC.`);
   if (!Array.isArray(item.sources) || !item.sources.length) errors.push(`${p}.sources must contain at least one source.`);
-  else item.sources.forEach((source, i) => errors.push(...validateSource(source, `${p}.sources[${i}]`)));
+  else item.sources.forEach((source, i) => errors.push(...validateSource(source, `${p}.sources[${i}]`, {policy: "transferBonuses"})));
   if (item.endDate && options.rejectExpired !== false) {
     const today = options.today || new Date().toISOString().slice(0, 10);
     if (item.endDate < today) errors.push(`${p} is expired (${item.endDate}).`);
@@ -345,7 +417,7 @@ export function validateSectionPayload(payload, database, options = {}) {
     if (payload.schemaVersion !== 1) errors.push("Valuation schemaVersion must equal 1.");
     if (typeof payload.sourceName !== "string" || !payload.sourceName.trim()) errors.push("sourceName is required.");
     if (typeof payload.asOf !== "string" || !payload.asOf.trim()) errors.push("asOf is required.");
-    if (!isHttps(payload.sourceUrl)) errors.push("sourceUrl must be HTTPS.");
+    if (!approvedSourceUrl(payload.sourceUrl, "valuations")) errors.push("sourceUrl must be a direct approved The Points Guy HTTPS URL.");
     if (!isPlainObject(payload.programs)) errors.push("programs must be an object.");
     else Object.entries(payload.programs).forEach(([name, value]) => { if (!isPlainObject(value) || !finiteNonNegative(value.cpp)) errors.push(`Invalid CPP for '${name}'.`); });
     return result(type, errors.length ? [] : [payload], errors.length ? [{index: -1, errors}] : []);

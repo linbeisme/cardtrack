@@ -1,6 +1,7 @@
 {
   "schemaVersion": 5,
-  "generatedAt": "2026-07-11T19:32:43.281Z",
+  "compatibilityVersion": 2,
+  "generatedAt": "2026-07-11T06:21:30.041Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -9,225 +10,225 @@
       "name": "American Express Platinum Card",
       "issuer": "American Express",
       "program": "Membership Rewards",
+      "annualFee": 895,
       "baselineOffer": 80000,
       "historicalHigh": 175000,
-      "annualFee": 695,
       "bonusUnit": "points",
       "applyUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "amex-gold",
       "name": "American Express Gold Card",
       "issuer": "American Express",
       "program": "Membership Rewards",
+      "annualFee": 325,
       "baselineOffer": 60000,
       "historicalHigh": 100000,
-      "annualFee": 325,
       "bonusUnit": "points",
       "applyUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "chase-sapphire-preferred",
       "name": "Chase Sapphire Preferred",
       "issuer": "Chase",
       "program": "Ultimate Rewards",
+      "annualFee": 95,
       "baselineOffer": 60000,
       "historicalHigh": 100000,
-      "annualFee": 95,
       "bonusUnit": "points",
       "applyUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "chase-sapphire-reserve",
       "name": "Chase Sapphire Reserve",
       "issuer": "Chase",
       "program": "Ultimate Rewards",
+      "annualFee": 795,
       "baselineOffer": 60000,
       "historicalHigh": 150000,
-      "annualFee": 795,
       "bonusUnit": "points",
       "applyUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "capital-one-venture-x",
       "name": "Capital One Venture X",
       "issuer": "Capital One",
       "program": "Capital One Miles",
+      "annualFee": 395,
       "baselineOffer": 75000,
       "historicalHigh": 100000,
-      "annualFee": 395,
       "bonusUnit": "miles",
       "applyUrl": "https://www.capitalone.com/credit-cards/venture-x/",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "capital-one-venture",
       "name": "Capital One Venture Rewards",
       "issuer": "Capital One",
       "program": "Capital One Miles",
+      "annualFee": 95,
       "baselineOffer": 75000,
       "historicalHigh": 100000,
-      "annualFee": 95,
       "bonusUnit": "miles",
       "applyUrl": "https://www.capitalone.com/credit-cards/venture/",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "citi-strata-premier",
       "name": "Citi Strata Premier",
       "issuer": "Citi",
       "program": "ThankYou Points",
+      "annualFee": 95,
       "baselineOffer": 60000,
       "historicalHigh": 80000,
-      "annualFee": 95,
       "bonusUnit": "points",
       "applyUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "ihg-premier",
       "name": "IHG One Rewards Premier",
       "issuer": "Chase",
       "program": "IHG One Rewards",
+      "annualFee": 99,
       "baselineOffer": 140000,
       "historicalHigh": 200000,
-      "annualFee": 99,
       "bonusUnit": "points",
       "applyUrl": "https://creditcards.chase.com/travel-credit-cards/ihg/premier",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "world-of-hyatt",
       "name": "World of Hyatt Credit Card",
       "issuer": "Chase",
       "program": "World of Hyatt",
+      "annualFee": 95,
       "baselineOffer": 30000,
       "historicalHigh": 65000,
-      "annualFee": 95,
       "bonusUnit": "points",
       "applyUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "marriott-boundless",
       "name": "Marriott Bonvoy Boundless",
       "issuer": "Chase",
       "program": "Marriott Bonvoy",
+      "annualFee": 95,
       "baselineOffer": 75000,
       "historicalHigh": 250000,
-      "annualFee": 95,
       "bonusUnit": "points",
       "applyUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy-boundless",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "marriott-brilliant",
       "name": "Marriott Bonvoy Brilliant American Express",
       "issuer": "American Express",
       "program": "Marriott Bonvoy",
+      "annualFee": 650,
       "baselineOffer": 95000,
       "historicalHigh": 185000,
-      "annualFee": 650,
       "bonusUnit": "points",
       "applyUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "delta-gold",
       "name": "Delta SkyMiles Gold American Express",
       "issuer": "American Express",
       "program": "Delta SkyMiles",
+      "annualFee": 150,
       "baselineOffer": 40000,
       "historicalHigh": 90000,
-      "annualFee": 150,
       "bonusUnit": "miles",
       "applyUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold/",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "united-explorer",
       "name": "United Explorer Card",
       "issuer": "Chase",
       "program": "United MileagePlus",
+      "annualFee": 150,
       "baselineOffer": 50000,
       "historicalHigh": 80000,
-      "annualFee": 150,
       "bonusUnit": "miles",
       "applyUrl": "https://creditcards.chase.com/travel-credit-cards/united/explorer",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "southwest-priority",
       "name": "Southwest Rapid Rewards Priority",
       "issuer": "Chase",
       "program": "Southwest Rapid Rewards",
+      "annualFee": 229,
       "baselineOffer": 50000,
       "historicalHigh": 100000,
-      "annualFee": 149,
       "bonusUnit": "points",
       "applyUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     },
     {
       "id": "alaska-ascent",
       "name": "Atmos Rewards Ascent Visa Signature",
       "issuer": "Bank of America",
       "program": "Atmos Rewards",
+      "annualFee": 95,
       "baselineOffer": 60000,
       "historicalHigh": 80000,
-      "annualFee": 95,
       "bonusUnit": "miles",
       "applyUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
       "isArchived": false,
+      "archivedAt": null,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z",
-      "archivedAt": null
+      "updatedAt": "2026-07-10T00:00:00Z"
     }
   ],
   "offers": [
@@ -242,18 +243,18 @@
       "annualFeeWaivedFirstYear": false,
       "status": "targeted",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "medium",
-      "note": "Personalized offer of as high as 175,000 points after $12,000 in 6 months. The exact offer varies by applicant; no guaranteed public amount was verified.",
+      "note": "Issuer displays a personalized 'as high as' welcome offer. The maximum is not guaranteed to every applicant.",
       "sources": [
         {
-          "name": "American Express",
+          "name": "American Express Platinum Card",
           "url": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
           "sourceType": "issuer"
         },
         {
-          "name": "NerdWallet",
-          "url": "https://www.nerdwallet.com/credit-cards/reviews/american-express-platinum",
+          "name": "NerdWallet Amex Platinum review",
+          "url": "https://www.nerdwallet.com/reviews/credit-cards/american-express-platinum",
           "sourceType": "aggregator"
         }
       ]
@@ -269,18 +270,18 @@
       "annualFeeWaivedFirstYear": false,
       "status": "targeted",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "medium",
-      "note": "Personalized offer of as high as 100,000 points after $8,000 in 6 months. The exact offer varies by applicant; no guaranteed public amount was verified.",
+      "note": "Issuer displays a personalized 'as high as' welcome offer. The maximum is not guaranteed to every applicant.",
       "sources": [
         {
-          "name": "American Express",
+          "name": "American Express Gold Card",
           "url": "https://www.americanexpress.com/us/credit-cards/card/gold-card/",
           "sourceType": "issuer"
         },
         {
-          "name": "NerdWallet",
-          "url": "https://www.nerdwallet.com/travel/learn/things-to-know-before-getting-the-amex-gold-card",
+          "name": "NerdWallet Amex Gold review",
+          "url": "https://www.nerdwallet.com/reviews/credit-cards/american-express-gold",
           "sourceType": "aggregator"
         }
       ]
@@ -296,12 +297,12 @@
       "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "high",
-      "note": "Issuer labels this a limited-time offer. It exceeds the 60,000-point baseline; no supported expiration date was found.",
+      "note": "Issuer labels this a limited-time public offer. It exceeds the 60,000-point baseline; no supported expiration date was found.",
       "sources": [
         {
-          "name": "Chase",
+          "name": "Chase Sapphire Preferred",
           "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
           "sourceType": "issuer"
         }
@@ -318,12 +319,12 @@
       "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "high",
-      "note": "Public offer exceeds the 60,000-point baseline and is not labeled limited-time on the issuer page.",
+      "note": "Current public offer exceeds the 60,000-point baseline and is not labeled limited-time on the issuer page.",
       "sources": [
         {
-          "name": "Chase",
+          "name": "Chase Sapphire Reserve",
           "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
           "sourceType": "issuer"
         }
@@ -340,24 +341,14 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "medium",
-      "note": "Verified public offer equals the 75,000-mile baseline and is not described as limited-time.",
+      "note": "Public offer matches the stored 75,000-mile baseline.",
       "sources": [
         {
-          "name": "Capital One",
+          "name": "Capital One Venture X",
           "url": "https://www.capitalone.com/credit-cards/venture-x/",
           "sourceType": "issuer"
-        },
-        {
-          "name": "NerdWallet",
-          "url": "https://www.nerdwallet.com/credit-cards/reviews/capital-one-venture-x",
-          "sourceType": "aggregator"
-        },
-        {
-          "name": "Frequent Miler",
-          "url": "https://frequentmiler.com/best-credit-card-offers/",
-          "sourceType": "aggregator"
         }
       ]
     },
@@ -372,12 +363,12 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "high",
-      "note": "Verified public offer equals the 75,000-mile baseline and is not described as limited-time.",
+      "note": "Public offer matches the stored 75,000-mile baseline.",
       "sources": [
         {
-          "name": "Capital One",
+          "name": "Capital One Venture Rewards",
           "url": "https://www.capitalone.com/credit-cards/venture/",
           "sourceType": "issuer"
         }
@@ -394,24 +385,14 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "medium",
-      "note": "Verified public offer equals the 60,000-point baseline and is not described as limited-time.",
+      "note": "Public offer matches the stored 60,000-point baseline.",
       "sources": [
         {
-          "name": "Citi",
+          "name": "Citi Strata Premier",
           "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
           "sourceType": "issuer"
-        },
-        {
-          "name": "NerdWallet",
-          "url": "https://www.nerdwallet.com/credit-cards/reviews/citi-strata-premier",
-          "sourceType": "aggregator"
-        },
-        {
-          "name": "Frequent Miler",
-          "url": "https://frequentmiler.com/TYpremier/",
-          "sourceType": "aggregator"
         }
       ]
     },
@@ -426,13 +407,13 @@
       "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "high",
-      "note": "Tiered offer: 140,000 points after $3,000 in 3 months, plus 10,000 points after adding an authorized user in the first 3 months.",
+      "note": "Tiered public offer reaches 150,000 total points and exceeds the 140,000-point baseline.",
       "sources": [
         {
-          "name": "Chase",
-          "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier",
+          "name": "IHG One Rewards Premier",
+          "url": "https://creditcards.chase.com/travel-credit-cards/ihg/premier",
           "sourceType": "issuer"
         }
       ]
@@ -448,13 +429,13 @@
       "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "high",
-      "note": "Limited-time tiered offer: 45,000 points after $5,000 in 3 months, plus up to 30,000 points through qualifying 1X-category purchases on up to $15,000 in the first 6 months. No supported end date was found.",
+      "note": "Limited-time tiered offer: 45,000 points after $5,000 in 3 months, plus up to 30,000 points through qualifying purchases. No supported end date was found.",
       "sources": [
         {
-          "name": "Chase",
-          "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
+          "name": "World of Hyatt Credit Card",
+          "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt",
           "sourceType": "issuer"
         }
       ]
@@ -470,19 +451,14 @@
       "annualFeeWaivedFirstYear": false,
       "status": "review",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "high",
-      "note": "Issuer labels the offer limited-time: 125,000 points plus one free-night award worth up to 50,000 points after $3,000 in 3 months. The mixed points-and-certificate structure cannot be fully captured in one bonusUnit; no supported end date was found.",
+      "note": "Mixed offer includes points plus a free-night certificate. The point-equivalent display should be reviewed before comparing it with pure-point offers.",
       "sources": [
         {
-          "name": "Chase",
-          "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
+          "name": "Marriott Bonvoy Boundless",
+          "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy-boundless",
           "sourceType": "issuer"
-        },
-        {
-          "name": "The Points Guy",
-          "url": "https://thepointsguy.com/credit-cards/marriott-bonvoy-current-offers/",
-          "sourceType": "aggregator"
         }
       ]
     },
@@ -497,24 +473,14 @@
       "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "medium",
-      "note": "Tiered offer available to eligible applicants: 100,000 points after $6,000, plus 50,000 more after an additional $2,000, all within 6 months.",
+      "note": "Current public offer exceeds the 95,000-point baseline.",
       "sources": [
         {
-          "name": "American Express",
+          "name": "Marriott Bonvoy Brilliant",
           "url": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
           "sourceType": "issuer"
-        },
-        {
-          "name": "The Points Guy",
-          "url": "https://thepointsguy.com/credit-cards/marriott-bonvoy-current-offers/",
-          "sourceType": "aggregator"
-        },
-        {
-          "name": "Frequent Miler",
-          "url": "https://frequentmiler.com/best-credit-card-offers/",
-          "sourceType": "aggregator"
         }
       ]
     },
@@ -529,13 +495,13 @@
       "annualFeeWaivedFirstYear": true,
       "status": "limited",
       "expirationDate": "2026-07-15",
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "high",
-      "note": "Tiered offer: 70,000 miles after $3,000, plus 20,000 more after an additional $2,000, all within 6 months. Offer ends July 15, 2026. The $150 recurring annual fee is waived for the first year.",
+      "note": "Tiered offer ends July 15, 2026. The recurring $150 annual fee is waived for the first year.",
       "sources": [
         {
-          "name": "American Express",
-          "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
+          "name": "Delta SkyMiles Gold American Express",
+          "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold/",
           "sourceType": "issuer"
         }
       ]
@@ -551,13 +517,13 @@
       "annualFeeWaivedFirstYear": true,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "high",
-      "note": "Tiered offer: 50,000 miles after $3,000 in 3 months, plus 10,000 miles after adding an authorized user in the first 3 months. The $150 recurring annual fee is waived for the first year.",
+      "note": "Current public offer exceeds the 50,000-mile baseline. The recurring annual fee is waived for the first year.",
       "sources": [
         {
-          "name": "Chase",
-          "url": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
+          "name": "United Explorer Card",
+          "url": "https://creditcards.chase.com/travel-credit-cards/united/explorer",
           "sourceType": "issuer"
         }
       ]
@@ -573,12 +539,12 @@
       "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "high",
-      "note": "Public offer exceeds the 50,000-point baseline. The issuer currently publishes a $229 recurring annual fee.",
+      "note": "Current public offer exceeds the 50,000-point baseline. Annual fee shown is the current issuer-published recurring fee.",
       "sources": [
         {
-          "name": "Chase",
+          "name": "Southwest Rapid Rewards Priority",
           "url": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
           "sourceType": "issuer"
         }
@@ -587,7 +553,7 @@
     {
       "cardId": "alaska-ascent",
       "bonusAmount": 50000,
-      "bonusUnit": "points",
+      "bonusUnit": "miles",
       "channel": "public",
       "spendRequirement": 2000,
       "spendPeriodMonths": 3,
@@ -595,12 +561,12 @@
       "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:10Z",
+      "lastVerifiedAt": "2026-07-11T06:14:00Z",
       "confidence": "high",
-      "note": "Limited-time online offer includes 50,000 Atmos Rewards points plus a buy-one-get-one ticket after $2,000 in 90 days. The non-points ticket benefit is described here but not included in bonusAmount; no supported end date was found.",
+      "note": "Limited-time offer includes 50,000 miles plus a companion-ticket benefit after qualifying spend. The non-mile benefit is not included in the estimated TPG cash value.",
       "sources": [
         {
-          "name": "Bank of America",
+          "name": "Atmos Rewards Ascent Visa Signature",
           "url": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
           "sourceType": "issuer"
         }
@@ -609,6 +575,5 @@
   ],
   "cardDetails": [],
   "transferPrograms": [],
-  "transferBonuses": [],
-  "compatibilityVersion": 2
+  "transferBonuses": []
 }

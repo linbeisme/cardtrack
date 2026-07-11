@@ -1,3 +1,5 @@
+import {SOURCE_POLICY_DOMAINS, SOURCE_POLICY_LABELS} from "./schema.mjs";
+
 function clone(value) { return JSON.parse(JSON.stringify(value)); }
 
 export const PROMPT_PROVIDERS = Object.freeze({
@@ -49,17 +51,64 @@ function databaseSummary(database = {}, selectedCards = []) {
   };
 }
 
+const VALID_SOURCE_POLICIES = new Set(["offers", "cardDetails", "transferPrograms", "transferBonuses", "valuations", "complete"]);
+
+function sourcePolicyForTemplate(template = {}) {
+  if (VALID_SOURCE_POLICIES.has(template.sourcePolicy)) return template.sourcePolicy;
+  if (["full-catalog", "american-express", "chase"].includes(template.id)) return "offers";
+  if (["card-facts", "hotels", "airlines"].includes(template.id)) return "cardDetails";
+  if (template.id === "transfer-partners") return "transferPrograms";
+  if (template.id === "transfer-bonuses") return "transferBonuses";
+  if (template.id === "tpg-valuations") return "valuations";
+  if (template.id === "full-data-refresh") return "complete";
+  return "cardDetails";
+}
+
+function domainLines(policy) {
+  const domains = SOURCE_POLICY_DOMAINS[policy] || [];
+  return domains.join("\n");
+}
+
+function sourcePolicyContract(template) {
+  const policy = sourcePolicyForTemplate(template);
+  const directRules = `SOURCE URL ENFORCEMENT
+- Every URL must be a direct canonical HTTPS page.
+- Never use search-result URLs, ChatGPT/Gemini citation wrappers, Google/Bing redirects, shortened URLs, affiliate redirects, cached pages, or tracking-only links.
+- Use the exact page that supports the fact, partner, bonus, or valuation.
+- If no approved direct source can support a required record, omit that record and add it to errors; do not substitute an unapproved URL.`;
+  if (policy === "complete") {
+    return `${directRules}
+
+APPROVED DOMAINS BY DATA SECTION
+WELCOME OFFERS
+${domainLines("offers")}
+
+CARD FACTS AND BENEFITS
+${domainLines("cardDetails")}
+
+TRANSFER PARTNERS AND TRANSFER BONUSES
+${domainLines("transferPrograms")}
+
+Apply the matching list to each section of the complete dataset.`;
+  }
+  return `${directRules}
+
+APPROVED DOMAINS FOR ${String(SOURCE_POLICY_LABELS[policy] || policy).toUpperCase()}
+${domainLines(policy)}`;
+}
+
 export function resolvePrompt(library, template, cards, date = new Date(), database = null) {
   if (!template || typeof template !== "object") throw new Error("The selected prompt template is unavailable. Reload defaults or choose another template.");
   const selectedCards = filterCards(cards, template.filter);
   const content = effectiveTemplateContent(library || {}, template);
   const today = date.toISOString().slice(0, 10);
   const summary = database ? databaseSummary(database, selectedCards) : {};
-  return content
+  const resolved = content
     .replaceAll("{{TODAY}}", today)
     .replaceAll("{{SCOPE_INSTRUCTION}}", template.scopeInstruction || "Research the cards in the injected catalog.")
     .replaceAll("{{ACTIVE_CARD_CATALOG}}", JSON.stringify(catalogForPrompt(selectedCards), null, 2))
     .replaceAll("{{CURRENT_DATABASE_SUMMARY}}", JSON.stringify(summary, null, 2));
+  return `${resolved}\n\n${sourcePolicyContract(template)}`;
 }
 
 function providerName(provider, workflow) {
@@ -147,6 +196,7 @@ export function validatePromptLibrary(library) {
     if (typeof template.description !== "string") errors.push(`${p}.description must be text.`);
     if (!template.filter || typeof template.filter !== "object") errors.push(`${p}.filter is required.`);
     if (typeof template.scopeInstruction !== "string" || !template.scopeInstruction.trim()) errors.push(`${p}.scopeInstruction is required.`);
+    if (template.sourcePolicy !== undefined && !VALID_SOURCE_POLICIES.has(template.sourcePolicy)) errors.push(`${p}.sourcePolicy is not allowed.`);
     if (template.customPrompt !== null && typeof template.customPrompt !== "string") errors.push(`${p}.customPrompt must be text or null.`);
     const content = effectiveTemplateContent(library, template);
     if (!content.includes("{{ACTIVE_CARD_CATALOG}}")) errors.push(`${p} prompt must include {{ACTIVE_CARD_CATALOG}}.`);

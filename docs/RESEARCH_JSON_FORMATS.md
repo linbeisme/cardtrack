@@ -1,6 +1,6 @@
-# CardTrack v5.1 Research JSON Formats
+# CardTrack v5.2.1 Research JSON Formats
 
-The Prompt Manager now generates four workflow variants for every category:
+The Prompt Manager generates four workflow variants for every category:
 
 1. ChatGPT one-step regular Search
 2. Gemini one-step regular Search
@@ -8,6 +8,18 @@ The Prompt Manager now generates four workflow variants for every category:
 4. Gemini two-step Deep Research
 
 For two-step Deep Research, run Step 1 first, then paste Step 2 into the same conversation. The final response must be one raw JSON object without Markdown fences.
+
+## Source URL policy
+
+All source URLs must be direct canonical HTTPS pages. CardTrack rejects search-result links, ChatGPT/Gemini citation wrappers, redirects, shortened links, affiliate redirects, cached pages, and unapproved domains.
+
+The resolved prompt displays the exact current allowlist for its category:
+
+- Welcome offers: approved issuers and trusted editorial sources
+- Card facts: issuers, airlines, hotels, loyalty programs, payment networks, lounge programs, government benefit pages, selected benefit providers, and trusted editorial sources
+- Transfer partners: issuers, airlines, hotels, loyalty programs, and trusted editorial sources
+- Transfer bonuses: issuers, airlines, hotels, loyalty programs, and trusted editorial sources
+- TPG valuations: `thepointsguy.com`
 
 ## Welcome offers
 
@@ -34,6 +46,8 @@ For two-step Deep Research, run Step 1 first, then paste Step 2 into the same co
   "errors": []
 }
 ```
+
+Allowed source types include `issuer`, `loyalty-program`, `airline`, `hotel`, `payment-network`, `benefit-provider`, `government`, `aggregator`, and `news`.
 
 ## Transfer partners
 
