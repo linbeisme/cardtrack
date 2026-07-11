@@ -1,0 +1,21 @@
+{
+  "schemaVersion": 1,
+  "sourceName": "The Points Guy",
+  "sourceUrl": "https://thepointsguy.com/loyalty-programs/monthly-valuations/",
+  "asOf": "2026-07",
+  "updatedAt": "2026-07-10T00:00:00Z",
+  "disclaimer": "Estimated redemption values based on TPG editorial valuations. These are not issuer guarantees and actual redemption value varies.",
+  "programs": {
+    "Membership Rewards": {"cpp": 2.0, "label": "Amex Membership Rewards"},
+    "Ultimate Rewards": {"cpp": 2.05, "label": "Chase Ultimate Rewards"},
+    "Capital One Miles": {"cpp": 1.85, "label": "Capital One miles"},
+    "ThankYou Points": {"cpp": 1.9, "label": "Citi ThankYou Rewards"},
+    "IHG One Rewards": {"cpp": 0.6, "label": "IHG One Rewards"},
+    "World of Hyatt": {"cpp": 1.6, "label": "World of Hyatt"},
+    "Marriott Bonvoy": {"cpp": 0.8, "label": "Marriott Bonvoy"},
+    "Delta SkyMiles": {"cpp": 1.2, "label": "Delta SkyMiles"},
+    "United MileagePlus": {"cpp": 1.3, "label": "United MileagePlus"},
+    "Southwest Rapid Rewards": {"cpp": 1.25, "label": "Southwest Rapid Rewards"},
+    "Atmos Rewards": {"cpp": 1.55, "label": "Atmos Rewards"}
+  }
+}

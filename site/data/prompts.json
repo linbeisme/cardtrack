@@ -1,0 +1,75 @@
+{
+  "schemaVersion": 1,
+  "updatedAt": "2026-07-10T00:00:00Z",
+  "defaultTemplateId": "full-catalog",
+  "basePrompt": "You are an expert U.S. credit-card welcome-offer researcher and structured-data auditor.\n\nTASK\nUse live web research to identify the CURRENT U.S. welcome/sign-up offer for every card in the CARD CATALOG below. Do not rely on memory. Verify every offer from webpages current as of {{TODAY}}. Return one JSON object ready to paste directly into CardTrack.\n\nSCOPE\n{{SCOPE_INSTRUCTION}}\nResearch ONLY the cards in the injected CARD CATALOG. The catalog is authoritative. Never add, rename, or invent a cardId. Every listed card must result in at least one accepted public-offer object or one errors entry.\n\nOUTPUT RESTRICTION\nReturn ONLY valid JSON. No Markdown fences, headings, analysis, citations outside JSON, introduction, or trailing commentary. The first character must be { and the last character must be }.\n\nSOURCE PRIORITY\n1. Official issuer application page or official offer terms\n2. Doctor of Credit\n3. Frequent Miler\n4. One Mile at a Time\n5. The Points Guy\n6. NerdWallet\n\nUse only HTTPS URLs from: americanexpress.com, chase.com, capitalone.com, citi.com, bankofamerica.com, barclaycardus.com, wellsfargo.com, doctorofcredit.com, frequentmiler.com, onemileatatime.com, thepointsguy.com, nerdwallet.com. Do not use search-result links, URL shorteners, affiliate redirects, social media, cached pages, expired pages, or generic issuer landing pages that do not show the exact offer.\n\nCHANNEL RULES\nFirst find the guaranteed PUBLIC offer reasonably available to the general public. Keep targeted, personalized, referral, branch, and mailer offers as separate records. Never represent an 'as high as', prequalified, personalized, referral, branch, or mailer maximum as a guaranteed public offer. Permit only one offer per cardId + channel.\n\nSTATUS RULES\nUse exactly: standard, elevated, limited, targeted, review.\n- standard: verified public offer at or below baselineOffer and not explicitly limited-time.\n- elevated: verified public offer above baselineOffer and not explicitly limited-time.\n- limited: verified public offer explicitly described as limited-time or ending on a stated date. Limited takes priority over elevated.\n- targeted: non-public offer without material conflict.\n- review: reliable sources materially disagree, important terms are ambiguous, or the structure cannot be represented confidently.\nFor every non-public channel, status must be targeted unless a material conflict requires review.\n\nEXPIRATION RULES\nNever invent an expiration date. Use YYYY-MM-DD only when an approved reliable source explicitly supports it. A limited-time offer may have expirationDate null when no supported date is available; explain that in note. Never include an already expired offer as current.\n\nBONUS AND SPEND RULES\nbonusUnit must be exactly one of: points, miles, cash, free-night certificate points. Numeric fields must be numbers with no commas or currency symbols. For cash, bonusAmount is the dollar amount and bonusUnit is cash. For certificates, bonusAmount is the combined maximum certificate point capacity and note must explain the certificate count and limit. A tiered offer may be one record only when all applicants can earn every tier; use the total bonus, cumulative spend, and longest period and explain the tiers. Do not report a personalized maximum as public.\n\nANNUAL FEE RULES\nannualFee must be the current recurring annual fee. Add annualFeeWaivedFirstYear as a required boolean. Set it true only when a reliable source explicitly states the first-year annual fee is waived; otherwise false. Keep annualFee at the recurring amount even when waived for the first year, and mention the waiver in note.\n\nCONFIDENCE\nUse exactly high, medium, or low. high requires direct issuer confirmation of the important terms with no material conflict. medium may use an incomplete issuer page plus reliable approved secondary confirmation. low indicates unresolved uncertainty and should normally use status review.\n\nNOTE AND SOURCES\nnote is required and no more than 500 characters. Include only offer-specific conditions, tiering, first-year fee waiver, personalization, limited-time wording, certificate structure, or material conflict. Exclude unrelated approval rules and general card benefits. Every offer needs at least one approved source. sourceType must be exactly issuer, aggregator, or news.\n\nRETURN EXACTLY THIS TOP-LEVEL SHAPE\n{\n  \"schemaVersion\": 3,\n  \"generatedAt\": \"ISO-8601 UTC timestamp\",\n  \"dataStatus\": \"live or partial\",\n  \"collector\": {\"provider\": \"ChatGPT Search, ChatGPT Deep Research, Gemini Search, or Gemini Deep Research\", \"model\": \"actual model name used\"},\n  \"offers\": [],\n  \"errors\": [],\n  \"validation\": {\"acceptedCount\": 0, \"rejectedCount\": 0}\n}\n\nOFFER OBJECT\n{\n  \"cardId\": \"exact cardId from catalog\",\n  \"bonusAmount\": 75000,\n  \"bonusUnit\": \"points\",\n  \"channel\": \"public, targeted, referral, branch, or mailer\",\n  \"spendRequirement\": 4000,\n  \"spendPeriodMonths\": 3,\n  \"annualFee\": 95,\n  \"annualFeeWaivedFirstYear\": false,\n  \"status\": \"standard, elevated, limited, targeted, or review\",\n  \"expirationDate\": null,\n  \"lastVerifiedAt\": \"ISO-8601 UTC timestamp\",\n  \"confidence\": \"high, medium, or low\",\n  \"note\": \"Concise offer-specific explanation\",\n  \"sources\": [{\"name\": \"Source name\", \"url\": \"https://approved-domain/path\", \"sourceType\": \"issuer, aggregator, or news\"}]\n}\n\nERROR OBJECT\n{\"cardId\": \"exact catalog cardId\", \"reason\": \"Why no reliable public record was produced\", \"attemptedSources\": [\"https://approved-domain/path\"]}\n\nDATA STATUS AND COUNTS\nUse dataStatus live only when every catalog card has an accepted public offer; otherwise partial. Every card missing a public record must appear in errors even if it has a targeted record. acceptedCount must equal offers.length. rejectedCount must equal errors.length.\n\nFINAL SELF-AUDIT\nBefore answering, verify valid JSON; schemaVersion 3; only catalog cardIds; no duplicate cardId + channel; allowed enums; numeric fields; boolean annualFeeWaivedFirstYear; HTTPS approved sources; valid UTC timestamps; YYYY-MM-DD or null expiration dates; notes at most 500 characters; no expired offers; correct counts; and no text outside JSON. Correct any failure before returning.\n\nCARD CATALOG AS OF {{TODAY}}\n{{ACTIVE_CARD_CATALOG}}\n\nFINAL INSTRUCTION\nIndependently re-check public offers against the issuer site whenever possible. Return only the final JSON object.",
+  "templates": [
+    {
+      "id": "full-catalog",
+      "name": "Full Catalog",
+      "description": "Research every active, non-archived card.",
+      "filter": {
+        "type": "all"
+      },
+      "scopeInstruction": "Research every card in the injected active-card catalog.",
+      "customPrompt": null
+    },
+    {
+      "id": "american-express",
+      "name": "Amex Only",
+      "description": "Research active American Express cards only.",
+      "filter": {
+        "type": "issuer",
+        "values": [
+          "American Express"
+        ]
+      },
+      "scopeInstruction": "Research only the American Express cards included in the injected catalog. This is a partial-catalog update, so set dataStatus to partial even when every injected card has a public offer.",
+      "customPrompt": null
+    },
+    {
+      "id": "chase",
+      "name": "Chase Only",
+      "description": "Research active Chase-issued cards only.",
+      "filter": {
+        "type": "issuer",
+        "values": [
+          "Chase"
+        ]
+      },
+      "scopeInstruction": "Research only the Chase-issued cards included in the injected catalog. This is a partial-catalog update, so set dataStatus to partial even when every injected card has a public offer.",
+      "customPrompt": null
+    },
+    {
+      "id": "hotels",
+      "name": "Hotels",
+      "description": "Research IHG, Hyatt, and Marriott cards.",
+      "filter": {
+        "type": "program",
+        "values": [
+          "IHG One Rewards",
+          "World of Hyatt",
+          "Marriott Bonvoy"
+        ]
+      },
+      "scopeInstruction": "Research only the hotel cards included in the injected catalog: IHG One Rewards, World of Hyatt, and Marriott Bonvoy. This is a partial-catalog update, so set dataStatus to partial even when every injected card has a public offer.",
+      "customPrompt": null
+    },
+    {
+      "id": "airlines",
+      "name": "Airlines",
+      "description": "Research Delta, United, Southwest, and Atmos cards.",
+      "filter": {
+        "type": "program",
+        "values": [
+          "Delta SkyMiles",
+          "United MileagePlus",
+          "Southwest Rapid Rewards",
+          "Atmos Rewards"
+        ]
+      },
+      "scopeInstruction": "Research only the airline cards included in the injected catalog: Delta SkyMiles, United MileagePlus, Southwest Rapid Rewards, and Atmos Rewards. This is a partial-catalog update, so set dataStatus to partial even when every injected card has a public offer.",
+      "customPrompt": null
+    }
+  ]
+}

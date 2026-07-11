@@ -1,71 +1,53 @@
-const API_VERSION = '2026-03-10';
+const API_VERSION = "2022-11-28";
 
-function encodeUtf8Base64(text) {
-  const bytes = new TextEncoder().encode(text);
-  let binary = '';
-  for (let i = 0; i < bytes.length; i += 0x8000) {
-    binary += String.fromCharCode(...bytes.subarray(i, i + 0x8000));
-  }
+function encodeUtf8Base64(value) {
+  const bytes = new TextEncoder().encode(value);
+  let binary = "";
+  bytes.forEach((byte) => { binary += String.fromCharCode(byte); });
   return btoa(binary);
 }
 
-async function githubRequest(url, token, options = {}) {
+function headers(token) {
+  return {
+    Accept: "application/vnd.github+json",
+    Authorization: `Bearer ${token}`,
+    "X-GitHub-Api-Version": API_VERSION,
+    "Content-Type": "application/json"
+  };
+}
+
+function apiUrl(owner, repo, path, branch) {
+  const cleanPath = path.split("/").map(encodeURIComponent).join("/");
+  return `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${cleanPath}?ref=${encodeURIComponent(branch)}`;
+}
+
+export async function getRepositoryFile({owner, repo, branch = "main", path, token}) {
+  const response = await fetch(apiUrl(owner, repo, path, branch), {headers: headers(token)});
+  if (!response.ok) throw new Error(`GitHub read failed (${response.status}): ${await response.text()}`);
+  return response.json();
+}
+
+export async function testRepositoryAccess({owner, repo, branch = "main", path, token}) {
+  const file = await getRepositoryFile({owner, repo, branch, path, token});
+  return {ok: true, sha: file.sha, htmlUrl: file.html_url};
+}
+
+export async function putJsonFile({owner, repo, branch = "main", path, token, value, message}) {
+  const current = await getRepositoryFile({owner, repo, branch, path, token});
+  const content = `${JSON.stringify(value, null, 2)}\n`;
+  const url = apiUrl(owner, repo, path, branch).replace(/\?ref=.*$/, "");
   const response = await fetch(url, {
-    ...options,
-    headers: {
-      Accept: 'application/vnd.github+json',
-      Authorization: `Bearer ${token}`,
-      'X-GitHub-Api-Version': API_VERSION,
-      ...(options.headers || {})
-    }
+    method: "PUT",
+    headers: headers(token),
+    body: JSON.stringify({message, content: encodeUtf8Base64(content), sha: current.sha, branch})
   });
-  const text = await response.text();
-  let body = null;
-  try { body = text ? JSON.parse(text) : null; } catch { body = { message: text }; }
-  if (!response.ok) {
-    const error = new Error(body?.message || `GitHub request failed with status ${response.status}.`);
-    error.status = response.status;
-    error.body = body;
-    throw error;
-  }
-  return body;
+  if (!response.ok) throw new Error(`GitHub save failed (${response.status}): ${await response.text()}`);
+  return response.json();
 }
 
-export function inferGitHubLocation(location = window.location) {
-  const host = location.hostname.toLowerCase();
-  const path = location.pathname.split('/').filter(Boolean);
-  if (host.endsWith('.github.io')) {
-    return {
-      owner: host.split('.')[0],
-      repo: path[0] || `${host.split('.')[0]}.github.io`,
-      branch: 'main',
-      filePath: 'site/data/cardtrack.json'
-    };
-  }
-  return { owner: '', repo: 'cardtrack', branch: 'main', filePath: 'site/data/cardtrack.json' };
-}
-
-export async function testRepositoryAccess(config, token) {
-  const { owner, repo } = config;
-  return githubRequest(`https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}`, token);
-}
-
-export async function publishDatabase(config, token, database, commitMessage) {
-  const { owner, repo, branch, filePath } = config;
-  if (!owner || !repo || !branch || !filePath) throw new Error('GitHub owner, repository, branch, and file path are required.');
-  if (!token) throw new Error('Paste your fine-grained GitHub token.');
-  const endpoint = `https://api.github.com/repos/${encodeURIComponent(owner)}/${encodeURIComponent(repo)}/contents/${filePath.split('/').map(encodeURIComponent).join('/')}`;
-  const current = await githubRequest(`${endpoint}?ref=${encodeURIComponent(branch)}`, token);
-  const serialized = `${JSON.stringify(database, null, 2)}\n`;
-  const result = await githubRequest(endpoint, token, {
-    method: 'PUT',
-    headers: { 'Content-Type': 'application/json' },
-    body: JSON.stringify({
-      message: commitMessage,
-      content: encodeUtf8Base64(serialized),
-      sha: current.sha,
-      branch
-    })
-  });
-  return result;
+export function inferRepoFromLocation(location = window.location) {
+  const hostMatch = location.hostname.match(/^([^.]+)\.github\.io$/i);
+  if (!hostMatch) return {owner: "", repo: "", branch: "main"};
+  const firstSegment = location.pathname.split("/").filter(Boolean)[0] || "";
+  return {owner: hostMatch[1], repo: firstSegment, branch: "main"};
 }

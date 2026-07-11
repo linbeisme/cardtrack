@@ -1,202 +1,229 @@
 export const SCHEMA_VERSION = 3;
-export const ALLOWED_STATUSES = new Set(['standard','elevated','limited','targeted','review']);
-export const ALLOWED_CHANNELS = new Set(['public','targeted','referral','branch','mailer']);
-export const ALLOWED_CONFIDENCE = new Set(['high','medium','low']);
-export const ALLOWED_SOURCE_TYPES = new Set(['issuer','aggregator','news']);
+export const BONUS_UNITS = new Set(["points", "miles", "cash", "free-night certificate points"]);
+export const CHANNELS = new Set(["public", "targeted", "referral", "branch", "mailer"]);
+export const STATUSES = new Set(["standard", "elevated", "limited", "targeted", "review"]);
+export const CONFIDENCE = new Set(["high", "medium", "low"]);
+export const SOURCE_TYPES = new Set(["issuer", "aggregator", "news"]);
+export const DATA_STATUSES = new Set(["seed", "live", "partial"]);
 export const ALLOWED_SOURCE_DOMAINS = [
-  'americanexpress.com','chase.com','capitalone.com','citi.com','bankofamerica.com',
-  'barclaycardus.com','wellsfargo.com','doctorofcredit.com','frequentmiler.com',
-  'onemileatatime.com','thepointsguy.com','nerdwallet.com'
+  "americanexpress.com", "chase.com", "capitalone.com", "citi.com",
+  "bankofamerica.com", "barclaycardus.com", "wellsfargo.com",
+  "doctorofcredit.com", "frequentmiler.com", "onemileatatime.com",
+  "thepointsguy.com", "nerdwallet.com"
 ];
 
-export function slugify(value) {
-  return String(value || '')
-    .normalize('NFKD')
-    .toLowerCase()
-    .replace(/[^a-z0-9]+/g, '-')
-    .replace(/^-+|-+$/g, '')
-    .slice(0, 80);
+function isPlainObject(value) {
+  return Boolean(value) && typeof value === "object" && !Array.isArray(value);
 }
 
-export function isHttpsUrl(value) {
+function isFiniteNonNegative(value) {
+  return typeof value === "number" && Number.isFinite(value) && value >= 0;
+}
+
+function isPositiveOrNull(value) {
+  return value === null || (typeof value === "number" && Number.isFinite(value) && value > 0);
+}
+
+function isNonNegativeOrNull(value) {
+  return value === null || isFiniteNonNegative(value);
+}
+
+function isIsoUtc(value) {
+  return typeof value === "string" && /^\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}(?:\.\d+)?Z$/.test(value) && !Number.isNaN(Date.parse(value));
+}
+
+function isDateOnlyOrNull(value) {
+  if (value === null) return true;
+  if (typeof value !== "string" || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
+  const d = new Date(`${value}T00:00:00Z`);
+  return !Number.isNaN(d.getTime()) && d.toISOString().slice(0, 10) === value;
+}
+
+function approvedHttpsUrl(value) {
   try {
     const url = new URL(value);
-    return url.protocol === 'https:';
+    if (url.protocol !== "https:") return false;
+    const host = url.hostname.toLowerCase();
+    return ALLOWED_SOURCE_DOMAINS.some((domain) => host === domain || host.endsWith(`.${domain}`));
   } catch {
     return false;
   }
 }
 
-export function isAllowedSourceUrl(value) {
-  if (!isHttpsUrl(value)) return false;
-  const host = new URL(value).hostname.toLowerCase().replace(/^www\./, '');
-  return ALLOWED_SOURCE_DOMAINS.some(domain => host === domain || host.endsWith(`.${domain}`));
+export function stripJsonFences(text) {
+  if (typeof text !== "string") return "";
+  return text.replace(/^\s*```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "").trim();
 }
 
-export function isIsoTimestamp(value) {
-  if (typeof value !== 'string' || !value.trim()) return false;
-  const t = Date.parse(value);
-  return Number.isFinite(t) && /T/.test(value);
-}
-
-export function isIsoDate(value) {
-  if (value === null || value === undefined || value === '') return true;
-  if (typeof value !== 'string' || !/^\d{4}-\d{2}-\d{2}$/.test(value)) return false;
-  const t = Date.parse(`${value}T00:00:00Z`);
-  return Number.isFinite(t);
-}
-
-export function isExpired(expirationDate, now = new Date()) {
-  if (!expirationDate || !isIsoDate(expirationDate)) return false;
-  const end = new Date(`${expirationDate}T23:59:59Z`).getTime();
-  return end < now.getTime();
-}
-
-export function normalizeOfferStatus(offer, card, now = new Date()) {
-  if (!offer) return 'unknown';
-  if (offer.expirationDate && isExpired(offer.expirationDate, now)) return 'expired';
-  const channel = offer.channel || 'public';
-  if (offer.status === 'review') return 'review';
-  if (channel !== 'public') return 'targeted';
-  if (offer.status === 'limited') return 'limited';
-  const baseline = Number(card?.baselineOffer || 0);
-  const bonus = Number(offer.bonusAmount || 0);
-  if (baseline > 0 && bonus > baseline) return 'elevated';
-  return ALLOWED_STATUSES.has(offer.status) ? offer.status : 'standard';
-}
-
-function pushError(errors, path, message) {
-  errors.push({ path, message });
-}
-
-function validateCard(card, index, errors, ids) {
-  const p = `cards[${index}]`;
-  if (!card || typeof card !== 'object') {
-    pushError(errors, p, 'Card must be an object.');
-    return;
+export function parseResearchJson(text) {
+  const cleaned = stripJsonFences(text);
+  if (!cleaned) throw new Error("No JSON was provided.");
+  try {
+    return JSON.parse(cleaned);
+  } catch (error) {
+    throw new Error(`JSON could not be parsed: ${error.message}`);
   }
-  if (!card.id || !/^[a-z0-9][a-z0-9-]{1,79}$/.test(card.id)) pushError(errors, `${p}.id`, 'Card ID must be a lowercase slug.');
-  if (ids.has(card.id)) pushError(errors, `${p}.id`, 'Card ID is duplicated.');
-  ids.add(card.id);
-  for (const field of ['name','issuer','program']) {
-    if (typeof card[field] !== 'string' || !card[field].trim()) pushError(errors, `${p}.${field}`, `${field} is required.`);
-  }
-  if (!Number.isFinite(Number(card.annualFee)) || Number(card.annualFee) < 0) pushError(errors, `${p}.annualFee`, 'Annual fee must be a non-negative number.');
-  if (!Number.isFinite(Number(card.baselineOffer)) || Number(card.baselineOffer) < 0) pushError(errors, `${p}.baselineOffer`, 'Baseline offer must be a non-negative number.');
-  if (card.historicalHigh != null && (!Number.isFinite(Number(card.historicalHigh)) || Number(card.historicalHigh) < 0)) pushError(errors, `${p}.historicalHigh`, 'Historical high must be a non-negative number or null.');
-  if (!isHttpsUrl(card.applyUrl)) pushError(errors, `${p}.applyUrl`, 'Issuer URL must be a valid HTTPS URL.');
-  if (typeof card.isArchived !== 'boolean') pushError(errors, `${p}.isArchived`, 'isArchived must be true or false.');
 }
 
-function validateSource(source, path, errors) {
-  if (!source || typeof source !== 'object') {
-    pushError(errors, path, 'Source must be an object.');
-    return;
-  }
-  if (typeof source.name !== 'string' || !source.name.trim()) pushError(errors, `${path}.name`, 'Source name is required.');
-  if (!isAllowedSourceUrl(source.url)) pushError(errors, `${path}.url`, 'Source URL must use HTTPS and an approved domain.');
-  if (!ALLOWED_SOURCE_TYPES.has(source.sourceType)) pushError(errors, `${path}.sourceType`, 'Invalid source type.');
+export function effectiveStatus(offer, card) {
+  if (offer.status === "review") return "review";
+  if (offer.channel !== "public") return "targeted";
+  if (offer.status === "limited") return "limited";
+  return offer.bonusAmount > Number(card?.baselineOffer || 0) ? "elevated" : "standard";
 }
 
-function validateOffer(offer, index, errors, cardIds, keys, now = new Date()) {
-  const p = `offers[${index}]`;
-  if (!offer || typeof offer !== 'object') {
-    pushError(errors, p, 'Offer must be an object.');
-    return;
-  }
-  if (!cardIds.has(offer.cardId)) pushError(errors, `${p}.cardId`, 'Card ID does not exist in the catalog.');
-  if (!ALLOWED_CHANNELS.has(offer.channel)) pushError(errors, `${p}.channel`, 'Invalid offer channel.');
-  const key = `${offer.cardId}|${offer.channel}`;
-  if (keys.has(key)) pushError(errors, p, 'Duplicate card/channel offer.');
-  keys.add(key);
-  if (!Number.isFinite(Number(offer.bonusAmount)) || Number(offer.bonusAmount) < 0) pushError(errors, `${p}.bonusAmount`, 'Bonus amount must be a non-negative number.');
-  if (typeof offer.bonusUnit !== 'string' || !offer.bonusUnit.trim()) pushError(errors, `${p}.bonusUnit`, 'Bonus unit is required.');
-  if (offer.spendRequirement != null && (!Number.isFinite(Number(offer.spendRequirement)) || Number(offer.spendRequirement) < 0)) pushError(errors, `${p}.spendRequirement`, 'Spend requirement must be a non-negative number or null.');
-  if (offer.spendPeriodMonths != null && (!Number.isFinite(Number(offer.spendPeriodMonths)) || Number(offer.spendPeriodMonths) <= 0)) pushError(errors, `${p}.spendPeriodMonths`, 'Spend period must be a positive number or null.');
-  if (!Number.isFinite(Number(offer.annualFee)) || Number(offer.annualFee) < 0) pushError(errors, `${p}.annualFee`, 'Annual fee must be a non-negative number.');
-  if (!ALLOWED_STATUSES.has(offer.status)) pushError(errors, `${p}.status`, 'Invalid promotion status.');
-  if (!isIsoDate(offer.expirationDate)) pushError(errors, `${p}.expirationDate`, 'Expiration must be YYYY-MM-DD or null.');
-  if (offer.expirationDate && isExpired(offer.expirationDate, now)) pushError(errors, `${p}.expirationDate`, 'Expired offers cannot be imported as current offers.');
-  if (!isIsoTimestamp(offer.lastVerifiedAt)) pushError(errors, `${p}.lastVerifiedAt`, 'lastVerifiedAt must be an ISO timestamp.');
-  if (!ALLOWED_CONFIDENCE.has(offer.confidence)) pushError(errors, `${p}.confidence`, 'Invalid confidence value.');
-  if (typeof offer.note !== 'string' || offer.note.length > 500) pushError(errors, `${p}.note`, 'Note is required and must be 500 characters or fewer.');
-  if (!Array.isArray(offer.sources) || !offer.sources.length) pushError(errors, `${p}.sources`, 'At least one approved source is required.');
-  else offer.sources.forEach((source, sourceIndex) => validateSource(source, `${p}.sources[${sourceIndex}]`, errors));
-}
-
-export function validateDatabase(db, options = {}) {
-  const { allowSeed = true, now = new Date() } = options;
+export function validateCard(card, index = 0) {
   const errors = [];
-  if (!db || typeof db !== 'object') return { valid: false, errors: [{ path: '', message: 'Database must be an object.' }] };
-  if (db.schemaVersion !== SCHEMA_VERSION) pushError(errors, 'schemaVersion', `schemaVersion must equal ${SCHEMA_VERSION}.`);
-  if (!['seed','live','partial'].includes(db.dataStatus)) pushError(errors, 'dataStatus', 'dataStatus must be seed, live, or partial.');
-  if (db.dataStatus !== 'seed' && !isIsoTimestamp(db.generatedAt)) pushError(errors, 'generatedAt', 'generatedAt must be an ISO timestamp for live/partial data.');
-  if (!allowSeed && db.dataStatus === 'seed') pushError(errors, 'dataStatus', 'Seed data is not allowed here.');
-  if (!Array.isArray(db.cards)) pushError(errors, 'cards', 'cards must be an array.');
-  if (!Array.isArray(db.offers)) pushError(errors, 'offers', 'offers must be an array.');
-  const ids = new Set();
-  if (Array.isArray(db.cards)) db.cards.forEach((card, index) => validateCard(card, index, errors, ids));
-  const keys = new Set();
-  if (Array.isArray(db.offers)) db.offers.forEach((offer, index) => validateOffer(offer, index, errors, ids, keys, now));
-  return { valid: errors.length === 0, errors };
+  const p = `cards[${index}]`;
+  if (!isPlainObject(card)) return [`${p} must be an object.`];
+  if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(card.id || "")) errors.push(`${p}.id must be a lowercase slug.`);
+  for (const field of ["name", "issuer", "program", "bonusUnit", "applyUrl"]) {
+    if (typeof card[field] !== "string" || !card[field].trim()) errors.push(`${p}.${field} is required.`);
+  }
+  for (const field of ["annualFee", "baselineOffer"]) {
+    if (!isFiniteNonNegative(card[field])) errors.push(`${p}.${field} must be a non-negative number.`);
+  }
+  if (card.historicalHigh !== null && !isFiniteNonNegative(card.historicalHigh)) errors.push(`${p}.historicalHigh must be null or a non-negative number.`);
+  if (!BONUS_UNITS.has(card.bonusUnit)) errors.push(`${p}.bonusUnit is not allowed.`);
+  try {
+    const url = new URL(card.applyUrl);
+    if (url.protocol !== "https:") errors.push(`${p}.applyUrl must use HTTPS.`);
+  } catch {
+    errors.push(`${p}.applyUrl must be a valid URL.`);
+  }
+  if (typeof card.isArchived !== "boolean") errors.push(`${p}.isArchived must be boolean.`);
+  if (card.archivedAt !== null && !isIsoUtc(card.archivedAt)) errors.push(`${p}.archivedAt must be an ISO UTC timestamp or null.`);
+  return errors;
 }
 
-export function parseImportPayload(text) {
-  const trimmed = String(text || '').trim().replace(/^```json\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/i, '').trim();
-  if (!trimmed) throw new Error('Paste a JSON result first.');
-  const parsed = JSON.parse(trimmed);
-  if (Array.isArray(parsed)) return { schemaVersion: SCHEMA_VERSION, dataStatus: 'partial', generatedAt: new Date().toISOString(), offers: parsed, errors: [] };
-  if (!parsed || typeof parsed !== 'object' || !Array.isArray(parsed.offers)) throw new Error('The JSON must be an offer array or an object containing an offers array.');
-  return parsed;
+export function validateOffer(offer, cardsById, index = 0, options = {}) {
+  const errors = [];
+  const p = `offers[${index}]`;
+  if (!isPlainObject(offer)) return [`${p} must be an object.`];
+  const card = cardsById.get(offer.cardId);
+  if (!card) errors.push(`${p}.cardId '${offer.cardId ?? ""}' is not in the active catalog.`);
+  if (!isFiniteNonNegative(offer.bonusAmount)) errors.push(`${p}.bonusAmount must be a non-negative number.`);
+  if (!BONUS_UNITS.has(offer.bonusUnit)) errors.push(`${p}.bonusUnit is not allowed.`);
+  if (!CHANNELS.has(offer.channel)) errors.push(`${p}.channel is not allowed.`);
+  if (!isNonNegativeOrNull(offer.spendRequirement)) errors.push(`${p}.spendRequirement must be a non-negative number or null.`);
+  if (!isPositiveOrNull(offer.spendPeriodMonths)) errors.push(`${p}.spendPeriodMonths must be a positive number or null.`);
+  if (!isFiniteNonNegative(offer.annualFee)) errors.push(`${p}.annualFee must be a non-negative number.`);
+  if (offer.annualFeeWaivedFirstYear !== undefined && typeof offer.annualFeeWaivedFirstYear !== "boolean") {
+    errors.push(`${p}.annualFeeWaivedFirstYear must be boolean when provided.`);
+  }
+  if (options.requireWaiverField && typeof offer.annualFeeWaivedFirstYear !== "boolean") {
+    errors.push(`${p}.annualFeeWaivedFirstYear is required and must be boolean.`);
+  }
+  if (!STATUSES.has(offer.status)) errors.push(`${p}.status is not allowed.`);
+  if (!isDateOnlyOrNull(offer.expirationDate)) errors.push(`${p}.expirationDate must be YYYY-MM-DD or null.`);
+  if (!isIsoUtc(offer.lastVerifiedAt)) errors.push(`${p}.lastVerifiedAt must be an ISO-8601 UTC timestamp.`);
+  if (!CONFIDENCE.has(offer.confidence)) errors.push(`${p}.confidence is not allowed.`);
+  if (typeof offer.note !== "string" || !offer.note.trim() || offer.note.length > 500) errors.push(`${p}.note is required and must be 500 characters or fewer.`);
+  if (!Array.isArray(offer.sources) || offer.sources.length === 0) {
+    errors.push(`${p}.sources must contain at least one source.`);
+  } else {
+    offer.sources.forEach((source, sourceIndex) => {
+      const sp = `${p}.sources[${sourceIndex}]`;
+      if (!isPlainObject(source)) return errors.push(`${sp} must be an object.`);
+      if (typeof source.name !== "string" || !source.name.trim()) errors.push(`${sp}.name is required.`);
+      if (!approvedHttpsUrl(source.url)) errors.push(`${sp}.url must be HTTPS on an approved domain.`);
+      if (!SOURCE_TYPES.has(source.sourceType)) errors.push(`${sp}.sourceType is not allowed.`);
+    });
+  }
+  if (offer.expirationDate && options.rejectExpired !== false) {
+    const today = options.today || new Date().toISOString().slice(0, 10);
+    if (offer.expirationDate < today) errors.push(`${p} is expired (${offer.expirationDate}).`);
+  }
+  if (offer.channel !== "public" && !["targeted", "review"].includes(offer.status)) {
+    errors.push(`${p}.status must be targeted or review for a non-public channel.`);
+  }
+  return errors;
+}
+
+export function validateDatabase(database, options = {}) {
+  const errors = [];
+  if (!isPlainObject(database)) return {valid: false, errors: ["Database must be an object."]};
+  if (database.schemaVersion !== SCHEMA_VERSION) errors.push(`schemaVersion must equal ${SCHEMA_VERSION}.`);
+  if (database.generatedAt !== null && !isIsoUtc(database.generatedAt)) errors.push("generatedAt must be an ISO-8601 UTC timestamp or null.");
+  if (!DATA_STATUSES.has(database.dataStatus)) errors.push("dataStatus must be seed, live, or partial.");
+  if (!Array.isArray(database.cards)) errors.push("cards must be an array.");
+  if (!Array.isArray(database.offers)) errors.push("offers must be an array.");
+  if (errors.length) return {valid: false, errors};
+
+  const ids = new Set();
+  database.cards.forEach((card, index) => {
+    errors.push(...validateCard(card, index));
+    if (ids.has(card.id)) errors.push(`Duplicate card id '${card.id}'.`);
+    ids.add(card.id);
+  });
+  const cardsById = new Map(database.cards.map((card) => [card.id, card]));
+  const keys = new Set();
+  database.offers.forEach((offer, index) => {
+    errors.push(...validateOffer(offer, cardsById, index, {rejectExpired: options.rejectExpired ?? false}));
+    const key = `${offer.cardId}::${offer.channel}`;
+    if (keys.has(key)) errors.push(`Duplicate offer key '${key}'.`);
+    keys.add(key);
+  });
+  return {valid: errors.length === 0, errors};
 }
 
 export function validateImportPayload(payload, cards, options = {}) {
-  const now = options.now || new Date();
-  const cardIds = new Set(cards.map(card => card.id));
-  const errors = [];
-  const keys = new Set();
+  const top = Array.isArray(payload) ? {offers: payload} : payload;
+  if (!isPlainObject(top) || !Array.isArray(top.offers)) {
+    return {valid: false, accepted: [], rejected: [{index: -1, errors: ["Input must be an offer array or an object containing an offers array."]}], errors: ["Input must contain an offers array."], summary: {acceptedCount: 0, rejectedCount: 1, publicCount: 0, promotionCount: 0}};
+  }
+  if (!Array.isArray(payload) && top.schemaVersion !== undefined && top.schemaVersion !== SCHEMA_VERSION) {
+    return {valid: false, accepted: [], rejected: [{index: -1, errors: [`schemaVersion must equal ${SCHEMA_VERSION}.`]}], errors: [`schemaVersion must equal ${SCHEMA_VERSION}.`], summary: {acceptedCount: 0, rejectedCount: top.offers.length, publicCount: 0, promotionCount: 0}};
+  }
+  const activeCards = cards.filter((card) => !card.isArchived);
+  const cardsById = new Map(activeCards.map((card) => [card.id, card]));
+  const seen = new Set();
   const accepted = [];
   const rejected = [];
-
-  (payload.offers || []).forEach((offer, index) => {
-    const localErrors = [];
-    validateOffer(offer, index, localErrors, cardIds, keys, now);
-    if (localErrors.length) rejected.push({ index, cardId: offer?.cardId || null, errors: localErrors });
-    else accepted.push({ ...offer });
+  top.offers.forEach((offer, index) => {
+    const itemErrors = validateOffer(offer, cardsById, index, {rejectExpired: true, requireWaiverField: options.requireWaiverField ?? true});
+    const key = `${offer?.cardId}::${offer?.channel}`;
+    if (seen.has(key)) itemErrors.push(`Duplicate cardId + channel '${key}'.`);
+    seen.add(key);
+    if (itemErrors.length) rejected.push({index, offer, errors: itemErrors});
+    else accepted.push({...offer, status: effectiveStatus(offer, cardsById.get(offer.cardId))});
   });
 
-  if (payload.schemaVersion !== SCHEMA_VERSION) errors.push({ path: 'schemaVersion', message: `Import schemaVersion must equal ${SCHEMA_VERSION}.` });
-  if (!accepted.length) errors.push({ path: 'offers', message: 'No valid offers were found. The existing database will not be replaced.' });
-  if (!['live','partial'].includes(payload.dataStatus)) errors.push({ path: 'dataStatus', message: 'Import dataStatus must be live or partial.' });
-  if (!isIsoTimestamp(payload.generatedAt)) errors.push({ path: 'generatedAt', message: 'Import generatedAt must be an ISO timestamp.' });
-  if (payload.validation && Number.isFinite(Number(payload.validation.acceptedCount)) && Number(payload.validation.acceptedCount) !== (payload.offers || []).length) {
-    errors.push({ path: 'validation.acceptedCount', message: 'acceptedCount must equal the number of offer objects returned.' });
-  }
-  if (payload.dataStatus === 'live') {
-    const activeIds = cards.filter(card => !card.isArchived).map(card => card.id);
-    const publicIds = new Set(accepted.filter(offer => offer.channel === 'public').map(offer => offer.cardId));
-    const missing = activeIds.filter(id => !publicIds.has(id));
-    if (missing.length) errors.push({ path: 'dataStatus', message: `dataStatus cannot be live because ${missing.length} active card(s) lack a public offer.` });
+  if (!Array.isArray(payload) && top.validation) {
+    if (top.validation.acceptedCount !== top.offers.length) {
+      rejected.push({index: -1, errors: [`validation.acceptedCount (${top.validation.acceptedCount}) must equal offers.length (${top.offers.length}).`]});
+    }
+    if (Array.isArray(top.errors) && top.validation.rejectedCount !== top.errors.length) {
+      rejected.push({index: -1, errors: [`validation.rejectedCount (${top.validation.rejectedCount}) must equal errors.length (${top.errors.length}).`]});
+    }
   }
 
-  return { valid: errors.length === 0 && accepted.length > 0, errors, accepted, rejected };
+  if (!Array.isArray(payload) && top.dataStatus === "live") {
+    const publicIds = new Set(accepted.filter((offer) => offer.channel === "public").map((offer) => offer.cardId));
+    const missing = activeCards.filter((card) => !publicIds.has(card.id));
+    if (missing.length) rejected.push({index: -1, errors: [`dataStatus is live but public offers are missing for: ${missing.map((card) => card.id).join(", ")}.`]});
+  }
+
+  const publicCount = accepted.filter((offer) => offer.channel === "public").length;
+  const promotionCount = accepted.filter((offer) => ["elevated", "limited"].includes(offer.status)).length;
+  const errors = rejected.flatMap((item) => item.errors);
+  return {
+    valid: accepted.length > 0 && rejected.length === 0,
+    accepted,
+    rejected,
+    errors,
+    summary: {acceptedCount: accepted.length, rejectedCount: rejected.length, publicCount, promotionCount}
+  };
 }
 
-export function mergeOffers(existingOffers, acceptedOffers, mode = 'merge') {
-  if (mode === 'replace') return acceptedOffers.map(offer => ({ ...offer }));
-  const map = new Map(existingOffers.map(offer => [`${offer.cardId}|${offer.channel}`, { ...offer }]));
-  for (const offer of acceptedOffers) map.set(`${offer.cardId}|${offer.channel}`, { ...offer });
+export function mergeOffers(existing, incoming, mode = "merge") {
+  if (mode === "replace") return [...incoming];
+  const map = new Map(existing.map((offer) => [`${offer.cardId}::${offer.channel}`, offer]));
+  incoming.forEach((offer) => map.set(`${offer.cardId}::${offer.channel}`, offer));
   return [...map.values()];
 }
 
-export function buildDatabaseForSave(db, meta = {}) {
-  return {
-    ...db,
-    schemaVersion: SCHEMA_VERSION,
-    generatedAt: new Date().toISOString(),
-    dataStatus: db.offers.length ? (meta.dataStatus || db.dataStatus || 'partial') : 'seed',
-    updatedBy: meta.updatedBy || 'cardtrack-admin',
-    cards: db.cards.map(card => ({ ...card })),
-    offers: db.offers.map(offer => ({ ...offer }))
-  };
+export function firstYearFeeWaived(offer) {
+  if (typeof offer?.annualFeeWaivedFirstYear === "boolean") return offer.annualFeeWaivedFirstYear;
+  return /(?:annual fee|fee).{0,40}(?:waived|$0).{0,20}(?:first year|year one)|(?:first year|year one).{0,40}(?:annual fee|fee).{0,20}(?:waived|$0)/i.test(offer?.note || "");
 }

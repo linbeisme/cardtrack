@@ -1,30 +1,30 @@
-# Validation Report
+# CardTrack v4 Validation Report
 
-Validation date: 2026-07-10
+Validation completed during package generation.
 
-## Automated checks
+## Automated results
 
-- Static database validation: passed
-- Node syntax checks: passed
-- Unit tests: 16 passed
-- Browser integration test using mocked GitHub API: passed
-- Prompt modal generation: passed
-- JSON validation and import: passed
-- Elevated and limited badges: passed
-- Expiration-date rendering: passed
-- Add-card staging: passed
-- Hide/archive and restore: passed
-- GitHub token clearing after test/save: passed
-- GitHub publish flow with mocked REST responses: passed
+- Node syntax checks passed for `site/app.js` and all `.mjs` modules.
+- `node scripts/validate-data.mjs` passed.
+- `node tests/run-tests.mjs` passed: **25 tests**.
+- Database: 15 cards and 15 offer records validated.
+- Prompt library: 5 templates validated.
+- CPP library: 11 program valuations validated.
 
-## Not performed
+## Tested behaviors
 
-- A live commit to the user's GitHub repository was not performed because it requires the user's private token.
-- Live ChatGPT/Gemini research was not performed as part of package validation.
+- Current database compatibility.
+- Prompt-library schema and required placeholders.
+- Full, Amex, Chase, hotel, and airline card filtering.
+- Automatic date and active-catalog injection.
+- JSON fence removal and parsing.
+- Unknown card, invalid domain, bad enum, expired offer, duplicate key, and count-mismatch rejection.
+- Required `annualFeeWaivedFirstYear` boolean on new imports.
+- Backward-compatible waiver inference for legacy saved offers.
+- Merge and replace behavior.
+- Promotional-status normalization.
+- Static table header rule (`position: static`) to prevent row coverage.
 
-## Safety checks
+## Boundary
 
-- No Gemini API integration is present.
-- No Cloudflare dependency is present.
-- No personal access token is embedded.
-- No npm dependencies are required.
+No live GitHub write was performed because that requires the repository owner's private token. GitHub publishing code uses the Repository Contents API and clears token fields after every attempt.

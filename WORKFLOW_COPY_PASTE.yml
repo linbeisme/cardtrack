@@ -11,7 +11,7 @@ permissions:
   id-token: write
 
 concurrency:
-  group: cardtrack-pages
+  group: pages
   cancel-in-progress: false
 
 jobs:
@@ -19,19 +19,15 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Validate saved CardTrack database
+        uses: actions/checkout@v6
+      - name: Validate saved data
         run: node scripts/validate-data.mjs
-
-      - name: Run CardTrack unit tests
+      - name: Run tests
         run: node tests/run-tests.mjs
-
-      - name: Configure GitHub Pages
-        uses: actions/configure-pages@v5
-
-      - name: Upload GitHub Pages artifact
-        uses: actions/upload-pages-artifact@v3
+      - name: Configure Pages
+        uses: actions/configure-pages@v6
+      - name: Upload Pages artifact
+        uses: actions/upload-pages-artifact@v4
         with:
           path: site
 
@@ -44,4 +40,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5
