@@ -1,7 +1,15 @@
-# Read This First — v4.1.1 Hotfix Update-Only Package
+# Read This First — v5.0 Update-Only Package
 
-This hotfix updates the existing CardTrack repository and intentionally excludes all files under `site/data/`. Your saved cards, offers, prompts, and TPG valuation snapshot are preserved.
+Use this package to upgrade an existing CardTrack repository.
 
-Upload the contents of this folder to the repository root and overwrite matching files. Commit to `main`, then watch the GitHub Actions run.
+The package intentionally excludes:
 
-The startup fix is in `site/app.js`. Upload all included files so the version number and regression tests stay synchronized.
+- `site/data/cardtrack.json`
+- `site/data/prompts.json`
+- `site/data/tpg-valuations.json`
+
+Therefore, uploading the package does not replace your current cards, offers, saved prompt edits, or TPG valuation snapshot.
+
+Upload the contents of this package into the root of the existing GitHub repository. Allow GitHub to replace files with the same paths. Do not upload the outer package folder as an extra directory.
+
+After the commit, wait for the GitHub Actions validate and deploy jobs to turn green, then hard-refresh the published site.

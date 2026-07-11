@@ -1,6 +1,4 @@
-function clone(value) {
-  return JSON.parse(JSON.stringify(value));
-}
+function clone(value) { return JSON.parse(JSON.stringify(value)); }
 
 export function filterCards(cards, filter) {
   const active = cards.filter((card) => !card.isArchived);
@@ -13,14 +11,11 @@ export function filterCards(cards, filter) {
 }
 
 export function effectiveTemplateContent(library, template) {
-  return template.customPrompt || library.basePrompt;
+  return template.customPrompt || template.defaultPrompt || library.basePrompt || "";
 }
 
-export function resolvePrompt(library, template, cards, date = new Date()) {
-  const selectedCards = filterCards(cards, template.filter);
-  const content = effectiveTemplateContent(library, template);
-  const today = date.toISOString().slice(0, 10);
-  const catalog = selectedCards.map((card) => ({
+function catalogForPrompt(cards) {
+  return cards.map((card) => ({
     cardId: card.id,
     cardName: card.name,
     issuer: card.issuer,
@@ -31,17 +26,53 @@ export function resolvePrompt(library, template, cards, date = new Date()) {
     bonusUnit: card.bonusUnit,
     issuerUrl: card.applyUrl
   }));
+}
+
+function databaseSummary(database, selectedCards) {
+  const ids = new Set(selectedCards.map((card) => card.id));
+  return {
+    schemaVersion: database.schemaVersion,
+    existingOffers: database.offers.filter((item) => ids.has(item.cardId)),
+    existingCardDetails: (database.cardDetails || []).filter((item) => ids.has(item.cardId)),
+    transferPrograms: database.transferPrograms || [],
+    transferBonuses: database.transferBonuses || []
+  };
+}
+
+export function resolvePrompt(library, template, cards, date = new Date(), database = null) {
+  const selectedCards = filterCards(cards, template.filter);
+  const content = effectiveTemplateContent(library, template);
+  const today = date.toISOString().slice(0, 10);
+  const summary = database ? databaseSummary(database, selectedCards) : {};
   return content
     .replaceAll("{{TODAY}}", today)
     .replaceAll("{{SCOPE_INSTRUCTION}}", template.scopeInstruction || "Research the cards in the injected catalog.")
-    .replaceAll("{{ACTIVE_CARD_CATALOG}}", JSON.stringify(catalog, null, 2));
+    .replaceAll("{{ACTIVE_CARD_CATALOG}}", JSON.stringify(catalogForPrompt(selectedCards), null, 2))
+    .replaceAll("{{CURRENT_DATABASE_SUMMARY}}", JSON.stringify(summary, null, 2));
+}
+
+export function migratePromptLibrary(saved, defaults) {
+  const base = clone(defaults);
+  const changes = [];
+  if (!saved || typeof saved !== "object") return {library: base, migrated: true, changes: ["Default prompt library restored"]};
+  const savedById = new Map((saved.templates || []).map((item) => [item.id, item]));
+  base.templates = base.templates.map((template) => {
+    const prior = savedById.get(template.id);
+    if (!prior) { changes.push(`Added template ${template.id}`); return template; }
+    return {...template, customPrompt: prior.customPrompt ?? null};
+  });
+  const extra = (saved.templates || []).filter((item) => !base.templates.some((template) => template.id === item.id));
+  base.templates.push(...extra);
+  base.defaultTemplateId = saved.defaultTemplateId && base.templates.some((item) => item.id === saved.defaultTemplateId) ? saved.defaultTemplateId : base.defaultTemplateId;
+  base.updatedAt = saved.updatedAt || base.updatedAt;
+  if (saved.schemaVersion !== base.schemaVersion) changes.push(`Prompt schema upgraded to ${base.schemaVersion}`);
+  return {library: base, migrated: changes.length > 0, changes};
 }
 
 export function validatePromptLibrary(library) {
   const errors = [];
   if (!library || typeof library !== "object" || Array.isArray(library)) return {valid: false, errors: ["Prompt library must be an object."]};
-  if (library.schemaVersion !== 1) errors.push("Prompt library schemaVersion must equal 1.");
-  if (typeof library.basePrompt !== "string" || !library.basePrompt.includes("{{ACTIVE_CARD_CATALOG}}")) errors.push("basePrompt must include {{ACTIVE_CARD_CATALOG}}.");
+  if (![1, 2].includes(library.schemaVersion)) errors.push("Prompt library schemaVersion must equal 1 or 2.");
   if (!Array.isArray(library.templates) || !library.templates.length) errors.push("templates must be a non-empty array.");
   const ids = new Set();
   (library.templates || []).forEach((template, index) => {
@@ -55,7 +86,9 @@ export function validatePromptLibrary(library) {
     if (!template.filter || typeof template.filter !== "object") errors.push(`${p}.filter is required.`);
     if (typeof template.scopeInstruction !== "string" || !template.scopeInstruction.trim()) errors.push(`${p}.scopeInstruction is required.`);
     if (template.customPrompt !== null && typeof template.customPrompt !== "string") errors.push(`${p}.customPrompt must be text or null.`);
-    if (typeof template.customPrompt === "string" && !template.customPrompt.includes("{{ACTIVE_CARD_CATALOG}}")) errors.push(`${p}.customPrompt must include {{ACTIVE_CARD_CATALOG}}.`);
+    const content = effectiveTemplateContent(library, template);
+    if (!content.includes("{{ACTIVE_CARD_CATALOG}}")) errors.push(`${p} prompt must include {{ACTIVE_CARD_CATALOG}}.`);
+    if (!content.includes("{{TODAY}}")) errors.push(`${p} prompt must include {{TODAY}}.`);
   });
   if (!ids.has(library.defaultTemplateId)) errors.push("defaultTemplateId must match a template id.");
   return {valid: errors.length === 0, errors};

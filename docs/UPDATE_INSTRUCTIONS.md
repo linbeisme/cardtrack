@@ -1,12 +1,14 @@
-# CardTrack v4.1.1 Hotfix Instructions
+# Beginner GitHub Update Instructions
 
-1. Back up the current GitHub repository with **Code → Download ZIP**.
-2. Unzip the CardTrack v4.1.1 hotfix update-only package.
-3. At the repository root, choose **Add file → Upload files**.
-4. Upload the contents inside `CardTrack_v4_1_1_Update_Only`, preserving the folder paths.
-5. Confirm no files under `site/data/` are in the upload list.
-6. Commit directly to `main` with the message `Fix CardTrack TPG valuation startup crash`.
-7. Open **Actions** and wait for **Validate and deploy CardTrack** to finish with a green check.
-8. Hard refresh the CardTrack website.
+1. Download and unzip the CardTrack v5.0 Update-Only package.
+2. Open the existing CardTrack repository on GitHub.
+3. Click **Code**, then **Add file**, then **Upload files**.
+4. Drag the contents inside the unzipped package into GitHub.
+5. Confirm paths begin with `site/`, `scripts/`, `tests/`, `.github/`, or `docs/`.
+6. Confirm the upload does not include `site/data/cardtrack.json`, `site/data/prompts.json`, or `site/data/tpg-valuations.json`.
+7. Enter the commit message `Upgrade CardTrack to v5.0`.
+8. Commit directly to the `main` branch.
+9. Open **Actions** and wait for both `validate` and `deploy` to show green checks.
+10. Open the published site and hard-refresh it.
 
-The v4.1.1 hotfix assigns the loaded TPG valuation snapshot before the first render, preventing the `Cannot read properties of null (reading 'asOf')` startup crash.
+On Windows use `Ctrl + Shift + R`. On Mac use `Command + Shift + R`.

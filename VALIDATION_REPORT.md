@@ -1,19 +1,16 @@
-# CardTrack v4.1.1 Validation Report
+# CardTrack v5.0 Validation Report
 
-Validation completed on 2026-07-11.
+Validation completed against the packaged data and source files.
 
-## Results
+- JavaScript syntax checks passed for the application and all modules.
+- HTML parsing passed.
+- Saved database validation passed.
+- Legacy schemaVersion 3 migration to schemaVersion 5 passed.
+- Prompt-library migration and validation passed.
+- TPG valuation validation passed.
+- Welcome-offer, card-detail, transfer-program, and transfer-bonus import tests passed.
+- Section merge preservation tests passed.
+- KPI color, rotating row-shade, larger promotion badge, flashing animation, and reduced-motion tests passed.
+- 28 automated tests passed.
 
-- JavaScript syntax checks passed for the app, schema library, validator, and tests.
-- Saved database validated: 15 cards and 15 offers.
-- Prompt library validated: 5 templates.
-- TPG valuation table validated: 11 program mappings.
-- Automated tests passed: 30.
-- A simulated legacy database with all `isArchived` and `archivedAt` fields removed validated successfully.
-- Automatic migration restored missing archive fields and an omitted first-year annual-fee waiver boolean.
-- A malformed non-null `archivedAt` value remained correctly rejected.
-- Regression tests confirm the TPG valuation snapshot is loaded into application state before the first render.
-
-## Deployment limitation
-
-No live GitHub commit or Pages deployment was performed because that requires the user's private GitHub credentials. The included workflow performs the same validation and test suite before deployment.
+The complete package contains 15 cards, 15 existing offers, 10 prompt templates, and 11 CPP valuation mappings. Card facts, transfer partners, and transfer bonuses begin empty until researched JSON is imported.

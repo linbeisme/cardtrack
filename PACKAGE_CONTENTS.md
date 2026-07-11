@@ -1,11 +1,17 @@
-# Package Contents — CardTrack v4.1.1
+# Package Contents
 
-- GitHub Pages workflow: `.github/workflows/update-and-deploy.yml`
-- App: `site/index.html`, `site/app.js`, `site/styles.css`
-- Libraries: `site/lib/*.mjs`
-- Data: `site/data/cardtrack.json`, `site/data/prompts.json`, `site/data/tpg-valuations.json`
-- Validation: `scripts/validate-data.mjs`
-- Tests: `tests/run-tests.mjs`
-- Documentation and release notes
-
-The v4.1.1 hotfix update-only package omits all data files so it cannot overwrite the live database, saved prompts, or valuation snapshot.
+- `.github/workflows/update-and-deploy.yml` — validates and deploys GitHub Pages
+- `site/index.html` — static application shell
+- `site/app.js` — CardTrack views and publisher workflow
+- `site/styles.css` — responsive UI, rotating row shades, KPI colors, and promotion animations
+- `site/lib/schema.mjs` — migrations, validators, section imports, and value calculations
+- `site/lib/prompts.mjs` — prompt resolution, migration, editing, and validation
+- `site/lib/github.mjs` — GitHub Contents API publisher
+- `site/data/default-prompts.json` — package defaults for all v5 research templates
+- `site/data/prompts.json` — saved prompt library in the complete package only
+- `site/data/cardtrack.json` — card database in the complete package only
+- `site/data/tpg-valuations.json` — TPG snapshot in the complete package only
+- `scripts/validate-data.mjs` — deployment validation
+- `tests/run-tests.mjs` — automated tests
+- `docs/UPDATE_INSTRUCTIONS.md` — GitHub update directions
+- `docs/RESEARCH_JSON_FORMATS.md` — accepted import structures

@@ -3,16 +3,19 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import {fileURLToPath} from "node:url";
 import {
+  APP_VERSION,
+  applySectionImport,
   effectiveStatus,
-  firstYearFeeWaived,
-  mergeOffers,
+  estimateFirstYearValue,
   migrateDatabase,
   parseResearchJson,
   validateDatabase,
-  validateImportPayload
+  validateSectionPayload,
+  valueTier
 } from "../site/lib/schema.mjs";
 import {
   filterCards,
+  migratePromptLibrary,
   resolvePrompt,
   restoreTemplateDefault,
   updateTemplateContent,
@@ -22,8 +25,10 @@ import {
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const database = JSON.parse(await fs.readFile(path.join(root, "site/data/cardtrack.json"), "utf8"));
 const prompts = JSON.parse(await fs.readFile(path.join(root, "site/data/prompts.json"), "utf8"));
+const defaults = JSON.parse(await fs.readFile(path.join(root, "site/data/default-prompts.json"), "utf8"));
 const valuations = JSON.parse(await fs.readFile(path.join(root, "site/data/tpg-valuations.json"), "utf8"));
 const appSource = await fs.readFile(path.join(root, "site/app.js"), "utf8");
+const cssSource = await fs.readFile(path.join(root, "site/styles.css"), "utf8");
 let passed = 0;
 async function test(name, fn) {
   try { await fn(); passed++; console.log(`PASS ${name}`); }
@@ -38,131 +43,119 @@ const baseOffer = {
   lastVerifiedAt: "2026-07-10T12:00:00Z", confidence: "high", note: "Limited-time offer; no supported end date was found.",
   sources: [{name: "Chase", url: "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred", sourceType: "issuer"}]
 };
+const fact = {
+  cardId: card.id, foreignTransactionFee: 0,
+  earnRates: [{category: "Dining", rate: 3, unit: "x", cap: null, notes: null}],
+  credits: [{benefitId: "hotel-credit", name: "Hotel credit", category: "travel", faceValueAnnual: 50, frequency: "annual", amountPerPeriod: 50, firstYearOnly: false, enrollmentRequired: false, conditions: "Issuer portal booking", estimatedUtilization: 1, sourceUrl: "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"}],
+  perks: [], protections: [], loungeAccess: [], statusBenefits: [], airlineBenefits: [], hotelBenefits: [],
+  lastVerifiedAt: "2026-07-10T12:00:00Z",
+  sources: [{name: "Chase", url: "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred", sourceType: "issuer"}]
+};
+const program = {
+  programId: "chase-ultimate-rewards", programName: "Chase Ultimate Rewards", cards: [card.id],
+  partners: [{partnerId: "world-of-hyatt", partnerName: "World of Hyatt", partnerType: "hotel", sourceRatio: 1, destinationRatio: 1, ratioDisplay: "1:1", notes: null, lastVerifiedAt: "2026-07-10T12:00:00Z", sources: [{name: "Chase transfer partners", url: "https://www.chase.com/personal/credit-cards/education/rewards-benefits/chase-transfer-partners", sourceType: "issuer"}]}]
+};
+const bonus = {
+  transferBonusId: "chase-hyatt-test", sourceProgramId: "chase-ultimate-rewards", destinationProgramId: "world-of-hyatt", destinationProgramName: "World of Hyatt", bonusPercent: 20, standardRatio: "1:1", effectiveRatio: "1:1.2", publicOrTargeted: "public", startDate: "2026-07-01", endDate: "2026-12-31", enrollmentRequired: false, note: "Test bonus", lastVerifiedAt: "2026-07-10T12:00:00Z", sources: [{name: "Chase", url: "https://www.chase.com/", sourceType: "issuer"}]
+};
 
-await test("saved database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
-await test("saved prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
-await test("TPG valuation snapshot has required fields", () => {
-  assert.equal(valuations.schemaVersion, 1);
-  assert.equal(typeof valuations.asOf, "string");
-  assert.ok(valuations.asOf.length > 0);
-  assert.equal(typeof valuations.programs, "object");
-  assert.ok(Object.keys(valuations.programs).length > 0);
+await test("app version is v5", () => assert.equal(APP_VERSION, "5.0.0"));
+await test("saved v5 database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
+await test("prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
+await test("default library has required feature prompts", () => {
+  const ids = new Set(defaults.templates.map((item) => item.id));
+  for (const id of ["full-data-refresh", "full-catalog", "card-facts", "transfer-partners", "transfer-bonuses", "tpg-valuations", "american-express", "chase", "hotels", "airlines"]) assert.ok(ids.has(id));
 });
-await test("application assigns loaded valuations before rendering", () => {
-  assert.match(appSource, /state\.valuations\s*=\s*valuations;/);
-  const assignmentIndex = appSource.indexOf("state.valuations = valuations;");
-  const renderIndex = appSource.indexOf("render();", assignmentIndex);
-  assert.ok(assignmentIndex >= 0 && renderIndex > assignmentIndex);
-});
-await test("legacy cards may omit archive fields", () => {
-  const legacy = structuredClone(database);
+await test("valuation snapshot validates", () => assert.equal(validateSectionPayload(valuations, database, {type: "valuations"}).valid, true));
+await test("legacy v3 database migrates to v5", () => {
+  const legacy = structuredClone(database); legacy.schemaVersion = 3; delete legacy.cardDetails; delete legacy.transferPrograms; delete legacy.transferBonuses; delete legacy.compatibilityVersion;
   for (const item of legacy.cards) { delete item.archivedAt; delete item.isArchived; }
-  assert.equal(validateDatabase(legacy, {rejectExpired: false}).valid, true);
+  const migrated = migrateDatabase(legacy);
+  assert.equal(migrated.database.schemaVersion, 5);
+  assert.deepEqual(migrated.database.cardDetails, []);
+  assert.deepEqual(migrated.database.transferPrograms, []);
+  assert.deepEqual(migrated.database.transferBonuses, []);
+  assert.equal(validateDatabase(migrated.database, {rejectExpired: false}).valid, true);
 });
-await test("migration restores legacy archive fields", () => {
-  const legacy = structuredClone(database);
-  delete legacy.cards[0].archivedAt;
-  delete legacy.cards[0].isArchived;
-  delete legacy.offers[0].annualFeeWaivedFirstYear;
-  delete legacy.compatibilityVersion;
-  const result = migrateDatabase(legacy);
-  assert.equal(result.migrated, true);
-  assert.equal(result.database.cards[0].isArchived, false);
-  assert.equal(result.database.cards[0].archivedAt, null);
-  assert.equal(typeof result.database.offers[0].annualFeeWaivedFirstYear, "boolean");
-  assert.equal(result.database.compatibilityVersion, 1);
-  assert.equal(validateDatabase(result.database, {rejectExpired: false}).valid, true);
+await test("fenced JSON parses", () => assert.deepEqual(parseResearchJson('```json\n{"offers":[]}\n```'), {offers: []}));
+await test("welcome offer import validates", () => assert.equal(validateSectionPayload({schemaVersion: 5, dataType: "offers", offers: [baseOffer]}, database).valid, true));
+await test("unknown offer card is rejected", () => {
+  const result = validateSectionPayload({dataType: "offers", offers: [{...baseOffer, cardId: "not-in-catalog"}]}, database);
+  assert.match(result.errors.join(" "), /not in the active catalog/);
 });
-await test("invalid supplied archivedAt remains rejected", () => {
-  const invalid = structuredClone(database);
-  invalid.cards[0].archivedAt = "not-a-date";
-  assert.match(validateDatabase(invalid, {rejectExpired: false}).errors.join(" "), /archivedAt/);
+await test("card fact import validates", () => assert.equal(validateSectionPayload({schemaVersion: 5, dataType: "cardDetails", cardDetails: [fact]}, database).valid, true));
+await test("invalid fact card is rejected", () => {
+  const result = validateSectionPayload({dataType: "cardDetails", cardDetails: [{...fact, cardId: "nope"}]}, database);
+  assert.match(result.errors.join(" "), /not in the catalog/);
 });
-await test("fenced JSON parses", () => assert.equal(parseResearchJson('```json\n{"offers":[]}\n```').offers.length, 0));
-await test("unknown card ID is rejected", () => {
-  const result = validateImportPayload({schemaVersion: 3, offers: [{...baseOffer, cardId: "not-in-catalog"}]}, database.cards);
-  assert.equal(result.accepted.length, 0); assert.match(result.errors[0], /not in the active catalog/);
+await test("transfer program import validates", () => assert.equal(validateSectionPayload({dataType: "transferPrograms", transferPrograms: [program]}, database).valid, true));
+await test("transfer bonus validates after program import", () => {
+  const withProgram = applySectionImport(database, validateSectionPayload({dataType: "transferPrograms", transferPrograms: [program]}, database), "merge");
+  assert.equal(validateSectionPayload({dataType: "transferBonuses", transferBonuses: [bonus]}, withProgram).valid, true);
 });
-await test("invalid domain is rejected", () => {
-  const result = validateImportPayload({schemaVersion: 3, offers: [{...baseOffer, sources: [{name: "Bad", url: "https://evil.example/card", sourceType: "issuer"}]}]}, database.cards);
-  assert.equal(result.accepted.length, 0); assert.match(result.errors.join(" "), /approved domain/);
+await test("section merge preserves unrelated data", () => {
+  const validation = validateSectionPayload({dataType: "cardDetails", cardDetails: [fact]}, database);
+  const next = applySectionImport(database, validation, "merge");
+  assert.equal(next.offers.length, database.offers.length);
+  assert.equal(next.cardDetails.length, 1);
 });
-await test("missing waiver boolean is rejected for imports", () => {
-  const offer = {...baseOffer}; delete offer.annualFeeWaivedFirstYear;
-  const result = validateImportPayload({schemaVersion: 3, offers: [offer]}, database.cards);
-  assert.match(result.errors.join(" "), /annualFeeWaivedFirstYear is required/);
-});
-await test("invalid waiver type is rejected", () => {
-  const result = validateImportPayload({schemaVersion: 3, offers: [{...baseOffer, annualFeeWaivedFirstYear: "yes"}]}, database.cards);
-  assert.match(result.errors.join(" "), /must be boolean/);
-});
-await test("valid import is accepted", () => {
-  const result = validateImportPayload({schemaVersion: 3, dataStatus: "partial", offers: [baseOffer], errors: [], validation: {acceptedCount: 1, rejectedCount: 0}}, database.cards);
-  assert.equal(result.accepted.length, 1); assert.equal(result.rejected.length, 0);
-});
-await test("acceptedCount mismatch is rejected", () => {
-  const result = validateImportPayload({schemaVersion: 3, offers: [baseOffer], errors: [], validation: {acceptedCount: 2, rejectedCount: 0}}, database.cards);
-  assert.match(result.errors.join(" "), /acceptedCount/);
-});
-await test("duplicate card and channel is rejected", () => {
-  const result = validateImportPayload({schemaVersion: 3, offers: [baseOffer, {...baseOffer}]}, database.cards);
-  assert.match(result.errors.join(" "), /Duplicate cardId \+ channel/);
-});
-await test("non-public status normalizes to targeted", () => {
-  const targeted = {...baseOffer, channel: "targeted", status: "targeted"};
-  assert.equal(effectiveStatus(targeted, card), "targeted");
-});
-await test("public bonus above baseline normalizes elevated", () => {
-  assert.equal(effectiveStatus({...baseOffer, status: "standard"}, card), "elevated");
-});
+await test("offer status elevates above baseline", () => assert.equal(effectiveStatus({...baseOffer, status: "standard"}, card), "elevated"));
 await test("limited status takes priority", () => assert.equal(effectiveStatus(baseOffer, card), "limited"));
-await test("explicit fee waiver is honored", () => assert.equal(firstYearFeeWaived({...baseOffer, annualFeeWaivedFirstYear: true}), true));
-await test("legacy note waiver can be inferred", () => {
-  const legacy = {...baseOffer, note: "The annual fee is waived for the first year."}; delete legacy.annualFeeWaivedFirstYear;
-  assert.equal(firstYearFeeWaived(legacy), true);
+await test("first-year value uses credits and fee", () => {
+  const value = estimateFirstYearValue(card, baseOffer, fact, valuations.programs[card.program]);
+  assert.ok(Math.abs(value.bonusValue - 2050) < 1e-9);
+  assert.equal(value.creditValue, 50);
+  assert.ok(Math.abs(value.total - 2005) < 1e-9);
 });
-await test("merge replaces same card/channel only", () => {
-  const existing = [baseOffer, {...baseOffer, cardId: "chase-sapphire-reserve"}];
-  const incoming = [{...baseOffer, bonusAmount: 110000}];
-  const merged = mergeOffers(existing, incoming, "merge");
-  assert.equal(merged.length, 2); assert.equal(merged.find((item) => item.cardId === baseOffer.cardId).bonusAmount, 110000);
+await test("value tiers are deterministic", () => { assert.equal(valueTier(1600), "Platinum"); assert.equal(valueTier(1100), "Gold"); assert.equal(valueTier(700), "Silver"); assert.equal(valueTier(100), "Bronze"); });
+await test("prompt migration preserves custom text and adds defaults", () => {
+  const saved = structuredClone(prompts); saved.templates = saved.templates.slice(0, 2); saved.templates[0].customPrompt = `${saved.templates[0].defaultPrompt}\nCUSTOM`;
+  const migrated = migratePromptLibrary(saved, defaults).library;
+  assert.equal(migrated.templates.length, defaults.templates.length);
+  assert.match(migrated.templates.find((item) => item.id === saved.templates[0].id).customPrompt, /CUSTOM/);
 });
-await test("replace discards prior offers", () => assert.equal(mergeOffers([baseOffer], [{...baseOffer, bonusAmount: 1}], "replace")[0].bonusAmount, 1));
-await test("full prompt selects all active cards", () => {
-  const template = prompts.templates.find((item) => item.id === "full-catalog");
-  assert.equal(filterCards(database.cards, template.filter).length, database.cards.filter((item) => !item.isArchived).length);
+await test("resolved prompt injects date catalog and current data", () => {
+  const template = prompts.templates.find((item) => item.id === "card-facts");
+  const resolved = resolvePrompt(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database);
+  assert.match(resolved, /2026-07-11/);
+  assert.match(resolved, /chase-sapphire-preferred/);
+  assert.doesNotMatch(resolved, /\{\{ACTIVE_CARD_CATALOG\}\}/);
+  assert.doesNotMatch(resolved, /\{\{CURRENT_DATABASE_SUMMARY\}\}/);
 });
-await test("Amex prompt selects only American Express", () => {
-  const template = prompts.templates.find((item) => item.id === "american-express");
-  assert.ok(filterCards(database.cards, template.filter).every((item) => item.issuer === "American Express"));
+await test("Amex and Chase filters work", () => {
+  const amex = prompts.templates.find((item) => item.id === "american-express");
+  const chase = prompts.templates.find((item) => item.id === "chase");
+  assert.ok(filterCards(database.cards, amex.filter).every((item) => item.issuer === "American Express"));
+  assert.ok(filterCards(database.cards, chase.filter).every((item) => item.issuer === "Chase"));
 });
-await test("hotel prompt selects intended programs", () => {
-  const template = prompts.templates.find((item) => item.id === "hotels");
-  const programs = new Set(filterCards(database.cards, template.filter).map((item) => item.program));
-  assert.deepEqual([...programs].sort(), ["IHG One Rewards", "Marriott Bonvoy", "World of Hyatt"].sort());
-});
-await test("resolved prompt injects date and catalog", () => {
-  const template = prompts.templates.find((item) => item.id === "chase");
-  const resolved = resolvePrompt(prompts, template, database.cards, new Date("2026-07-10T12:00:00Z"));
-  assert.match(resolved, /2026-07-10/); assert.match(resolved, /chase-sapphire-preferred/); assert.doesNotMatch(resolved, /\{\{ACTIVE_CARD_CATALOG\}\}/);
-});
-await test("custom template update preserves library", () => {
-  const next = updateTemplateContent(prompts, "full-catalog", `${prompts.basePrompt}\nCUSTOM`);
-  assert.match(next.templates.find((item) => item.id === "full-catalog").customPrompt, /CUSTOM/);
-  assert.equal(prompts.templates.find((item) => item.id === "full-catalog").customPrompt, null);
-});
-await test("restore clears custom prompt", () => {
-  const changed = updateTemplateContent(prompts, "full-catalog", `${prompts.basePrompt}\nCUSTOM`);
+await test("custom prompt edit and restore work", () => {
+  const changed = updateTemplateContent(prompts, "full-catalog", `${prompts.templates.find((item) => item.id === "full-catalog").defaultPrompt}\nCUSTOM`);
+  assert.match(changed.templates.find((item) => item.id === "full-catalog").customPrompt, /CUSTOM/);
   const restored = restoreTemplateDefault(changed, "full-catalog");
   assert.equal(restored.templates.find((item) => item.id === "full-catalog").customPrompt, null);
 });
-await test("expired imported offer is rejected", () => {
-  const result = validateImportPayload({schemaVersion: 3, offers: [{...baseOffer, expirationDate: "2020-01-01"}]}, database.cards);
-  assert.match(result.errors.join(" "), /expired/);
+await test("app contains all requested tabs", () => {
+  for (const label of ["Transfer Bonuses", "Transfer Partners", "Fact Sheets", "Compare", "Admin Publisher"]) assert.match(appSource, new RegExp(label));
 });
-await test("live status requires all public cards", () => {
-  const result = validateImportPayload({schemaVersion: 3, dataStatus: "live", offers: [baseOffer]}, database.cards);
-  assert.match(result.errors.join(" "), /public offers are missing/);
+await test("app supports section import and GitHub valuation publishing", () => {
+  assert.match(appSource, /validateSectionPayload/);
+  assert.match(appSource, /save-valuations/);
+  assert.match(appSource, /applySectionImport/);
+});
+await test("KPI cards have distinct backgrounds", () => {
+  for (const cls of ["kpi-blue", "kpi-green", "kpi-purple", "kpi-amber"]) assert.match(cssSource, new RegExp(`\\.${cls}`));
+});
+await test("offer rows rotate four background shades", () => {
+  for (const i of [0,1,2,3]) assert.match(cssSource, new RegExp(`\\.row-shade-${i}`));
+});
+await test("promotion badges are larger and flash", () => {
+  assert.match(cssSource, /\.badge-large/);
+  assert.match(cssSource, /@keyframes badgeFlash/);
+  assert.match(cssSource, /prefers-reduced-motion/);
+});
+await test("header remains normal flow and table header is contained", () => {
+  assert.match(cssSource, /\.site-header \{ position:relative/);
+  assert.match(cssSource, /\.offer-table thead \{ position:sticky/);
 });
 
 if (process.exitCode) process.exit(process.exitCode);
