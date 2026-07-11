@@ -1,4 +1,4 @@
-export const APP_VERSION = "5.1.0";
+export const APP_VERSION = "5.2.0";
 export const SCHEMA_VERSION = 5;
 export const LEGACY_OFFER_SCHEMA_VERSION = 3;
 export const DATABASE_COMPATIBILITY_VERSION = 2;
@@ -179,9 +179,16 @@ export function validateCardDetail(item, cardsById, index = 0) {
   for (const field of ["earnRates", "credits", "perks", "protections", "loungeAccess", "statusBenefits", "airlineBenefits", "hotelBenefits", "sources"]) {
     if (!Array.isArray(item[field])) errors.push(`${p}.${field} must be an array.`);
   }
+  const benefitArrays = ["credits", "perks", "protections", "loungeAccess", "statusBenefits", "airlineBenefits", "hotelBenefits"];
+  benefitArrays.forEach((field) => (item[field] || []).forEach((benefit, i) => {
+    const bp = `${p}.${field}[${i}]`;
+    if (!isPlainObject(benefit) || typeof benefit.name !== "string" || !benefit.name.trim()) errors.push(`${bp}.name is required.`);
+    if (benefit.isTopBenefit !== undefined && typeof benefit.isTopBenefit !== "boolean") errors.push(`${bp}.isTopBenefit must be boolean when provided.`);
+    if (benefit.isUniqueBenefit !== undefined && typeof benefit.isUniqueBenefit !== "boolean") errors.push(`${bp}.isUniqueBenefit must be boolean when provided.`);
+    if (benefit.displayOrder !== undefined && (!Number.isInteger(benefit.displayOrder) || benefit.displayOrder < 0)) errors.push(`${bp}.displayOrder must be a non-negative integer when provided.`);
+  }));
   (item.credits || []).forEach((credit, i) => {
     const cp = `${p}.credits[${i}]`;
-    if (!isPlainObject(credit) || typeof credit.name !== "string" || !credit.name.trim()) errors.push(`${cp}.name is required.`);
     if (!nonNegativeOrNull(credit.faceValueAnnual)) errors.push(`${cp}.faceValueAnnual must be non-negative or null.`);
     if (credit.estimatedUtilization !== undefined && (typeof credit.estimatedUtilization !== "number" || credit.estimatedUtilization < 0 || credit.estimatedUtilization > 1)) errors.push(`${cp}.estimatedUtilization must be 0 through 1.`);
   });

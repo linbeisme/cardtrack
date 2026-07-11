@@ -1,6 +1,6 @@
-# CardTrack v5.1.0 Update-Only Package
+# CardTrack v5.2.0 Update-Only Package
 
-Upload the contents of this folder into the root of the existing GitHub repository.
+Upload the contents of this folder to the root of the existing GitHub repository.
 
 This package intentionally excludes:
 
@@ -8,6 +8,6 @@ This package intentionally excludes:
 - `site/data/prompts.json`
 - `site/data/tpg-valuations.json`
 
-Your cards, offers, saved prompt edits, transfer data, and valuations remain intact. The new `site/data/default-prompts.json` is included so the saved Prompt Library can be migrated safely to schema v3.
+Your saved cards, offers, transfer data, fact sheets, prompt edits, and valuations are therefore preserved.
 
-Suggested commit message: `Upgrade CardTrack to v5.1.0`
+After deployment, open **Admin Publisher → Prompt Manager** and save the Prompt Library to GitHub once. This persists the revised Card Facts prompt that requests every benefit and marks top/unique benefits.

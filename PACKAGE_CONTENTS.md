@@ -1,4 +1,4 @@
-# Package Contents — CardTrack v5.1.0
+# Package Contents — CardTrack v5.2.0
 
 - `.github/workflows/update-and-deploy.yml` — validates and deploys GitHub Pages
 - `site/index.html` — static application shell
@@ -15,4 +15,4 @@
 - `tests/run-tests.mjs` — automated tests
 - `docs/UPDATE_INSTRUCTIONS.md` — beginner GitHub update directions
 - `docs/RESEARCH_JSON_FORMATS.md` — accepted import structures and workflow notes
-- `RELEASE_NOTES_v5.1.0.md` — v5.1 feature and compatibility details
+- `RELEASE_NOTES_v5.2.0.md` — v5.1 feature and compatibility details

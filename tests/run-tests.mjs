@@ -63,7 +63,7 @@ const bonus = {
   transferBonusId: "chase-hyatt-test", sourceProgramId: "chase-ultimate-rewards", destinationProgramId: "world-of-hyatt", destinationProgramName: "World of Hyatt", bonusPercent: 20, standardRatio: "1:1", effectiveRatio: "1:1.2", publicOrTargeted: "public", startDate: "2026-07-01", endDate: "2026-12-31", enrollmentRequired: false, note: "Test bonus", lastVerifiedAt: "2026-07-10T12:00:00Z", sources: [{name: "Chase", url: "https://www.chase.com/", sourceType: "issuer"}]
 };
 
-await test("app version is v5.1", () => assert.equal(APP_VERSION, "5.1.0"));
+await test("app version is v5.2", () => assert.equal(APP_VERSION, "5.2.0"));
 await test("saved v5 database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
 await test("prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
 await test("default library has required feature prompts", () => {
@@ -234,6 +234,54 @@ await test("theme toggle and yellow saved-template styling are present", () => {
   assert.match(appSource, /🌙/);
   assert.match(cssSource, /\.saved-template-select/);
   assert.match(cssSource, /#fff6c7/);
+});
+
+
+await test("navigation tabs are individually dark color coded", () => {
+  assert.match(appSource, /tab-\$\{id\}/);
+  for (const cls of ["tab-offers", "tab-transfer-bonuses", "tab-transfer-partners", "tab-fact-sheets", "tab-compare", "tab-archived", "tab-admin", "tab-methodology"]) {
+    assert.match(cssSource, new RegExp(`\.${cls}`));
+  }
+});
+await test("credit-card emoji favicon and bookmark title are present", async () => {
+  const html = await fs.readFile(path.join(root, "site/index.html"), "utf8");
+  const favicon = await fs.readFile(path.join(root, "site/favicon.svg"), "utf8");
+  assert.match(html, /💳 CardTrack/);
+  assert.match(html, /favicon\.svg/);
+  assert.match(favicon, /💳/);
+});
+await test("Admin Publisher sections have distinct background shades", () => {
+  for (const cls of ["admin-panel-import", "admin-panel-add", "admin-panel-manage", "admin-panel-publish"]) {
+    assert.match(appSource, new RegExp(cls));
+    assert.match(cssSource, new RegExp(`\.${cls}`));
+  }
+});
+await test("transfer bonuses show explicit expiration dates", () => {
+  assert.match(appSource, /Expiration date/);
+  assert.match(appSource, /transfer-expiration/);
+  assert.match(appSource, /Expires \$/);
+});
+await test("fact sheets list all benefits and prioritize top unique items", () => {
+  assert.match(appSource, /factBenefitRecords/);
+  assert.match(appSource, /Top & unique benefits/);
+  assert.match(appSource, /Other verified benefits/);
+  assert.doesNotMatch(appSource, /\.slice\(0, 7\)/);
+  assert.match(appSource, /isTopBenefit/);
+  assert.match(appSource, /isUniqueBenefit/);
+  assert.match(appSource, /fact-badges/);
+});
+await test("Card Facts prompt requests complete benefit inventories", () => {
+  const template = defaults.templates.find((item) => item.id === "card-facts");
+  assert.match(template.defaultPrompt, /Return EVERY currently verified recurring perk and benefit/);
+  assert.match(template.defaultPrompt, /isTopBenefit/);
+  assert.match(template.defaultPrompt, /isUniqueBenefit/);
+  assert.match(template.defaultPrompt, /displayOrder/);
+});
+await test("Current Offers KPI cards are clickable filters", () => {
+  assert.match(appSource, /data-action="filter-kpi"/);
+  assert.match(appSource, /state\.kpiFilter === "promotional"/);
+  assert.match(appSource, /state\.kpiFilter === "review"/);
+  assert.match(cssSource, /\.kpi-button\.selected/);
 });
 
 if (process.exitCode) process.exit(process.exitCode);

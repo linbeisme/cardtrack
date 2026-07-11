@@ -46,6 +46,7 @@ const state = {
   channel: "all",
   status: "all",
   sort: "promotions",
+  kpiFilter: "all",
   factQuery: "",
   partnerQuery: "",
   partnerView: "program",
@@ -227,6 +228,9 @@ function displayedOffers() {
       if (state.issuer !== "all" && card.issuer !== state.issuer) return false;
       if (state.channel !== "all" && offer.channel !== state.channel) return false;
       if (state.status !== "all" && effective !== state.status) return false;
+      if (state.kpiFilter === "promotional" && !["elevated", "limited"].includes(effective)) return false;
+      if (state.kpiFilter === "review" && effective !== "review") return false;
+      if (state.kpiFilter === "verified" && !offer.lastVerifiedAt) return false;
       if (query) {
         const haystack = `${card.name} ${card.issuer} ${card.program} ${offer.note}`.toLowerCase();
         if (!haystack.includes(query)) return false;
@@ -247,7 +251,7 @@ function displayedOffers() {
 function headerHtml() {
   return `<header class="site-header">
     <div class="header-inner">
-      <div class="brand"><div class="brand-mark">CT</div><div><div class="brand-title">CardTrack</div><div class="brand-subtitle">Offers, benefits, transfers and comparisons</div></div></div>
+      <div class="brand"><div class="brand-mark" aria-hidden="true">💳</div><div><div class="brand-title">CardTrack</div><div class="brand-subtitle">Offers, benefits, transfers and comparisons</div></div></div>
       <div class="header-actions">
         <span class="version-chip">App v${escapeHtml(APP_VERSION)} · Schema v${escapeHtml(schemaLabel())}</span>
         <span class="badge ${state.stagedDatabase.dataStatus === "live" ? "elevated" : "targeted"}">${escapeHtml(state.stagedDatabase.dataStatus.toUpperCase())} · ${escapeHtml(fmtDateTime(state.stagedDatabase.generatedAt))}</span>
@@ -269,11 +273,12 @@ function tabsHtml() {
     ["admin", "Admin Publisher"],
     ["methodology", "Methodology"]
   ];
-  return `<nav class="tabs" aria-label="CardTrack sections">${tabs.map(([id, label]) => `<button class="tab" data-tab="${id}" aria-selected="${state.tab === id}">${escapeHtml(label)}</button>`).join("")}</nav>`;
+  return `<nav class="tabs" aria-label="CardTrack sections">${tabs.map(([id, label]) => `<button class="tab tab-${id}" data-tab="${id}" aria-selected="${state.tab === id}">${escapeHtml(label)}</button>`).join("")}</nav>`;
 }
 
-function kpi(label, value, subtext, colorClass) {
-  return `<div class="kpi ${colorClass}"><div class="kpi-label">${escapeHtml(label)}</div><div class="kpi-value">${escapeHtml(value)}</div><div class="kpi-sub">${escapeHtml(subtext)}</div></div>`;
+function kpi(label, value, subtext, colorClass, filterValue) {
+  const selected = state.kpiFilter === filterValue;
+  return `<button type="button" class="kpi kpi-button ${colorClass} ${selected ? "selected" : ""}" data-action="filter-kpi" data-value="${escapeHtml(filterValue)}" aria-pressed="${selected}"><div class="kpi-label">${escapeHtml(label)}</div><div class="kpi-value">${escapeHtml(value)}</div><div class="kpi-sub">${escapeHtml(subtext)}</div><div class="kpi-click-hint">Click to filter</div></button>`;
 }
 
 function dashboardHtml() {
@@ -286,10 +291,10 @@ function dashboardHtml() {
   const rows = displayedOffers();
   return `<section>
     <div class="kpis">
-      ${kpi("Active cards", cards.length, "Archived cards excluded", "kpi-blue")}
-      ${kpi("Verified offers", offers.length, "Current saved records", "kpi-green")}
-      ${kpi("Elevated / limited", promotional.length, "Public promotional offers", "kpi-purple")}
-      ${kpi("Needs review", review.length, "Conflicts or weak support", "kpi-amber")}
+      ${kpi("Active cards", cards.length, "Archived cards excluded", "kpi-blue", "all")}
+      ${kpi("Verified offers", offers.length, "Current saved records", "kpi-green", "verified")}
+      ${kpi("Elevated / limited", promotional.length, "Public promotional offers", "kpi-purple", "promotional")}
+      ${kpi("Needs review", review.length, "Conflicts or weak support", "kpi-amber", "review")}
     </div>
     <div class="panel filters">
       <div class="field"><label for="filter-search">Search</label><input id="filter-search" data-filter="query" value="${escapeHtml(state.query)}" placeholder="Card, issuer, rewards program, or note"></div>
@@ -328,6 +333,49 @@ function offerRowHtml(card, offer, index) {
   </tr>`;
 }
 
+function factBenefitRecords(details) {
+  if (!details) return [];
+  const groups = [
+    ["credits", "Credit"],
+    ["loungeAccess", "Lounge"],
+    ["statusBenefits", "Status"],
+    ["airlineBenefits", "Airline"],
+    ["hotelBenefits", "Hotel"],
+    ["protections", "Protection"],
+    ["perks", "Perk"]
+  ];
+  const records = groups.flatMap(([field, type]) => (details[field] || []).map((item, index) => ({
+    ...item,
+    type,
+    sourceField: field,
+    originalIndex: index,
+    isTopBenefit: Boolean(item.isTopBenefit),
+    isUniqueBenefit: Boolean(item.isUniqueBenefit),
+    displayOrder: Number.isInteger(item.displayOrder) ? item.displayOrder : 999,
+    text: item.conditions || item.summary || (item.faceValueAnnual != null ? `${fmtMoney(item.faceValueAnnual)} maximum published annual face value` : "")
+  })));
+  const typeRank = {Credit: 0, Lounge: 1, Status: 2, Hotel: 3, Airline: 4, Protection: 5, Perk: 6};
+  records.sort((a, b) => {
+    const aRank = a.isUniqueBenefit ? 0 : a.isTopBenefit ? 1 : 2;
+    const bRank = b.isUniqueBenefit ? 0 : b.isTopBenefit ? 1 : 2;
+    return aRank - bRank || a.displayOrder - b.displayOrder || Number(b.faceValueAnnual || b.estimatedAnnualValue || 0) - Number(a.faceValueAnnual || a.estimatedAnnualValue || 0) || (typeRank[a.type] ?? 9) - (typeRank[b.type] ?? 9) || String(a.name).localeCompare(String(b.name));
+  });
+  if (records.length && !records.some((item) => item.isTopBenefit || item.isUniqueBenefit)) {
+    records.slice(0, Math.min(3, records.length)).forEach((item) => { item.isTopBenefit = true; item.isDerivedTop = true; });
+  }
+  return records;
+}
+
+function factBenefitItemHtml(item) {
+  const labels = [
+    item.isUniqueBenefit ? '<span class="benefit-flag unique">Unique</span>' : '',
+    item.isTopBenefit ? `<span class="benefit-flag top">${item.isDerivedTop ? "Top" : "Top benefit"}</span>` : '',
+    `<span class="benefit-type">${escapeHtml(item.type)}</span>`
+  ].filter(Boolean).join("");
+  const source = item.sourceUrl ? `<a class="benefit-source" href="${escapeHtml(item.sourceUrl)}" target="_blank" rel="noopener noreferrer" aria-label="Open source for ${escapeHtml(item.name)}">Source ↗</a>` : "";
+  return `<div class="benefit-item"><span class="benefit-check">✓</span><div class="benefit-content"><div class="benefit-title-row"><strong>${escapeHtml(item.name)}</strong><span class="benefit-flags">${labels}</span></div>${item.text ? `<div class="benefit-description">${escapeHtml(item.text)}</div>` : ""}${source}</div></div>`;
+}
+
 function factSheetsHtml() {
   const details = detailsMap();
   const query = state.factQuery.trim().toLowerCase();
@@ -344,18 +392,16 @@ function factSheetsHtml() {
 
 function factCardHtml(card, details, index) {
   const offer = primaryOffer(card.id);
+  const effective = offer ? effectiveStatus(offer, card) : "review";
   const cash = cashValue(card, offer);
   const estimate = firstYearSummary(card);
   const tier = valueTier(estimate.total);
-  const benefits = [
-    ...(details?.credits || []).map((item) => ({name: item.name, text: item.conditions || `${fmtMoney(item.faceValueAnnual)} annual face value`})),
-    ...(details?.perks || []).map((item) => ({name: item.name, text: item.summary})),
-    ...(details?.loungeAccess || []).map((item) => ({name: item.name, text: item.summary})),
-    ...(details?.airlineBenefits || []).map((item) => ({name: item.name, text: item.summary})),
-    ...(details?.hotelBenefits || []).map((item) => ({name: item.name, text: item.summary}))
-  ].slice(0, 7);
+  const benefits = factBenefitRecords(details);
+  const featured = benefits.filter((item) => item.isTopBenefit || item.isUniqueBenefit);
+  const remaining = benefits.filter((item) => !item.isTopBenefit && !item.isUniqueBenefit);
+  const flash = ["elevated", "limited"].includes(effective) ? "flash" : "";
   return `<article class="fact-card shade-${index % 4}">
-    <div class="fact-card-header"><div><h3>${escapeHtml(card.name)}</h3><div class="subtext">${escapeHtml(card.issuer)} · ${escapeHtml(card.program)}</div></div><span class="tier tier-${tier.toLowerCase()}">${tier}</span></div>
+    <div class="fact-card-header"><div><h3>${escapeHtml(card.name)}</h3><div class="subtext">${escapeHtml(card.issuer)} · ${escapeHtml(card.program)}</div></div><div class="fact-badges"><span class="badge badge-medium ${effective} ${flash}">${escapeHtml(statusLabel(effective))}</span><span class="tier tier-${tier.toLowerCase()}">${tier}</span></div></div>
     <dl class="fact-metrics">
       <div><dt>Bonus</dt><dd>${offer ? `${fmtNumber(offer.bonusAmount)} ${escapeHtml(offer.bonusUnit)}` : "—"}</dd></div>
       <div><dt>Bonus value</dt><dd class="cash-estimate">${cash ? fmtMoney(cash.value) : "—"}</dd></div>
@@ -364,7 +410,7 @@ function factCardHtml(card, details, index) {
       <div><dt>Annual fee</dt><dd>${fmtMoney(offer?.annualFee ?? card.annualFee)}${offer && firstYearFeeWaived(offer) ? " · first year waived" : ""}</dd></div>
       <div class="net-value"><dt>Est. 1-yr value</dt><dd>${fmtMoney(estimate.total)}</dd></div>
     </dl>
-    ${details ? `<div class="benefit-list"><div class="eyebrow">Major verified benefits</div>${benefits.length ? benefits.map((item) => `<div class="benefit-item"><span>✓</span><div><strong>${escapeHtml(item.name)}</strong>${item.text ? `<div>${escapeHtml(item.text)}</div>` : ""}</div></div>`).join("") : `<div class="subtext">No benefit items were returned.</div>`}</div>` : `<div class="missing-data">No fact-sheet import yet. Use the Card Facts & Benefits prompt in Admin Publisher.</div>`}
+    ${details ? `<div class="benefit-list">${featured.length ? `<div class="benefit-section featured-benefits"><div class="eyebrow">Top & unique benefits</div>${featured.map(factBenefitItemHtml).join("")}</div>` : ""}<div class="benefit-section all-benefits"><div class="eyebrow">${featured.length ? "Other verified benefits" : "All verified benefits"}</div>${remaining.length ? remaining.map(factBenefitItemHtml).join("") : (!featured.length ? `<div class="subtext">No benefit items were returned.</div>` : `<div class="subtext">All verified items are highlighted above.</div>`)}</div></div>` : `<div class="missing-data">No fact-sheet import yet. Use the Card Facts & Benefits prompt in Admin Publisher.</div>`}
     <a class="button primary fact-apply" href="${escapeHtml(card.applyUrl)}" target="_blank" rel="noopener noreferrer">Apply / issuer page ↗</a>
   </article>`;
 }
@@ -430,7 +476,7 @@ function countdown(endDate) {
 }
 
 function transferBonusGroupHtml(id, program, bonuses) {
-  return `<article class="program-card bonus-program"><div class="program-header"><div><h3>${escapeHtml(program?.programName || id)}</h3></div><span class="count-chip ${bonuses.length ? "active-count" : ""}">${bonuses.length ? `${bonuses.length} active` : "No active bonus"}</span></div>${bonuses.length ? `<div class="table-shell compact-table"><table><thead><tr><th>Transfer partner</th><th>Regular</th><th>Bonus</th><th>Effective</th><th>Ends in</th><th>Channel</th></tr></thead><tbody>${bonuses.map((bonus, index) => `<tr class="row-shade-${index % 4}"><td><strong>${escapeHtml(bonus.destinationProgramName)}</strong><div class="subtext">${escapeHtml(bonus.note || "")}</div></td><td>${escapeHtml(bonus.standardRatio)}</td><td class="bonus-percent">+${fmtNumber(bonus.bonusPercent)}%</td><td class="cash-estimate">${escapeHtml(bonus.effectiveRatio)}</td><td><strong>${escapeHtml(countdown(bonus.endDate))}</strong><div class="subtext">${escapeHtml(fmtDate(bonus.endDate))}</div></td><td><span class="badge badge-medium ${bonus.publicOrTargeted === "public" ? "standard" : "targeted"}">${escapeHtml(statusLabel(bonus.publicOrTargeted))}</span></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty compact-empty">No transfer bonus running right now. Points transfer at standard ratios.</div>`}</article>`;
+  return `<article class="program-card bonus-program"><div class="program-header"><div><h3>${escapeHtml(program?.programName || id)}</h3></div><span class="count-chip ${bonuses.length ? "active-count" : ""}">${bonuses.length ? `${bonuses.length} active` : "No active bonus"}</span></div>${bonuses.length ? `<div class="table-shell compact-table"><table><thead><tr><th>Transfer partner</th><th>Regular</th><th>Bonus</th><th>Effective</th><th>Expiration date</th><th>Channel</th></tr></thead><tbody>${bonuses.map((bonus, index) => `<tr class="row-shade-${index % 4}"><td><strong>${escapeHtml(bonus.destinationProgramName)}</strong><div class="subtext">${escapeHtml(bonus.note || "")}</div></td><td>${escapeHtml(bonus.standardRatio)}</td><td class="bonus-percent">+${fmtNumber(bonus.bonusPercent)}%</td><td class="cash-estimate">${escapeHtml(bonus.effectiveRatio)}</td><td><div class="transfer-expiration">Expires ${escapeHtml(fmtDate(bonus.endDate))}</div><div class="subtext">${escapeHtml(countdown(bonus.endDate))} remaining</div></td><td><span class="badge badge-medium ${bonus.publicOrTargeted === "public" ? "standard" : "targeted"}">${escapeHtml(statusLabel(bonus.publicOrTargeted))}</span></td></tr>`).join("")}</tbody></table></div>` : `<div class="empty compact-empty">No transfer bonus running right now. Points transfer at standard ratios.</div>`}</article>`;
 }
 
 function compareHtml() {
@@ -475,14 +521,14 @@ function adminHtml() {
   const active = activeCards();
   return `<section class="admin-grid">
     <div class="full-span"><div class="panel-header"><div><h2>Admin Publisher</h2><p>Generate research prompts, validate section-based JSON, preview imports, and publish to GitHub.</p></div><button class="button purple" data-action="open-prompts">✨ Prompt Manager</button></div><div class="security-rule"><strong>Security rule:</strong> Use a fine-grained GitHub token restricted to this repository with only Contents: Read and write. CardTrack never stores the token.</div>${migrationNoticeHtml()}</div>
-    <div class="panel full-span"><div class="panel-header"><div><h3>1. Import researched JSON</h3><p>CardTrack can import welcome offers, fact sheets, transfer partners, transfer bonuses, CPP valuations, or a complete v5 dataset.</p></div><button class="button purple small" data-action="open-prompts">✨</button></div>
+    <div class="panel full-span admin-panel admin-panel-import"><div class="panel-header"><div><h3>1. Import researched JSON</h3><p>CardTrack can import welcome offers, fact sheets, transfer partners, transfer bonuses, CPP valuations, or a complete v5 dataset.</p></div><button class="button purple small" data-action="open-prompts">✨</button></div>
       <div class="filters admin-import-controls"><div class="field"><label>Import type</label><select id="import-type"><option value="auto" ${state.importType === "auto" ? "selected" : ""}>Auto-detect</option><option value="offers" ${state.importType === "offers" ? "selected" : ""}>Welcome offers</option><option value="cardDetails" ${state.importType === "cardDetails" ? "selected" : ""}>Card facts & benefits</option><option value="transferPrograms" ${state.importType === "transferPrograms" ? "selected" : ""}>Transfer partners</option><option value="transferBonuses" ${state.importType === "transferBonuses" ? "selected" : ""}>Transfer bonuses</option><option value="valuations" ${state.importType === "valuations" ? "selected" : ""}>TPG valuations</option><option value="complete" ${state.importType === "complete" ? "selected" : ""}>Complete dataset</option></select></div><div class="field"><label>Import mode</label><select id="import-mode"><option value="merge" ${state.importMode === "merge" ? "selected" : ""}>Merge / preserve unaffected data</option><option value="replace" ${state.importMode === "replace" ? "selected" : ""}>Replace selected section</option></select></div></div>
       <textarea id="import-json" placeholder='Paste the complete JSON object here, starting with {'>${escapeHtml(state.importText)}</textarea>
       <div class="button-row" style="margin-top:10px"><button class="button primary" data-action="validate-import">Validate JSON</button><button class="button" data-action="clear-import">Clear</button><button class="button" data-action="download-backup">Download Full Backup</button></div>${validationHtml(state.validation)}
     </div>
-    <div class="panel"><h3>2. Add a new card</h3><p class="subtext">Adds a card to the staged catalog. Use issuer data and verify all values.</p><form id="add-card-form"><div class="field"><label>Card name</label><input name="name" required></div><div class="filters two-col"><div class="field"><label>Issuer</label><input name="issuer" required></div><div class="field"><label>Rewards program</label><input name="program" required></div></div><div class="filters three-col"><div class="field"><label>Annual fee</label><input name="annualFee" type="number" min="0" value="0" required></div><div class="field"><label>Baseline offer</label><input name="baselineOffer" type="number" min="0" value="0" required></div><div class="field"><label>Historical high</label><input name="historicalHigh" type="number" min="0"></div></div><div class="field"><label>Bonus unit</label><select name="bonusUnit"><option>points</option><option>miles</option><option>cash</option><option>free-night certificate points</option></select></div><div class="field"><label>Official issuer URL</label><input name="applyUrl" type="url" required placeholder="https://..."></div><button class="button primary" style="margin-top:12px" type="submit">Add Card</button></form></div>
-    <div class="panel"><h3>3. Card management</h3><p class="subtext">Archive active cards to hide them from views and research prompts.</p><div class="card-list">${active.map((card) => `<div class="card-list-item"><div><strong>${escapeHtml(card.name)}</strong><div class="subtext">${escapeHtml(card.issuer)} · ${escapeHtml(card.program)} · ${fmtMoney(card.annualFee)}/yr</div></div><button class="button danger small" data-action="archive-card" data-card-id="${escapeHtml(card.id)}">Hide / Archive</button></div>`).join("")}</div></div>
-    <div class="panel full-span"><h3>4. Publish staged files to GitHub</h3><p class="subtext">Database and TPG valuation changes are saved separately. Prompt edits are saved from Prompt Manager.</p>${repositoryFields()}<div class="field" style="margin-top:10px"><label for="github-token">Fine-grained GitHub token</label><input id="github-token" type="password" autocomplete="off" placeholder="Paste only when testing or saving"></div><div class="button-row" style="margin-top:12px"><button class="button" data-action="test-repo">Test Repository Access</button><button class="button green" data-action="save-database">Save Database to GitHub</button><button class="button green" data-action="save-valuations">Save TPG Valuations to GitHub</button></div><div id="github-status" class="validation-strip">The token field is cleared after every GitHub attempt.</div></div>
+    <div class="panel admin-panel admin-panel-add"><h3>2. Add a new card</h3><p class="subtext">Adds a card to the staged catalog. Use issuer data and verify all values.</p><form id="add-card-form"><div class="field"><label>Card name</label><input name="name" required></div><div class="filters two-col"><div class="field"><label>Issuer</label><input name="issuer" required></div><div class="field"><label>Rewards program</label><input name="program" required></div></div><div class="filters three-col"><div class="field"><label>Annual fee</label><input name="annualFee" type="number" min="0" value="0" required></div><div class="field"><label>Baseline offer</label><input name="baselineOffer" type="number" min="0" value="0" required></div><div class="field"><label>Historical high</label><input name="historicalHigh" type="number" min="0"></div></div><div class="field"><label>Bonus unit</label><select name="bonusUnit"><option>points</option><option>miles</option><option>cash</option><option>free-night certificate points</option></select></div><div class="field"><label>Official issuer URL</label><input name="applyUrl" type="url" required placeholder="https://..."></div><button class="button primary" style="margin-top:12px" type="submit">Add Card</button></form></div>
+    <div class="panel admin-panel admin-panel-manage"><h3>3. Card management</h3><p class="subtext">Archive active cards to hide them from views and research prompts.</p><div class="card-list">${active.map((card) => `<div class="card-list-item"><div><strong>${escapeHtml(card.name)}</strong><div class="subtext">${escapeHtml(card.issuer)} · ${escapeHtml(card.program)} · ${fmtMoney(card.annualFee)}/yr</div></div><button class="button danger small" data-action="archive-card" data-card-id="${escapeHtml(card.id)}">Hide / Archive</button></div>`).join("")}</div></div>
+    <div class="panel full-span admin-panel admin-panel-publish"><h3>4. Publish staged files to GitHub</h3><p class="subtext">Database and TPG valuation changes are saved separately. Prompt edits are saved from Prompt Manager.</p>${repositoryFields()}<div class="field" style="margin-top:10px"><label for="github-token">Fine-grained GitHub token</label><input id="github-token" type="password" autocomplete="off" placeholder="Paste only when testing or saving"></div><div class="button-row" style="margin-top:12px"><button class="button" data-action="test-repo">Test Repository Access</button><button class="button green" data-action="save-database">Save Database to GitHub</button><button class="button green" data-action="save-valuations">Save TPG Valuations to GitHub</button></div><div id="github-status" class="validation-strip">The token field is cleared after every GitHub attempt.</div></div>
   </section>`;
 }
 
@@ -566,6 +612,7 @@ function bindEvents() {
   document.querySelectorAll("[data-action]").forEach((button) => button.addEventListener("click", handleAction));
   document.querySelectorAll("[data-filter]").forEach((input) => input.addEventListener(input.tagName === "INPUT" ? "input" : "change", () => {
     state[input.dataset.filter] = input.value;
+    state.kpiFilter = "all";
     if (input.tagName === "INPUT") renderPreserveFocus(input.id, input.selectionStart); else render();
   }));
   document.querySelectorAll("[data-repo]").forEach((input) => input.addEventListener("input", () => { state.repository[input.dataset.repo] = input.value.trim(); }));
@@ -649,6 +696,14 @@ async function handleAction(event) {
       state.promptStage = event.currentTarget.dataset.value === "json" ? "json" : "research";
       localStorage.setItem("cardtrack-prompt-stage", state.promptStage);
       render();
+    } else if (action === "filter-kpi") {
+      state.kpiFilter = event.currentTarget.dataset.value || "all";
+      state.query = "";
+      state.issuer = "all";
+      state.channel = "all";
+      state.status = "all";
+      render();
+      toast(state.kpiFilter === "all" ? "Showing all active-card offers." : state.kpiFilter === "verified" ? "Showing verified offers." : state.kpiFilter === "promotional" ? "Showing elevated and limited-time offers." : "Showing offers that need review.");
     } else if (action === "reload") {
       if ((state.promptDirty || JSON.stringify(state.stagedDatabase) !== JSON.stringify(state.database)) && !confirm("Reloading will discard staged browser changes. Continue?")) return;
       await initialize(); toast("Reloaded the latest GitHub Pages data.");
