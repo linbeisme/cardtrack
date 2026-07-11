@@ -1,13 +1,11 @@
-# CardTrack v4.1 Update-Only Package
+# Package Contents — CardTrack v4.1.1
 
-This ZIP contains only files changed for the v4.1 backward-compatibility release:
+- GitHub Pages workflow: `.github/workflows/update-and-deploy.yml`
+- App: `site/index.html`, `site/app.js`, `site/styles.css`
+- Libraries: `site/lib/*.mjs`
+- Data: `site/data/cardtrack.json`, `site/data/prompts.json`, `site/data/tpg-valuations.json`
+- Validation: `scripts/validate-data.mjs`
+- Tests: `tests/run-tests.mjs`
+- Documentation and release notes
 
-- `.github/workflows/update-and-deploy.yml`
-- `site/app.js`
-- `site/styles.css`
-- `site/lib/schema.mjs`
-- `scripts/validate-data.mjs`
-- `tests/run-tests.mjs`
-- version, validation, release-note, and update-instruction files
-
-It does not contain `site/data/cardtrack.json`, `site/data/prompts.json`, or `site/data/tpg-valuations.json`.
+The v4.1.1 hotfix update-only package omits all data files so it cannot overwrite the live database, saved prompts, or valuation snapshot.

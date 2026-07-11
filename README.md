@@ -1,4 +1,4 @@
-# CardTrack v4.1 — Backward-Compatible Prompt Manager Upgrade
+# CardTrack v4.1.1 — Backward-Compatible Prompt Manager Upgrade
 
 CardTrack is a dependency-free GitHub Pages application for researching, validating, staging, and publishing U.S. credit-card welcome offers.
 
@@ -18,7 +18,7 @@ CardTrack is a dependency-free GitHub Pages application for researching, validat
 
 Use the update-only ZIP. It intentionally excludes `site/data/cardtrack.json`, so it preserves the live card and offer database. Upload the package contents to the repository root and overwrite matching files.
 
-The critical v4.1 files are:
+The critical v4.1.1 files are:
 
 ```text
 site/lib/schema.mjs

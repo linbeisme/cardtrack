@@ -22,6 +22,8 @@ import {
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
 const database = JSON.parse(await fs.readFile(path.join(root, "site/data/cardtrack.json"), "utf8"));
 const prompts = JSON.parse(await fs.readFile(path.join(root, "site/data/prompts.json"), "utf8"));
+const valuations = JSON.parse(await fs.readFile(path.join(root, "site/data/tpg-valuations.json"), "utf8"));
+const appSource = await fs.readFile(path.join(root, "site/app.js"), "utf8");
 let passed = 0;
 async function test(name, fn) {
   try { await fn(); passed++; console.log(`PASS ${name}`); }
@@ -39,6 +41,19 @@ const baseOffer = {
 
 await test("saved database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
 await test("saved prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
+await test("TPG valuation snapshot has required fields", () => {
+  assert.equal(valuations.schemaVersion, 1);
+  assert.equal(typeof valuations.asOf, "string");
+  assert.ok(valuations.asOf.length > 0);
+  assert.equal(typeof valuations.programs, "object");
+  assert.ok(Object.keys(valuations.programs).length > 0);
+});
+await test("application assigns loaded valuations before rendering", () => {
+  assert.match(appSource, /state\.valuations\s*=\s*valuations;/);
+  const assignmentIndex = appSource.indexOf("state.valuations = valuations;");
+  const renderIndex = appSource.indexOf("render();", assignmentIndex);
+  assert.ok(assignmentIndex >= 0 && renderIndex > assignmentIndex);
+});
 await test("legacy cards may omit archive fields", () => {
   const legacy = structuredClone(database);
   for (const item of legacy.cards) { delete item.archivedAt; delete item.isArchived; }

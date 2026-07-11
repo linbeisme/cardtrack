@@ -1,4 +1,4 @@
-# CardTrack v4.1 Validation Report
+# CardTrack v4.1.1 Validation Report
 
 Validation completed on 2026-07-11.
 
@@ -8,10 +8,11 @@ Validation completed on 2026-07-11.
 - Saved database validated: 15 cards and 15 offers.
 - Prompt library validated: 5 templates.
 - TPG valuation table validated: 11 program mappings.
-- Automated tests passed: 28.
+- Automated tests passed: 30.
 - A simulated legacy database with all `isArchived` and `archivedAt` fields removed validated successfully.
 - Automatic migration restored missing archive fields and an omitted first-year annual-fee waiver boolean.
 - A malformed non-null `archivedAt` value remained correctly rejected.
+- Regression tests confirm the TPG valuation snapshot is loaded into application state before the first render.
 
 ## Deployment limitation
 
