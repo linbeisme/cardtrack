@@ -1,30 +1,18 @@
-# CardTrack v4 Validation Report
+# CardTrack v4.1 Validation Report
 
-Validation completed during package generation.
+Validation completed on 2026-07-11.
 
-## Automated results
+## Results
 
-- Node syntax checks passed for `site/app.js` and all `.mjs` modules.
-- `node scripts/validate-data.mjs` passed.
-- `node tests/run-tests.mjs` passed: **25 tests**.
-- Database: 15 cards and 15 offer records validated.
-- Prompt library: 5 templates validated.
-- CPP library: 11 program valuations validated.
+- JavaScript syntax checks passed for the app, schema library, validator, and tests.
+- Saved database validated: 15 cards and 15 offers.
+- Prompt library validated: 5 templates.
+- TPG valuation table validated: 11 program mappings.
+- Automated tests passed: 28.
+- A simulated legacy database with all `isArchived` and `archivedAt` fields removed validated successfully.
+- Automatic migration restored missing archive fields and an omitted first-year annual-fee waiver boolean.
+- A malformed non-null `archivedAt` value remained correctly rejected.
 
-## Tested behaviors
+## Deployment limitation
 
-- Current database compatibility.
-- Prompt-library schema and required placeholders.
-- Full, Amex, Chase, hotel, and airline card filtering.
-- Automatic date and active-catalog injection.
-- JSON fence removal and parsing.
-- Unknown card, invalid domain, bad enum, expired offer, duplicate key, and count-mismatch rejection.
-- Required `annualFeeWaivedFirstYear` boolean on new imports.
-- Backward-compatible waiver inference for legacy saved offers.
-- Merge and replace behavior.
-- Promotional-status normalization.
-- Static table header rule (`position: static`) to prevent row coverage.
-
-## Boundary
-
-No live GitHub write was performed because that requires the repository owner's private token. GitHub publishing code uses the Repository Contents API and clears token fields after every attempt.
+No live GitHub commit or Pages deployment was performed because that requires the user's private GitHub credentials. The included workflow performs the same validation and test suite before deployment.

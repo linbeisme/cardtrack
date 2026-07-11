@@ -192,3 +192,36 @@ textarea { resize:vertical; min-height:180px; }
   .modal-backdrop { padding:6px; }
   .modal-header,.modal-body { padding:12px; }
 }
+
+/* v4.1 compatibility/version indicators */
+.version-chip {
+  display: inline-flex;
+  align-items: center;
+  min-height: 32px;
+  padding: 5px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--panel);
+  color: var(--muted);
+  font-size: 12px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+.migration-notice {
+  margin-top: 10px;
+  padding: 10px 12px;
+  border: 1px solid #93c5fd;
+  border-radius: 10px;
+  background: #eff6ff;
+  color: #1e3a8a;
+  font-size: 13px;
+  line-height: 1.45;
+}
+[data-theme="dark"] .migration-notice {
+  border-color: #1d4ed8;
+  background: #172554;
+  color: #dbeafe;
+}
+@media (max-width: 900px) {
+  .version-chip { display: none; }
+}

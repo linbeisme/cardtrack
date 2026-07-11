@@ -1,7 +1,10 @@
 import {
+  APP_VERSION,
+  DATABASE_COMPATIBILITY_VERSION,
   effectiveStatus,
   firstYearFeeWaived,
   mergeOffers,
+  migrateDatabase,
   parseResearchJson,
   validateDatabase,
   validateImportPayload
@@ -24,6 +27,7 @@ const promptFileInput = document.querySelector("#prompt-file-input");
 const state = {
   database: null,
   stagedDatabase: null,
+  databaseMigration: {migrated: false, changes: []},
   prompts: null,
   stagedPrompts: null,
   valuations: null,
@@ -74,6 +78,10 @@ function fmtDateTime(value) {
   return date.toLocaleString([], {month: "short", day: "numeric", year: "numeric", hour: "numeric", minute: "2-digit"});
 }
 
+function SCHEMA_VERSION_LABEL() {
+  return `${state.stagedDatabase?.schemaVersion ?? 3}.${state.stagedDatabase?.compatibilityVersion ?? DATABASE_COMPATIBILITY_VERSION}`;
+}
+
 function statusLabel(status) {
   return ({standard: "Standard", elevated: "Elevated", limited: "Limited Time", targeted: "Targeted", review: "Needs Review"})[status] || status;
 }
@@ -118,12 +126,15 @@ async function initialize() {
       loadJson("./data/prompts.json"),
       loadJson("./data/tpg-valuations.json")
     ]);
-    const dbCheck = validateDatabase(database, {rejectExpired: false});
+    const migration = migrateDatabase(database);
+    const normalizedDatabase = migration.database;
+    const dbCheck = validateDatabase(normalizedDatabase, {rejectExpired: false});
     if (!dbCheck.valid) throw new Error(`Saved database is invalid: ${dbCheck.errors[0]}`);
     const promptCheck = validatePromptLibrary(prompts);
     if (!promptCheck.valid) throw new Error(`Prompt library is invalid: ${promptCheck.errors[0]}`);
-    state.database = database;
-    state.stagedDatabase = structuredClone(database);
+    state.database = structuredClone(normalizedDatabase);
+    state.stagedDatabase = structuredClone(normalizedDatabase);
+    state.databaseMigration = migration;
     state.prompts = prompts;
     state.stagedPrompts = structuredClone(prompts);
     state.selectedTemplateId = prompts.defaultTemplateId;
@@ -175,6 +186,7 @@ function headerHtml() {
     <div class="header-inner">
       <div class="brand"><div class="brand-mark">CT</div><div><div class="brand-title">CardTrack</div><div class="brand-subtitle">Welcome-offer intelligence</div></div></div>
       <div class="header-actions">
+        <span class="version-chip" title="Application and data compatibility versions">App v${escapeHtml(APP_VERSION)} · Schema v${escapeHtml(SCHEMA_VERSION_LABEL())}</span>
         <span class="badge ${state.stagedDatabase.dataStatus === "live" ? "elevated" : "targeted"}">${escapeHtml(state.stagedDatabase.dataStatus.toUpperCase())} · ${escapeHtml(fmtDateTime(state.stagedDatabase.generatedAt))}</span>
         <button class="button small" data-action="toggle-theme" title="Toggle light/dark mode">◐</button>
         <button class="button" data-action="reload">Reload GitHub data</button>
@@ -268,11 +280,17 @@ function archivedHtml() {
   </div>`;
 }
 
+function migrationNoticeHtml() {
+  if (!state.databaseMigration?.migrated) return "";
+  const count = state.databaseMigration.changes.length;
+  return `<div class="migration-notice"><strong>Compatibility update applied automatically.</strong> ${count} legacy field${count === 1 ? " was" : "s were"} normalized in the browser. The site is safe to use now. Save the database to GitHub once to make the normalization permanent.</div>`;
+}
+
 function adminHtml() {
   const validation = state.validation;
   const active = activeCards();
   return `<section class="admin-grid">
-    <div class="full-span"><div class="panel-header"><div><h2>Admin Publisher</h2><p>Research, validate, preview, and publish changes to your GitHub repository.</p></div><button class="button purple" data-action="open-prompts">✨ Prompt Manager</button></div><div class="security-rule"><strong>Security rule:</strong> Use a fine-grained GitHub token restricted to this repository with only Contents: Read and write. CardTrack never stores the token.</div></div>
+    <div class="full-span"><div class="panel-header"><div><h2>Admin Publisher</h2><p>Research, validate, preview, and publish changes to your GitHub repository.</p></div><button class="button purple" data-action="open-prompts">✨ Prompt Manager</button></div><div class="security-rule"><strong>Security rule:</strong> Use a fine-grained GitHub token restricted to this repository with only Contents: Read and write. CardTrack never stores the token.</div>${migrationNoticeHtml()}</div>
 
     <div class="panel full-span">
       <div class="panel-header"><div><h3>1. Import researched offers</h3><p>Paste the JSON returned by ChatGPT or Gemini. Nothing is applied until validation succeeds.</p></div><button class="button purple small" data-action="open-prompts">✨</button></div>
@@ -467,7 +485,7 @@ async function handleAction(event) {
       state.stagedDatabase.offers = mergeOffers(state.stagedDatabase.offers, state.validation.accepted, state.importMode);
       state.stagedDatabase.generatedAt = new Date().toISOString();
       state.stagedDatabase.dataStatus = state.importMode === "replace" ? "partial" : state.stagedDatabase.dataStatus;
-      state.stagedDatabase.updatedBy = "cardtrack-admin-publisher-v4";
+      state.stagedDatabase.updatedBy = "cardtrack-admin-publisher-v4.1";
       state.importText = ""; state.validation = null; render(); toast("Validated offers applied to the staged database.");
     } else if (action === "archive-card") {
       archiveCard(event.currentTarget.dataset.cardId);
@@ -603,8 +621,9 @@ async function runGithub(mode) {
     } else if (mode === "database") {
       const check = validateDatabase(state.stagedDatabase, {rejectExpired: false});
       if (!check.valid) throw new Error(`Staged database is invalid: ${check.errors[0]}`);
-      const result = await putJsonFile({...base, path: state.repository.dataPath, value: state.stagedDatabase, message: "Update CardTrack database from Admin Publisher v4"});
+      const result = await putJsonFile({...base, path: state.repository.dataPath, value: state.stagedDatabase, message: "Update CardTrack database from Admin Publisher v4.1"});
       state.database = structuredClone(state.stagedDatabase);
+      state.databaseMigration = {migrated: false, changes: []};
       setGithubStatus(`Database saved. Commit: ${result.commit?.html_url || "created"}`, true);
       toast("Database saved to GitHub. GitHub Actions will redeploy the site.");
     } else if (mode === "prompts") {

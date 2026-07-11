@@ -1,4 +1,6 @@
+export const APP_VERSION = "4.1.0";
 export const SCHEMA_VERSION = 3;
+export const DATABASE_COMPATIBILITY_VERSION = 1;
 export const BONUS_UNITS = new Set(["points", "miles", "cash", "free-night certificate points"]);
 export const CHANNELS = new Set(["public", "targeted", "referral", "branch", "mailer"]);
 export const STATUSES = new Set(["standard", "elevated", "limited", "targeted", "review"]);
@@ -91,8 +93,10 @@ export function validateCard(card, index = 0) {
   } catch {
     errors.push(`${p}.applyUrl must be a valid URL.`);
   }
-  if (typeof card.isArchived !== "boolean") errors.push(`${p}.isArchived must be boolean.`);
-  if (card.archivedAt !== null && !isIsoUtc(card.archivedAt)) errors.push(`${p}.archivedAt must be an ISO UTC timestamp or null.`);
+  // Backward compatibility: v3 databases may omit the archive fields.
+  // migrateDatabase() normalizes them to false/null before the UI uses the data.
+  if (card.isArchived !== undefined && typeof card.isArchived !== "boolean") errors.push(`${p}.isArchived must be boolean when provided.`);
+  if (card.archivedAt !== undefined && card.archivedAt !== null && !isIsoUtc(card.archivedAt)) errors.push(`${p}.archivedAt must be an ISO UTC timestamp, null, or omitted.`);
   return errors;
 }
 
@@ -138,6 +142,49 @@ export function validateOffer(offer, cardsById, index = 0, options = {}) {
     errors.push(`${p}.status must be targeted or review for a non-public channel.`);
   }
   return errors;
+}
+
+export function migrateDatabase(input) {
+  if (!isPlainObject(input)) {
+    return {database: input, migrated: false, changes: [], compatibilityVersion: DATABASE_COMPATIBILITY_VERSION};
+  }
+
+  const database = JSON.parse(JSON.stringify(input));
+  const changes = [];
+  const cards = Array.isArray(database.cards) ? database.cards : [];
+  const offers = Array.isArray(database.offers) ? database.offers : [];
+
+  cards.forEach((card, index) => {
+    if (!isPlainObject(card)) return;
+    if (typeof card.isArchived !== "boolean") {
+      card.isArchived = false;
+      changes.push(`cards[${index}].isArchived defaulted to false`);
+    }
+    if (card.archivedAt === undefined || card.archivedAt === "") {
+      card.archivedAt = null;
+      changes.push(`cards[${index}].archivedAt defaulted to null`);
+    }
+  });
+
+  offers.forEach((offer, index) => {
+    if (!isPlainObject(offer)) return;
+    if (typeof offer.annualFeeWaivedFirstYear !== "boolean") {
+      offer.annualFeeWaivedFirstYear = firstYearFeeWaived(offer);
+      changes.push(`offers[${index}].annualFeeWaivedFirstYear normalized`);
+    }
+  });
+
+  if (database.compatibilityVersion !== DATABASE_COMPATIBILITY_VERSION) {
+    database.compatibilityVersion = DATABASE_COMPATIBILITY_VERSION;
+    changes.push(`compatibilityVersion set to ${DATABASE_COMPATIBILITY_VERSION}`);
+  }
+
+  return {
+    database,
+    migrated: changes.length > 0,
+    changes,
+    compatibilityVersion: DATABASE_COMPATIBILITY_VERSION
+  };
 }
 
 export function validateDatabase(database, options = {}) {

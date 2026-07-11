@@ -1,14 +1,7 @@
-# CardTrack v4 Update-Only Package
+# Read This First — v4.1 Update-Only Package
 
-Upload the contents of this folder to the root of the existing `cardtrack` GitHub repository.
+This package updates the existing CardTrack repository and intentionally excludes `site/data/cardtrack.json`. Your saved cards and offers are preserved.
 
-This package intentionally does **not** contain `site/data/cardtrack.json`. Your current cards and researched offers will not be overwritten by this upload.
+Upload the contents of this folder to the repository root and overwrite matching files. Commit to `main`, then watch the GitHub Actions run.
 
-After committing:
-
-1. Wait for the GitHub Actions validation and deployment to finish.
-2. Hard-refresh the published CardTrack site.
-3. Open **Admin Publisher → Prompt Manager**.
-4. Confirm the five prompt templates and the new TPG value and annual-fee columns.
-
-Detailed instructions are in `docs/UPDATE_INSTRUCTIONS.md`.
+The required fix is in `site/lib/schema.mjs` and `scripts/validate-data.mjs`; upload all included files so the tests, UI, and documentation stay synchronized.

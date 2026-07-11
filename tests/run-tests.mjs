@@ -6,6 +6,7 @@ import {
   effectiveStatus,
   firstYearFeeWaived,
   mergeOffers,
+  migrateDatabase,
   parseResearchJson,
   validateDatabase,
   validateImportPayload
@@ -38,6 +39,30 @@ const baseOffer = {
 
 await test("saved database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
 await test("saved prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
+await test("legacy cards may omit archive fields", () => {
+  const legacy = structuredClone(database);
+  for (const item of legacy.cards) { delete item.archivedAt; delete item.isArchived; }
+  assert.equal(validateDatabase(legacy, {rejectExpired: false}).valid, true);
+});
+await test("migration restores legacy archive fields", () => {
+  const legacy = structuredClone(database);
+  delete legacy.cards[0].archivedAt;
+  delete legacy.cards[0].isArchived;
+  delete legacy.offers[0].annualFeeWaivedFirstYear;
+  delete legacy.compatibilityVersion;
+  const result = migrateDatabase(legacy);
+  assert.equal(result.migrated, true);
+  assert.equal(result.database.cards[0].isArchived, false);
+  assert.equal(result.database.cards[0].archivedAt, null);
+  assert.equal(typeof result.database.offers[0].annualFeeWaivedFirstYear, "boolean");
+  assert.equal(result.database.compatibilityVersion, 1);
+  assert.equal(validateDatabase(result.database, {rejectExpired: false}).valid, true);
+});
+await test("invalid supplied archivedAt remains rejected", () => {
+  const invalid = structuredClone(database);
+  invalid.cards[0].archivedAt = "not-a-date";
+  assert.match(validateDatabase(invalid, {rejectExpired: false}).errors.join(" "), /archivedAt/);
+});
 await test("fenced JSON parses", () => assert.equal(parseResearchJson('```json\n{"offers":[]}\n```').offers.length, 0));
 await test("unknown card ID is rejected", () => {
   const result = validateImportPayload({schemaVersion: 3, offers: [{...baseOffer, cardId: "not-in-catalog"}]}, database.cards);

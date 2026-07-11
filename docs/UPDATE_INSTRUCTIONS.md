@@ -1,23 +1,12 @@
-# Update an Existing CardTrack v3 Repository
+# CardTrack v4.1 Update Instructions
 
-Use `CardTrack_v4_Update_Only.zip` for the safest upgrade.
+1. Back up the current GitHub repository with **Code → Download ZIP**.
+2. Unzip the CardTrack v4.1 update-only package.
+3. At the repository root, choose **Add file → Upload files**.
+4. Upload the contents inside `CardTrack_v4_1_Update_Only`, preserving the folder paths.
+5. Confirm `site/data/cardtrack.json` is not in the upload list.
+6. Commit directly to `main` with the message `Fix CardTrack legacy database compatibility`.
+7. Open **Actions** and wait for **Validate and deploy CardTrack** to finish with a green check.
+8. Hard refresh the CardTrack website.
 
-1. Download and extract the update-only ZIP.
-2. Open the `linbeisme/cardtrack` repository and choose **Add file → Upload files**.
-3. Upload the extracted contents to the repository root. Preserve the folder paths.
-4. Confirm that `site/data/cardtrack.json` is **not** included in the upload. This protects the currently published offers.
-5. Commit directly to `main` with a message such as `Upgrade CardTrack to v4 Prompt Manager`.
-6. Open **Actions → Validate and deploy CardTrack** and wait for both jobs to turn green.
-7. Open the CardTrack site and perform a hard refresh.
-8. Open **Admin Publisher → Prompt Manager** and confirm the five templates appear.
-
-The update creates two new files:
-
-- `site/data/prompts.json`
-- `site/data/tpg-valuations.json`
-
-It updates the application, schema validator, tests, workflow, and documentation.
-
-## Important compatibility note
-
-New researched offer JSON must include `annualFeeWaivedFirstYear` as `true` or `false`. Existing saved offers continue to load even when the field is absent.
+The v4.1 validator no longer fails merely because legacy cards omit `archivedAt`. The app normalizes old records automatically in the browser.

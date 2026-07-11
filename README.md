@@ -1,44 +1,37 @@
-# CardTrack v4.0 — Prompt Manager & Valuation Upgrade
+# CardTrack v4.1 — Backward-Compatible Prompt Manager Upgrade
 
 CardTrack is a dependency-free GitHub Pages application for researching, validating, staging, and publishing U.S. credit-card welcome offers.
 
-## Major v4 changes
+## Major features
 
 - Prompt Manager with Full Catalog, Amex, Chase, Hotel, and Airline templates.
-- Editable prompt templates with lightweight syntax highlighting and resolved previews.
-- One-click copy, import/export, restore default, and GitHub prompt-library publishing.
-- Automatic `{{TODAY}}` and active-card-catalog injection.
-- Prompt Manager JSON test using the same CardTrack schema as the Admin Publisher.
-- Fixed table-header overlap by removing the table header's sticky positioning.
-- Estimated cash value using the included July 2026 TPG CPP snapshot.
-- Explicit recurring annual-fee column and first-year-waiver badge.
-- New required imported field: `annualFeeWaivedFirstYear` (boolean).
-- GitHub Actions upgraded to Node 24-compatible major versions.
+- Editable prompts, resolved previews, copy, import/export, restore defaults, schema testing, and GitHub prompt publishing.
+- Automatic current-date and active-card-catalog insertion.
+- Estimated welcome-offer value using the included TPG CPP snapshot.
+- Dedicated annual-fee display and first-year-waiver badge.
+- Non-sticky offer-table header that does not cover the first result.
+- Backward-compatible validation for legacy databases missing archive fields.
+- Automatic in-memory normalization of legacy archive and fee-waiver fields.
+- Application and data-compatibility version indicator.
 
-## Repository structure
+## Existing repository update
 
-```
-.github/workflows/deploy-pages.yml
-site/index.html
-site/styles.css
-site/app.js
+Use the update-only ZIP. It intentionally excludes `site/data/cardtrack.json`, so it preserves the live card and offer database. Upload the package contents to the repository root and overwrite matching files.
+
+The critical v4.1 files are:
+
+```text
 site/lib/schema.mjs
-site/lib/prompts.mjs
-site/lib/github.mjs
-site/data/cardtrack.json
-site/data/prompts.json
-site/data/tpg-valuations.json
+site/app.js
+site/styles.css
 scripts/validate-data.mjs
 tests/run-tests.mjs
+.github/workflows/update-and-deploy.yml
 ```
 
-## Deploy a complete replacement
+## Compatibility behavior
 
-Upload the contents of this folder to the root of the `cardtrack` repository, preserving `.github`. Commit to `main`. In repository **Settings → Pages**, keep **Source = GitHub Actions**.
-
-## Update an existing v3 repository
-
-Use the separate update-only ZIP. It intentionally excludes `site/data/cardtrack.json`, so uploading it does not overwrite the current live card and offer database.
+Old databases may omit `isArchived` and `archivedAt`. The validator accepts those omissions, while CardTrack normalizes them to `false` and `null` before use. A malformed value remains an error.
 
 ## Local validation
 
@@ -50,7 +43,3 @@ node tests/run-tests.mjs
 ## Security
 
 Use a fine-grained GitHub personal access token restricted to the CardTrack repository with **Contents: Read and write**. CardTrack does not save it in localStorage, cookies, or repository files and clears token fields after each GitHub attempt.
-
-## Valuation note
-
-The included dollar estimates are editorial approximations based on the TPG monthly CPP table. They are not cash guarantees, issuer values, or recommendations to apply for a card.

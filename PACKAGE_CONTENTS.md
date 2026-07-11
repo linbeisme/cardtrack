@@ -1,25 +1,13 @@
-# Package Contents
+# CardTrack v4.1 Update-Only Package
 
-## Full package
+This ZIP contains only files changed for the v4.1 backward-compatibility release:
 
-A complete repository replacement, including the supplied current CardTrack database.
-
-## Update-only package
-
-Only changed and new v4 files. It excludes `site/data/cardtrack.json` so current offers are not overwritten.
-
-## Changed/new application files
-
-- `.github/workflows/deploy-pages.yml`
-- `WORKFLOW_COPY_PASTE.yml`
-- `site/index.html`
-- `site/styles.css`
+- `.github/workflows/update-and-deploy.yml`
 - `site/app.js`
+- `site/styles.css`
 - `site/lib/schema.mjs`
-- `site/lib/prompts.mjs`
-- `site/lib/github.mjs`
-- `site/data/prompts.json`
-- `site/data/tpg-valuations.json`
 - `scripts/validate-data.mjs`
 - `tests/run-tests.mjs`
-- documentation and release notes
+- version, validation, release-note, and update-instruction files
+
+It does not contain `site/data/cardtrack.json`, `site/data/prompts.json`, or `site/data/tpg-valuations.json`.
