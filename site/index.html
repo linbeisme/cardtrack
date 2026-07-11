@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="CardTrack is a GitHub-only credit-card welcome-offer tracker with manual AI research import and secure owner publishing.">
+  <title>CardTrack - Welcome Offer Publisher</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <button class="brand" type="button" data-tab-target="offers" aria-label="Open current offers">
+      <span class="logo" aria-hidden="true">CT</span>
+      <span><strong>CardTrack</strong><small>Welcome-offer intelligence</small></span>
+    </button>
+    <div class="header-actions">
+      <span id="freshnessPill" class="pill neutral">Loading saved data...</span>
+      <button id="themeBtn" class="icon-button" type="button" title="Toggle light and dark theme" aria-label="Toggle theme">◐</button>
+      <button id="reloadBtn" class="secondary-button" type="button">Reload GitHub data</button>
+    </div>
+  </div>
+</header>
+
+<main class="app-shell">
+  <section id="globalNotice" class="notice info">
+    CardTrack reads a saved GitHub JSON file. Research is performed manually in ChatGPT or Gemini, then validated and published from the Admin tab.
+  </section>
+
+  <nav class="tabs" aria-label="CardTrack sections">
+    <button class="tab active" type="button" data-tab-target="offers">Current Offers</button>
+    <button class="tab" type="button" data-tab-target="archived">Archived Cards <span id="archiveCountBadge" class="tab-count">0</span></button>
+    <button class="tab" type="button" data-tab-target="admin">Admin Publisher</button>
+    <button class="tab" type="button" data-tab-target="methodology">Methodology</button>
+  </nav>
+
+  <section id="dirtyBanner" class="notice warning hidden" aria-live="polite">
+    <span><strong>Unsaved changes:</strong> Your browser has staged changes that are not yet in GitHub.</span>
+    <button class="link-button" type="button" data-tab-target="admin">Open Admin Publisher</button>
+  </section>
+
+  <section id="tab-offers" class="tab-panel active" data-tab-panel="offers">
+    <div class="kpi-grid">
+      <article class="kpi-card blue"><span>Active cards</span><strong id="kpiCards">0</strong><small>Archived cards excluded</small></article>
+      <article class="kpi-card green"><span>Verified offers</span><strong id="kpiVerified">0</strong><small>Current saved records</small></article>
+      <article class="kpi-card purple"><span>Elevated / limited</span><strong id="kpiPromos">0</strong><small>Public promotional offers</small></article>
+      <article class="kpi-card amber"><span>Needs review</span><strong id="kpiReview">0</strong><small>Conflicts or weak support</small></article>
+    </div>
+
+    <div class="panel controls-panel">
+      <div class="filter-grid">
+        <label><span>Search</span><input id="searchInput" type="search" placeholder="Card, issuer, or rewards program"></label>
+        <label><span>Issuer</span><select id="issuerFilter"><option value="">All issuers</option></select></label>
+        <label><span>Channel</span><select id="channelFilter"><option value="">All channels</option><option value="public">Public</option><option value="targeted">Targeted</option><option value="referral">Referral</option><option value="branch">Branch</option><option value="mailer">Mailer</option></select></label>
+        <label><span>Status</span><select id="statusFilter"><option value="">All statuses</option><option value="limited">Limited time</option><option value="elevated">Elevated</option><option value="standard">Standard</option><option value="targeted">Targeted</option><option value="review">Needs review</option><option value="expired">Expired</option></select></label>
+        <label><span>Sort</span><select id="sortFilter"><option value="promotion">Promotions first</option><option value="bonusDesc">Bonus: high to low</option><option value="spendAsc">Spend: low to high</option><option value="verifiedDesc">Newest verification</option><option value="cardName">Card name</option></select></label>
+      </div>
+    </div>
+
+    <div id="offersEmpty" class="empty-state hidden">
+      <div class="empty-icon">⌕</div>
+      <h2>No verified offers yet</h2>
+      <p>Open Admin Publisher, copy the research prompt, run it in ChatGPT or Gemini, paste the returned JSON, validate it, and publish it to GitHub.</p>
+      <button class="primary-button" type="button" data-tab-target="admin">Open Admin Publisher</button>
+    </div>
+
+    <div id="offersTableWrap" class="table-wrap panel">
+      <table>
+        <thead>
+          <tr><th>Card / program</th><th>Welcome offer</th><th>Spend requirement</th><th>Promotion</th><th>Channel</th><th>Verified</th><th>Sources</th><th></th></tr>
+        </thead>
+        <tbody id="offersRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <section id="tab-archived" class="tab-panel" data-tab-panel="archived">
+    <div class="section-heading">
+      <div><h2>Archived Cards</h2><p>Archived cards are hidden from Current Offers and excluded from the generated research prompt. Restore a card whenever you want to track it again.</p></div>
+    </div>
+    <div id="archivedEmpty" class="empty-state"><div class="empty-icon">✓</div><h2>No cards are archived</h2><p>Use the Card Management section in Admin Publisher to archive a card.</p></div>
+    <div id="archivedGrid" class="card-grid"></div>
+  </section>
+
+  <section id="tab-admin" class="tab-panel" data-tab-panel="admin">
+    <div class="section-heading admin-title-row">
+      <div><h2>Admin Publisher</h2><p>Research, validate, preview, and publish changes to your GitHub repository. Your token is never stored by CardTrack.</p></div>
+      <button id="openPromptBtn" class="prompt-button" type="button" title="Open the ChatGPT / Gemini research prompt"><span aria-hidden="true">✨</span> Research Prompt</button>
+    </div>
+
+    <div class="security-callout">
+      <strong>Security rule:</strong> Use a fine-grained GitHub token restricted to this repository with only <em>Contents: Read and write</em>. Paste it only when publishing. CardTrack clears the token field after each attempt.
+    </div>
+
+    <div class="admin-grid">
+      <section class="panel admin-card wide">
+        <div class="panel-heading"><div><h3>1. Import researched offers</h3><p>Paste the exact JSON generated by the prompt helper. Nothing is published until validation succeeds and you click Save to GitHub.</p></div><button id="openPromptIconBtn" class="icon-button accent" type="button" title="Open research prompt" aria-label="Open research prompt">✨</button></div>
+        <textarea id="importTextarea" rows="16" spellcheck="false" placeholder='Paste the complete JSON here, beginning with { "schemaVersion": 3, ... }'></textarea>
+        <div class="button-row">
+          <button id="validateImportBtn" class="primary-button" type="button">Validate JSON</button>
+          <button id="clearImportBtn" class="secondary-button" type="button">Clear</button>
+          <label class="select-inline">Import mode <select id="importMode"><option value="merge">Merge with existing offers</option><option value="replace">Replace all offers</option></select></label>
+        </div>
+        <div id="importResult" class="result-box neutral">No import has been validated.</div>
+        <div id="importPreview" class="preview-grid hidden"></div>
+      </section>
+
+      <section class="panel admin-card">
+        <div class="panel-heading"><div><h3>2. Add a new card</h3><p>New cards become active immediately in the staged browser copy. Save to GitHub to make the addition permanent.</p></div></div>
+        <form id="addCardForm" class="form-grid">
+          <label class="span-2"><span>Card name</span><input name="name" required placeholder="Example Travel Rewards Card"></label>
+          <label><span>Issuer</span><input name="issuer" required placeholder="Issuer name"></label>
+          <label><span>Rewards program</span><input name="program" required placeholder="Program name"></label>
+          <label><span>Annual fee ($)</span><input name="annualFee" type="number" min="0" step="1" required value="0"></label>
+          <label><span>Baseline offer</span><input name="baselineOffer" type="number" min="0" step="1" required value="0"></label>
+          <label><span>Historical high</span><input name="historicalHigh" type="number" min="0" step="1" value="0"></label>
+          <label><span>Bonus unit</span><select name="bonusUnit"><option value="points">Points</option><option value="miles">Miles</option><option value="cash">Cash</option><option value="free-night certificate points">Free-night certificate points</option></select></label>
+          <label class="span-2"><span>Official issuer URL</span><input name="applyUrl" type="url" required placeholder="https://issuer.example/card"></label>
+          <div class="span-2 button-row"><button class="primary-button" type="submit">Add Card</button><button id="resetCardFormBtn" class="secondary-button" type="reset">Reset</button></div>
+        </form>
+        <div id="addCardResult" class="result-box neutral">No new card has been staged.</div>
+      </section>
+
+      <section class="panel admin-card">
+        <div class="panel-heading"><div><h3>3. Card management</h3><p>Archive active cards to hide them from the dashboard and the research prompt. Restore them from the Archived Cards tab.</p></div></div>
+        <div class="mini-filter"><input id="manageCardSearch" type="search" placeholder="Search active cards"></div>
+        <div id="activeCardList" class="management-list"></div>
+      </section>
+
+      <section class="panel admin-card wide">
+        <div class="panel-heading"><div><h3>4. Publish the staged database to GitHub</h3><p>CardTrack reads the existing file SHA, creates a normal GitHub commit, and triggers the Pages deployment workflow.</p></div></div>
+        <div class="github-grid">
+          <label><span>GitHub owner</span><input id="githubOwner" autocomplete="off"></label>
+          <label><span>Repository</span><input id="githubRepo" autocomplete="off" value="cardtrack"></label>
+          <label><span>Branch</span><input id="githubBranch" autocomplete="off" value="main"></label>
+          <label><span>JSON file path</span><input id="githubPath" autocomplete="off" value="site/data/cardtrack.json"></label>
+          <label class="span-2"><span>Fine-grained GitHub token</span><input id="githubToken" type="password" autocomplete="off" placeholder="github_pat_... (not stored)"></label>
+          <label class="span-2"><span>Commit message</span><input id="commitMessage" value="Update CardTrack offers and card settings"></label>
+        </div>
+        <div class="button-row">
+          <button id="testAccessBtn" class="secondary-button" type="button">Test Repository Access</button>
+          <button id="downloadBackupBtn" class="secondary-button" type="button">Download Backup</button>
+          <button id="publishBtn" class="primary-button" type="button">Save to GitHub</button>
+        </div>
+        <div id="publishResult" class="result-box neutral">No publishing action has been attempted.</div>
+      </section>
+    </div>
+  </section>
+
+  <section id="tab-methodology" class="tab-panel" data-tab-panel="methodology">
+    <div class="panel prose">
+      <h2>Methodology and limitations</h2>
+      <h3>Promotion labels</h3>
+      <p><strong>Elevated</strong> means a public offer is above the card's stored baseline. <strong>Limited time</strong> is used only when research explicitly identifies a time-limited offer. The expiration date is displayed when a supported date is available. Targeted, referral, branch, and mailer offers are always separated from guaranteed public offers.</p>
+      <h3>Source priority</h3>
+      <ol><li>Official issuer application page or terms</li><li>Doctor of Credit</li><li>Frequent Miler</li><li>One Mile at a Time</li><li>The Points Guy</li><li>NerdWallet</li></ol>
+      <h3>Data safety</h3>
+      <p>Imported source URLs must use HTTPS and an approved domain. Expired offers and malformed records are rejected. A save is blocked when the database fails validation or contains zero imported offers after an attempted offer import.</p>
+      <h3>Consumer notice</h3>
+      <p>Welcome offers can be targeted, changed, or withdrawn without notice. Always verify the exact terms shown to you on the issuer's application page before applying.</p>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">CardTrack is an informational tool and is not affiliated with any card issuer. Never place your GitHub token inside a repository file.</footer>
+
+<div id="promptModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="promptModalTitle">
+  <div class="modal-backdrop" data-close-modal="promptModal"></div>
+  <div class="modal-dialog prompt-dialog">
+    <div class="modal-header"><div><h2 id="promptModalTitle">ChatGPT / Gemini Research Prompt</h2><p>Copy this prompt into a new web-enabled research conversation. It automatically includes every active card in your current catalog.</p></div><button class="icon-button" type="button" data-close-modal="promptModal" aria-label="Close prompt">✕</button></div>
+    <div class="prompt-toolbar">
+      <button id="copyPromptBtn" class="primary-button" type="button">Copy Prompt</button>
+      <button id="downloadCatalogBtn" class="secondary-button" type="button">Download Active Card Catalog</button>
+      <span id="copyPromptStatus" class="status-text" aria-live="polite"></span>
+    </div>
+    <textarea id="promptText" class="prompt-text" readonly spellcheck="false"></textarea>
+  </div>
+</div>
+
+<div id="confirmModal" class="modal hidden" role="dialog" aria-modal="true" aria-labelledby="confirmModalTitle">
+  <div class="modal-backdrop" data-close-modal="confirmModal"></div>
+  <div class="modal-dialog small-dialog">
+    <div class="modal-header"><div><h2 id="confirmModalTitle">Confirm action</h2><p id="confirmModalText"></p></div><button class="icon-button" type="button" data-close-modal="confirmModal" aria-label="Close confirmation">✕</button></div>
+    <div class="button-row end"><button id="confirmCancelBtn" class="secondary-button" type="button">Cancel</button><button id="confirmActionBtn" class="danger-button" type="button">Confirm</button></div>
+  </div>
+</div>
+
+<script type="module" src="./app.js"></script>
+</body>
+</html>
