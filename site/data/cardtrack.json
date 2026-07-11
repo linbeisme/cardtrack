@@ -1,6 +1,6 @@
 {
-  "schemaVersion": 3,
-  "generatedAt": "2026-07-11T06:21:30.041Z",
+  "schemaVersion": 5,
+  "generatedAt": "2026-07-11T19:32:43.281Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -16,7 +16,8 @@
       "applyUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "amex-gold",
@@ -30,7 +31,8 @@
       "applyUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "chase-sapphire-preferred",
@@ -44,7 +46,8 @@
       "applyUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "chase-sapphire-reserve",
@@ -58,7 +61,8 @@
       "applyUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "capital-one-venture-x",
@@ -72,7 +76,8 @@
       "applyUrl": "https://www.capitalone.com/credit-cards/venture-x/",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "capital-one-venture",
@@ -86,7 +91,8 @@
       "applyUrl": "https://www.capitalone.com/credit-cards/venture/",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "citi-strata-premier",
@@ -100,7 +106,8 @@
       "applyUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "ihg-premier",
@@ -114,7 +121,8 @@
       "applyUrl": "https://creditcards.chase.com/travel-credit-cards/ihg/premier",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "world-of-hyatt",
@@ -128,7 +136,8 @@
       "applyUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "marriott-boundless",
@@ -142,7 +151,8 @@
       "applyUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy-boundless",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "marriott-brilliant",
@@ -156,7 +166,8 @@
       "applyUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "delta-gold",
@@ -170,7 +181,8 @@
       "applyUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold/",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "united-explorer",
@@ -184,7 +196,8 @@
       "applyUrl": "https://creditcards.chase.com/travel-credit-cards/united/explorer",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "southwest-priority",
@@ -198,7 +211,8 @@
       "applyUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     },
     {
       "id": "alaska-ascent",
@@ -212,7 +226,8 @@
       "applyUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
       "isArchived": false,
       "createdAt": "2026-07-10T00:00:00Z",
-      "updatedAt": "2026-07-10T00:00:00Z"
+      "updatedAt": "2026-07-10T00:00:00Z",
+      "archivedAt": null
     }
   ],
   "offers": [
@@ -224,6 +239,7 @@
       "spendRequirement": 12000,
       "spendPeriodMonths": 6,
       "annualFee": 895,
+      "annualFeeWaivedFirstYear": false,
       "status": "targeted",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -250,6 +266,7 @@
       "spendRequirement": 8000,
       "spendPeriodMonths": 6,
       "annualFee": 325,
+      "annualFeeWaivedFirstYear": false,
       "status": "targeted",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -276,6 +293,7 @@
       "spendRequirement": 5000,
       "spendPeriodMonths": 3,
       "annualFee": 95,
+      "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -297,6 +315,7 @@
       "spendRequirement": 6000,
       "spendPeriodMonths": 3,
       "annualFee": 795,
+      "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -318,6 +337,7 @@
       "spendRequirement": 4000,
       "spendPeriodMonths": 3,
       "annualFee": 395,
+      "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -349,6 +369,7 @@
       "spendRequirement": 4000,
       "spendPeriodMonths": 3,
       "annualFee": 95,
+      "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -370,6 +391,7 @@
       "spendRequirement": 4000,
       "spendPeriodMonths": 3,
       "annualFee": 95,
+      "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -401,6 +423,7 @@
       "spendRequirement": 3000,
       "spendPeriodMonths": 3,
       "annualFee": 99,
+      "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -422,6 +445,7 @@
       "spendRequirement": 15000,
       "spendPeriodMonths": 6,
       "annualFee": 95,
+      "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -443,6 +467,7 @@
       "spendRequirement": 3000,
       "spendPeriodMonths": 3,
       "annualFee": 95,
+      "annualFeeWaivedFirstYear": false,
       "status": "review",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -469,6 +494,7 @@
       "spendRequirement": 8000,
       "spendPeriodMonths": 6,
       "annualFee": 650,
+      "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -500,6 +526,7 @@
       "spendRequirement": 5000,
       "spendPeriodMonths": 6,
       "annualFee": 150,
+      "annualFeeWaivedFirstYear": true,
       "status": "limited",
       "expirationDate": "2026-07-15",
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -521,6 +548,7 @@
       "spendRequirement": 3000,
       "spendPeriodMonths": 3,
       "annualFee": 150,
+      "annualFeeWaivedFirstYear": true,
       "status": "elevated",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -542,6 +570,7 @@
       "spendRequirement": 2000,
       "spendPeriodMonths": 3,
       "annualFee": 229,
+      "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -563,6 +592,7 @@
       "spendRequirement": 2000,
       "spendPeriodMonths": 3,
       "annualFee": 95,
+      "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
       "lastVerifiedAt": "2026-07-11T06:14:10Z",
@@ -576,5 +606,9 @@
         }
       ]
     }
-  ]
+  ],
+  "cardDetails": [],
+  "transferPrograms": [],
+  "transferBonuses": [],
+  "compatibilityVersion": 2
 }
