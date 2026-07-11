@@ -1,7 +1,7 @@
 function clone(value) { return JSON.parse(JSON.stringify(value)); }
 
-export function filterCards(cards, filter) {
-  const active = cards.filter((card) => !card.isArchived);
+export function filterCards(cards = [], filter) {
+  const active = (Array.isArray(cards) ? cards : []).filter((card) => !card.isArchived);
   if (!filter || filter.type === "all") return active;
   const values = new Set(filter.values || []);
   if (filter.type === "issuer") return active.filter((card) => values.has(card.issuer));
@@ -14,8 +14,8 @@ export function effectiveTemplateContent(library, template) {
   return template.customPrompt || template.defaultPrompt || library.basePrompt || "";
 }
 
-function catalogForPrompt(cards) {
-  return cards.map((card) => ({
+function catalogForPrompt(cards = []) {
+  return (Array.isArray(cards) ? cards : []).map((card) => ({
     cardId: card.id,
     cardName: card.name,
     issuer: card.issuer,
@@ -28,11 +28,11 @@ function catalogForPrompt(cards) {
   }));
 }
 
-function databaseSummary(database, selectedCards) {
-  const ids = new Set(selectedCards.map((card) => card.id));
+function databaseSummary(database = {}, selectedCards = []) {
+  const ids = new Set((Array.isArray(selectedCards) ? selectedCards : []).map((card) => card.id));
   return {
     schemaVersion: database.schemaVersion,
-    existingOffers: database.offers.filter((item) => ids.has(item.cardId)),
+    existingOffers: (database.offers || []).filter((item) => ids.has(item.cardId)),
     existingCardDetails: (database.cardDetails || []).filter((item) => ids.has(item.cardId)),
     transferPrograms: database.transferPrograms || [],
     transferBonuses: database.transferBonuses || []
@@ -40,8 +40,9 @@ function databaseSummary(database, selectedCards) {
 }
 
 export function resolvePrompt(library, template, cards, date = new Date(), database = null) {
+  if (!template || typeof template !== "object") throw new Error("The selected prompt template is unavailable. Reload defaults or choose another template.");
   const selectedCards = filterCards(cards, template.filter);
-  const content = effectiveTemplateContent(library, template);
+  const content = effectiveTemplateContent(library || {}, template);
   const today = date.toISOString().slice(0, 10);
   const summary = database ? databaseSummary(database, selectedCards) : {};
   return content

@@ -23,9 +23,11 @@ import {
 } from "../site/lib/prompts.mjs";
 
 const root = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "..");
-const database = JSON.parse(await fs.readFile(path.join(root, "site/data/cardtrack.json"), "utf8"));
-const prompts = JSON.parse(await fs.readFile(path.join(root, "site/data/prompts.json"), "utf8"));
+const savedDatabase = JSON.parse(await fs.readFile(path.join(root, "site/data/cardtrack.json"), "utf8"));
+const database = migrateDatabase(savedDatabase).database;
+const savedPrompts = JSON.parse(await fs.readFile(path.join(root, "site/data/prompts.json"), "utf8"));
 const defaults = JSON.parse(await fs.readFile(path.join(root, "site/data/default-prompts.json"), "utf8"));
+const prompts = migratePromptLibrary(savedPrompts, defaults).library;
 const valuations = JSON.parse(await fs.readFile(path.join(root, "site/data/tpg-valuations.json"), "utf8"));
 const appSource = await fs.readFile(path.join(root, "site/app.js"), "utf8");
 const cssSource = await fs.readFile(path.join(root, "site/styles.css"), "utf8");
@@ -59,7 +61,7 @@ const bonus = {
   transferBonusId: "chase-hyatt-test", sourceProgramId: "chase-ultimate-rewards", destinationProgramId: "world-of-hyatt", destinationProgramName: "World of Hyatt", bonusPercent: 20, standardRatio: "1:1", effectiveRatio: "1:1.2", publicOrTargeted: "public", startDate: "2026-07-01", endDate: "2026-12-31", enrollmentRequired: false, note: "Test bonus", lastVerifiedAt: "2026-07-10T12:00:00Z", sources: [{name: "Chase", url: "https://www.chase.com/", sourceType: "issuer"}]
 };
 
-await test("app version is v5", () => assert.equal(APP_VERSION, "5.0.0"));
+await test("app version is v5", () => assert.equal(APP_VERSION, "5.0.1"));
 await test("saved v5 database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
 await test("prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
 await test("default library has required feature prompts", () => {
@@ -98,6 +100,25 @@ await test("section merge preserves unrelated data", () => {
   const next = applySectionImport(database, validation, "merge");
   assert.equal(next.offers.length, database.offers.length);
   assert.equal(next.cardDetails.length, 1);
+});
+await test("legacy data arrays are initialized before section merge", () => {
+  const legacy = structuredClone(savedDatabase);
+  delete legacy.cardDetails;
+  delete legacy.transferPrograms;
+  delete legacy.transferBonuses;
+  const validation = validateSectionPayload({dataType: "cardDetails", cardDetails: [fact]}, migrateDatabase(legacy).database);
+  const next = applySectionImport(legacy, validation, "merge");
+  assert.equal(next.cardDetails.length, 1);
+  assert.deepEqual(next.transferPrograms, []);
+  assert.deepEqual(next.transferBonuses, []);
+});
+await test("legacy prompt library resolves added default templates", () => {
+  const legacyPrompts = structuredClone(savedPrompts);
+  legacyPrompts.templates = (legacyPrompts.templates || []).filter((item) => item.id !== "card-facts");
+  const migrated = migratePromptLibrary(legacyPrompts, defaults).library;
+  const template = migrated.templates.find((item) => item.id === "card-facts");
+  const resolved = resolvePrompt(migrated, template, database.cards, new Date("2026-07-11T12:00:00Z"), database);
+  assert.match(resolved, /2026-07-11/);
 });
 await test("offer status elevates above baseline", () => assert.equal(effectiveStatus({...baseOffer, status: "standard"}, card), "elevated"));
 await test("limited status takes priority", () => assert.equal(effectiveStatus(baseOffer, card), "limited"));

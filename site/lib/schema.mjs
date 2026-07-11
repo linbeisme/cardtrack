@@ -1,4 +1,4 @@
-export const APP_VERSION = "5.0.0";
+export const APP_VERSION = "5.0.1";
 export const SCHEMA_VERSION = 5;
 export const LEGACY_OFFER_SCHEMA_VERSION = 3;
 export const DATABASE_COMPATIBILITY_VERSION = 2;
@@ -293,7 +293,7 @@ function detectImportType(payload) {
 export function validateSectionPayload(payload, database, options = {}) {
   const type = options.type && options.type !== "auto" ? options.type : detectImportType(payload);
   if (!type) return result("unknown", [], [{index: -1, errors: ["Could not determine import type."]}]);
-  const cards = database.cards.filter((card) => !card.isArchived);
+  const cards = (database?.cards || []).filter((card) => !card.isArchived);
   const cardsById = new Map(cards.map((card) => [card.id, card]));
   const accepted = [];
   const rejected = [];
@@ -328,7 +328,7 @@ export function validateSectionPayload(payload, database, options = {}) {
   if (type === "transferBonuses") {
     const items = payload.transferBonuses;
     if (!Array.isArray(items)) return result(type, [], [{index: -1, errors: ["transferBonuses must be an array."]}]);
-    const programIds = new Set(database.transferPrograms.map((x) => x.programId));
+    const programIds = new Set((database?.transferPrograms || []).map((x) => x.programId));
     const seen = new Set();
     items.forEach((item, index) => { const errors = validateTransferBonus(item, programIds, index, {rejectExpired: true}); if (seen.has(item?.transferBonusId)) errors.push(`Duplicate transferBonusId '${item?.transferBonusId}'.`); seen.add(item?.transferBonusId); if (errors.length) rejected.push({index, item, errors}); else accepted.push(item); });
     return result(type, accepted, rejected, {activeCount: accepted.length});
@@ -356,10 +356,12 @@ export function validateImportPayload(payload, cards, options = {}) {
   return validateSectionPayload(payload, database, {type: "offers", ...options});
 }
 
-function mergeByKey(existing, incoming, keyFn, mode) {
-  if (mode === "replace") return clone(incoming);
-  const map = new Map(existing.map((item) => [keyFn(item), item]));
-  incoming.forEach((item) => map.set(keyFn(item), item));
+function mergeByKey(existing = [], incoming = [], keyFn, mode) {
+  const safeExisting = Array.isArray(existing) ? existing : [];
+  const safeIncoming = Array.isArray(incoming) ? incoming : [];
+  if (mode === "replace") return clone(safeIncoming);
+  const map = new Map(safeExisting.map((item) => [keyFn(item), item]));
+  safeIncoming.forEach((item) => map.set(keyFn(item), item));
   return [...map.values()];
 }
 
@@ -368,13 +370,13 @@ export function mergeOffers(existing, incoming, mode = "merge") {
 }
 
 export function applySectionImport(database, validation, mode = "merge") {
-  const next = clone(database);
+  const next = migrateDatabase(database).database;
   const type = validation.type;
   if (!validation.valid) throw new Error("Only a fully valid import can be applied.");
-  if (type === "offers") next.offers = mergeOffers(next.offers, validation.accepted, mode);
-  else if (type === "cardDetails") next.cardDetails = mergeByKey(next.cardDetails, validation.accepted, (item) => item.cardId, mode);
-  else if (type === "transferPrograms") next.transferPrograms = mergeByKey(next.transferPrograms, validation.accepted, (item) => item.programId, mode);
-  else if (type === "transferBonuses") next.transferBonuses = mergeByKey(next.transferBonuses, validation.accepted, (item) => item.transferBonusId, mode);
+  if (type === "offers") next.offers = mergeOffers(next.offers || [], validation.accepted, mode);
+  else if (type === "cardDetails") next.cardDetails = mergeByKey(next.cardDetails || [], validation.accepted, (item) => item.cardId, mode);
+  else if (type === "transferPrograms") next.transferPrograms = mergeByKey(next.transferPrograms || [], validation.accepted, (item) => item.programId, mode);
+  else if (type === "transferBonuses") next.transferBonuses = mergeByKey(next.transferBonuses || [], validation.accepted, (item) => item.transferBonusId, mode);
   else if (type === "complete") return clone(validation.accepted[0]);
   next.generatedAt = new Date().toISOString();
   next.updatedBy = "cardtrack-admin-publisher";
