@@ -7,6 +7,12 @@ function encodeUtf8Base64(value) {
   return btoa(binary);
 }
 
+function decodeUtf8Base64(value) {
+  const binary = atob(String(value || "").replace(/\s/g, ""));
+  const bytes = Uint8Array.from(binary, (character) => character.charCodeAt(0));
+  return new TextDecoder().decode(bytes);
+}
+
 function headers(token) {
   return {
     Accept: "application/vnd.github+json",
@@ -25,6 +31,15 @@ export async function getRepositoryFile({owner, repo, branch = "main", path, tok
   const response = await fetch(apiUrl(owner, repo, path, branch), {headers: headers(token)});
   if (!response.ok) throw new Error(`GitHub read failed (${response.status}): ${await response.text()}`);
   return response.json();
+}
+
+export async function getJsonFile({owner, repo, branch = "main", path, token}) {
+  const file = await getRepositoryFile({owner, repo, branch, path, token});
+  if (file.encoding !== "base64" || typeof file.content !== "string") throw new Error("GitHub returned an unsupported file encoding.");
+  let value;
+  try { value = JSON.parse(decodeUtf8Base64(file.content)); }
+  catch (error) { throw new Error(`GitHub file is not valid JSON: ${error.message}`); }
+  return {value, sha: file.sha, htmlUrl: file.html_url};
 }
 
 export async function testRepositoryAccess({owner, repo, branch = "main", path, token}) {

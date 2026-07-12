@@ -68,7 +68,7 @@ const bonus = {
   transferBonusId: "chase-hyatt-test", sourceProgramId: "chase-ultimate-rewards", destinationProgramId: "world-of-hyatt", destinationProgramName: "World of Hyatt", bonusPercent: 20, standardRatio: "1:1", effectiveRatio: "1:1.2", publicOrTargeted: "public", startDate: "2026-07-01", endDate: "2026-12-31", enrollmentRequired: false, note: "Test bonus", lastVerifiedAt: "2026-07-10T12:00:00Z", sources: [{name: "Chase", url: "https://www.chase.com/", sourceType: "issuer"}]
 };
 
-await test("app version is v5.2.3", () => assert.equal(APP_VERSION, "5.2.3"));
+await test("app version is v5.2.4", () => assert.equal(APP_VERSION, "5.2.4"));
 await test("saved v5 database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
 await test("prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
 await test("default library has required feature prompts", () => {
@@ -344,10 +344,10 @@ await test("Current Offers KPI cards are clickable filters", () => {
 
 await test("versioned asset URLs prevent stale browser modules", async () => {
   const indexSource = await fs.readFile(path.join(root, "site/index.html"), "utf8");
-  assert.match(indexSource, /app\.js\?v=5\.2\.3/);
-  assert.match(indexSource, /styles\.css\?v=5\.2\.3/);
-  assert.match(appSource, /schema\.mjs\?v=5\.2\.3/);
-  assert.match(appSource, /prompts\.mjs\?v=5\.2\.3/);
+  assert.match(indexSource, /app\.js\?v=5\.2\.4/);
+  assert.match(indexSource, /styles\.css\?v=5\.2\.4/);
+  assert.match(appSource, /schema\.mjs\?v=5\.2\.4/);
+  assert.match(appSource, /prompts\.mjs\?v=5\.2\.4/);
 });
 
 
@@ -413,6 +413,48 @@ await test("prompt library migration upgrades transport metadata", () => {
   assert.equal(migrated.library.schemaVersion, 4);
   assert.equal(migrated.library.transportVersion, 2);
   assert.match(migrated.changes.join(" "), /transport upgraded/);
+});
+
+
+await test("Clear Import resets import type to Auto-detect", () => {
+  assert.match(appSource, /action === "clear-import"[\s\S]*state\.importType = "auto"/);
+  assert.match(appSource, /Import type reset to Auto-detect/);
+});
+await test("Prompt Manager JSON tester has a complete Clear workflow", () => {
+  assert.match(appSource, /data-action="clear-prompt-test"/);
+  assert.match(appSource, /action === "clear-prompt-test"[\s\S]*state\.promptTestText = ""[\s\S]*state\.promptTestPayload = null[\s\S]*state\.promptTestResult = null/);
+});
+await test("GitHub token inputs use the light-blue token class", () => {
+  assert.match(appSource, /id="github-token" class="token-input"/);
+  assert.match(appSource, /id="prompt-github-token" class="token-input"/);
+  assert.match(cssSource, /\.token-input \{ background:#e8f4ff/);
+});
+await test("Current Offers card names navigate to matching Fact Sheets", () => {
+  assert.match(appSource, /data-action="open-fact-sheet"/);
+  assert.match(appSource, /id="fact-sheet-\$\{escapeHtml\(card\.id\)\}"/);
+  assert.match(appSource, /scrollIntoView/);
+  assert.match(cssSource, /\.fact-card-focus/);
+});
+await test("Card facts survive JSON serialization and database reload", () => {
+  const validation = validateSectionPayload({dataType: "cardDetails", cardDetails: [fact]}, database);
+  const staged = applySectionImport(database, validation, "merge");
+  const committedText = JSON.stringify(staged, null, 2);
+  const reloaded = migrateDatabase(JSON.parse(committedText)).database;
+  assert.equal(validateDatabase(reloaded, {rejectExpired: false}).valid, true);
+  assert.deepEqual(reloaded.cardDetails.find((item) => item.cardId === fact.cardId), fact);
+});
+await test("database publishing verifies the committed GitHub snapshot", async () => {
+  const githubSource = await fs.readFile(path.join(root, "site/lib/github.mjs"), "utf8");
+  assert.match(githubSource, /export async function getJsonFile/);
+  assert.match(appSource, /GitHub read-back verification failed/);
+  assert.match(appSource, /verifiedCounts\.cardDetails/);
+  assert.match(appSource, /Database saved and verified/);
+  assert.match(appSource, /Fact sheets/);
+});
+await test("Save Database blocks imports that were not applied", () => {
+  assert.match(appSource, /A validated import is waiting to be applied/);
+  assert.match(appSource, /JSON is still present in the import box/);
+  assert.match(appSource, /Apply Validated Import to Staged Database/);
 });
 
 for (const template of prompts.templates) {

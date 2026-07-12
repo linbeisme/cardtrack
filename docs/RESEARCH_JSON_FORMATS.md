@@ -1,4 +1,4 @@
-# CardTrack v5.2.3 Research JSON Formats
+# CardTrack v5.2.4 Research JSON Formats
 
 The Prompt Manager generates four workflow variants for every category:
 

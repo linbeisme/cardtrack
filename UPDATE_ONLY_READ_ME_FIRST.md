@@ -1,4 +1,4 @@
-# CardTrack v5.2.3 Update-Only
+# CardTrack v5.2.4 Update-Only
 
 This package is based on v5.2.2 and preserves your existing live files:
 
@@ -11,7 +11,7 @@ Upload the contents of this package to the repository root. Do not upload the ou
 After deployment:
 
 1. Open CardTrack in a new private/incognito window.
-2. Confirm the version badge shows `App v5.2.3`.
+2. Confirm the version badge shows `App v5.2.4`.
 3. Open **Admin Publisher → Prompt Manager**.
 4. Click **Restore Default** for a category only when you want to discard a prior custom category body.
 5. Click **Save Prompt Library to GitHub** once so the Prompt Library schema and transport metadata are saved.

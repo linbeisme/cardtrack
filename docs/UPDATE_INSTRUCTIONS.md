@@ -1,4 +1,4 @@
-# Beginner GitHub Update Instructions — CardTrack v5.2.3
+# Beginner GitHub Update Instructions — CardTrack v5.2.4
 
 Use the **Update-Only** package for an existing CardTrack repository.
 
@@ -12,7 +12,7 @@ Use the **Update-Only** package for an existing CardTrack repository.
    - `site/data/prompts.json`
    - `site/data/tpg-valuations.json`
 7. It is correct for the update to include `site/data/default-prompts.json`.
-8. Use the commit message: `Upgrade CardTrack to v5.2.3`.
+8. Use the commit message: `Upgrade CardTrack to v5.2.4`.
 9. Commit directly to `main`.
 10. Open **Actions** and wait for both `validate` and `deploy` to show green checks.
 11. Open the published site and hard-refresh it.
@@ -39,10 +39,20 @@ The prior JSON may now validate without being regenerated when its rejected URLs
 3. If all records pass, click **Copy to Publisher**, use **Merge / preserve unaffected data**, validate, apply, and save the database to GitHub.
 4. If a URL still fails, read the new error. It will identify the rejected hostname. Replace only that URL with a direct canonical approved page; do not use search-result or citation-wrapper links.
 
-## Verify v5.2.3
+## Verify v5.2.4
 
-1. Confirm the app version displays **v5.2.3**.
+1. Confirm the app version displays **v5.2.4**.
 2. Verify a direct official hotel or airline source is accepted for Card Facts.
 3. Verify Google redirect, search-result, shortened, and citation-wrapper URLs remain rejected.
 4. Confirm Welcome Offers still use the stricter issuer/editorial source list.
 5. Confirm Transfer Partners and Transfer Bonuses show their own approved-domain lists in Prompt Manager.
+
+
+## v5.2.4 post-update checks
+
+1. Open Admin Publisher and click Clear after selecting a non-auto import type; confirm it returns to Auto-detect.
+2. Open Prompt Manager and confirm the JSON tester includes Clear.
+3. Import and apply a Card Facts payload. The Publish section must show the staged Fact sheets count.
+4. Save Database to GitHub. The success message must say the save was verified and report the fact-sheet count.
+5. Open CardTrack in another browser or private window and confirm the Fact Sheets remain present.
+6. From Current Offers, click a card name and confirm the matching Fact Sheet scrolls into view.

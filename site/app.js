@@ -10,7 +10,7 @@ import {
   validateDatabase,
   validateSectionPayload,
   valueTier
-} from "./lib/schema.mjs?v=5.2.3";
+} from "./lib/schema.mjs?v=5.2.4";
 import {
   effectiveTemplateContent,
   filterCards,
@@ -22,8 +22,8 @@ import {
   restoreTemplateDefault,
   updateTemplateContent,
   validatePromptLibrary
-} from "./lib/prompts.mjs?v=5.2.3";
-import {inferRepoFromLocation, putJsonFile, testRepositoryAccess} from "./lib/github.mjs?v=5.2.3";
+} from "./lib/prompts.mjs?v=5.2.4";
+import {getJsonFile, inferRepoFromLocation, putJsonFile, testRepositoryAccess} from "./lib/github.mjs?v=5.2.4";
 
 const DATA_PATH = "site/data/cardtrack.json";
 const PROMPTS_PATH = "site/data/prompts.json";
@@ -57,6 +57,9 @@ const state = {
   importType: "auto",
   importMode: "merge",
   validation: null,
+  lastAppliedImport: null,
+  lastDatabaseSaveVerification: null,
+  factSheetTargetId: null,
   promptManagerOpen: false,
   selectedTemplateId: "full-data-refresh",
   promptWorkflow: localStorage.getItem("cardtrack-prompt-workflow") === "two-step" ? "two-step" : "one-step",
@@ -140,6 +143,24 @@ function offersForCard(cardId) {
 function primaryOffer(cardId) {
   const offers = offersForCard(cardId);
   return offers.find((offer) => offer.channel === "public") || offers[0] || null;
+}
+
+function databaseSectionCounts(database = state.stagedDatabase) {
+  return {
+    cards: Array.isArray(database?.cards) ? database.cards.length : 0,
+    offers: Array.isArray(database?.offers) ? database.offers.length : 0,
+    cardDetails: Array.isArray(database?.cardDetails) ? database.cardDetails.length : 0,
+    transferPrograms: Array.isArray(database?.transferPrograms) ? database.transferPrograms.length : 0,
+    transferBonuses: Array.isArray(database?.transferBonuses) ? database.transferBonuses.length : 0
+  };
+}
+
+function sameJson(left, right) {
+  return JSON.stringify(left) === JSON.stringify(right);
+}
+
+function databaseHasUnsavedChanges() {
+  return !sameJson(state.stagedDatabase, state.database);
 }
 
 function cashValue(card, offer) {
@@ -322,7 +343,7 @@ function offerRowHtml(card, offer, index) {
   const sourceLinks = offer.sources.map((source) => `<a href="${escapeHtml(source.url)}" target="_blank" rel="noopener noreferrer">${escapeHtml(source.name)}</a>`).join("<br>");
   const flash = ["elevated", "limited"].includes(effective) ? "flash" : "";
   return `<tr class="row-shade-${index % 4}">
-    <td><div class="card-name">${escapeHtml(card.name)}</div><div class="subtext">${escapeHtml(card.issuer)} · ${escapeHtml(card.program)}</div></td>
+    <td><button type="button" class="card-name card-fact-link" data-action="open-fact-sheet" data-card-id="${escapeHtml(card.id)}" aria-label="Open ${escapeHtml(card.name)} fact sheet">${escapeHtml(card.name)}</button><div class="subtext">${escapeHtml(card.issuer)} · ${escapeHtml(card.program)}</div></td>
     <td><div class="offer-value">${fmtNumber(offer.bonusAmount)} ${escapeHtml(offer.bonusUnit)}</div><div class="subtext">Baseline ${fmtNumber(card.baselineOffer)} · Historical high ${fmtNumber(card.historicalHigh)}</div>${offer.expirationDate ? `<div class="expiration">Expires ${escapeHtml(fmtDate(offer.expirationDate))}</div>` : ""}</td>
     <td>${value ? `<div class="cash-estimate">≈ ${fmtMoney(value.value)}</div><div class="cpp-note">${value.cpp ? `${value.cpp.toFixed(2)}¢ each · ` : ""}${escapeHtml(value.label)}</div>` : `<div class="subtext">No valuation available</div>`}</td>
     <td><strong>${offer.spendRequirement === null ? "—" : fmtMoney(offer.spendRequirement)}</strong><div class="subtext">${offer.spendPeriodMonths ? `in ${offer.spendPeriodMonths} months` : "Period not reported"}</div></td>
@@ -402,7 +423,7 @@ function factCardHtml(card, details, index) {
   const featured = benefits.filter((item) => item.isTopBenefit || item.isUniqueBenefit);
   const remaining = benefits.filter((item) => !item.isTopBenefit && !item.isUniqueBenefit);
   const flash = ["elevated", "limited"].includes(effective) ? "flash" : "";
-  return `<article class="fact-card shade-${index % 4}">
+  return `<article id="fact-sheet-${escapeHtml(card.id)}" class="fact-card shade-${index % 4} ${state.factSheetTargetId === card.id ? "fact-card-focus" : ""}" data-card-id="${escapeHtml(card.id)}">
     <div class="fact-card-header"><div><h3>${escapeHtml(card.name)}</h3><div class="subtext">${escapeHtml(card.issuer)} · ${escapeHtml(card.program)}</div></div><div class="fact-badges"><span class="badge badge-medium ${effective} ${flash}">${escapeHtml(statusLabel(effective))}</span><span class="tier tier-${tier.toLowerCase()}">${tier}</span></div></div>
     <dl class="fact-metrics">
       <div><dt>Bonus</dt><dd>${offer ? `${fmtNumber(offer.bonusAmount)} ${escapeHtml(offer.bonusUnit)}` : "—"}</dd></div>
@@ -519,6 +540,21 @@ function migrationNoticeHtml() {
   return `<div class="migration-notice"><strong>Compatibility update applied automatically.</strong> ${changes.length} legacy setting${changes.length === 1 ? " was" : "s were"} normalized in the browser. Save the affected file to GitHub once to make it permanent.</div>`;
 }
 
+function databasePublishSummaryHtml() {
+  const staged = databaseSectionCounts(state.stagedDatabase);
+  const saved = databaseSectionCounts(state.database);
+  const dirty = databaseHasUnsavedChanges();
+  const pending = state.validation?.valid
+    ? `<div class="publish-warning"><strong>Validated import not applied.</strong> Click “Apply Validated Import to Staged Database” before saving to GitHub.</div>`
+    : state.importText.trim()
+      ? `<div class="publish-warning"><strong>JSON is still in the import box.</strong> Validate and apply it before saving to GitHub.</div>`
+      : "";
+  const verification = state.lastDatabaseSaveVerification
+    ? `<div class="publish-verification"><strong>Last verified GitHub save:</strong> ${escapeHtml(fmtDateTime(state.lastDatabaseSaveVerification.savedAt))} · ${state.lastDatabaseSaveVerification.cardDetails} fact sheet${state.lastDatabaseSaveVerification.cardDetails === 1 ? "" : "s"} · commit ${escapeHtml(state.lastDatabaseSaveVerification.commitSha.slice(0, 8))}</div>`
+    : "";
+  return `<div class="database-publish-summary"><div class="publish-summary-head"><strong>${dirty ? "Unsaved staged database changes" : "GitHub database is up to date"}</strong><span class="publish-state ${dirty ? "dirty" : "clean"}">${dirty ? "Save required" : "Saved"}</span></div><div class="publish-count-grid"><span>Cards <strong>${staged.cards}</strong></span><span>Offers <strong>${staged.offers}</strong></span><span>Fact sheets <strong>${staged.cardDetails}</strong></span><span>Transfer programs <strong>${staged.transferPrograms}</strong></span><span>Transfer bonuses <strong>${staged.transferBonuses}</strong></span></div>${dirty ? `<div class="subtext">GitHub currently has ${saved.cardDetails} fact sheet${saved.cardDetails === 1 ? "" : "s"}; the staged browser copy has ${staged.cardDetails}.</div>` : ""}${state.lastAppliedImport ? `<div class="subtext">Last applied import: ${escapeHtml(state.lastAppliedImport.type)} · ${state.lastAppliedImport.count} record${state.lastAppliedImport.count === 1 ? "" : "s"}.</div>` : ""}${pending}${verification}</div>`;
+}
+
 function adminHtml() {
   const active = activeCards();
   return `<section class="admin-grid">
@@ -530,7 +566,7 @@ function adminHtml() {
     </div>
     <div class="panel admin-panel admin-panel-add"><h3>2. Add a new card</h3><p class="subtext">Adds a card to the staged catalog. Use issuer data and verify all values.</p><form id="add-card-form"><div class="field"><label>Card name</label><input name="name" required></div><div class="filters two-col"><div class="field"><label>Issuer</label><input name="issuer" required></div><div class="field"><label>Rewards program</label><input name="program" required></div></div><div class="filters three-col"><div class="field"><label>Annual fee</label><input name="annualFee" type="number" min="0" value="0" required></div><div class="field"><label>Baseline offer</label><input name="baselineOffer" type="number" min="0" value="0" required></div><div class="field"><label>Historical high</label><input name="historicalHigh" type="number" min="0"></div></div><div class="field"><label>Bonus unit</label><select name="bonusUnit"><option>points</option><option>miles</option><option>cash</option><option>free-night certificate points</option></select></div><div class="field"><label>Official issuer URL</label><input name="applyUrl" type="url" required placeholder="https://..."></div><button class="button primary" style="margin-top:12px" type="submit">Add Card</button></form></div>
     <div class="panel admin-panel admin-panel-manage"><h3>3. Card management</h3><p class="subtext">Archive active cards to hide them from views and research prompts.</p><div class="card-list">${active.map((card) => `<div class="card-list-item"><div><strong>${escapeHtml(card.name)}</strong><div class="subtext">${escapeHtml(card.issuer)} · ${escapeHtml(card.program)} · ${fmtMoney(card.annualFee)}/yr</div></div><button class="button danger small" data-action="archive-card" data-card-id="${escapeHtml(card.id)}">Hide / Archive</button></div>`).join("")}</div></div>
-    <div class="panel full-span admin-panel admin-panel-publish"><h3>4. Publish staged files to GitHub</h3><p class="subtext">Database and TPG valuation changes are saved separately. Prompt edits are saved from Prompt Manager.</p>${repositoryFields()}<div class="field" style="margin-top:10px"><label for="github-token">Fine-grained GitHub token</label><input id="github-token" type="password" autocomplete="off" placeholder="Paste only when testing or saving"></div><div class="button-row" style="margin-top:12px"><button class="button" data-action="test-repo">Test Repository Access</button><button class="button green" data-action="save-database">Save Database to GitHub</button><button class="button green" data-action="save-valuations">Save TPG Valuations to GitHub</button></div><div id="github-status" class="validation-strip">The token field is cleared after every GitHub attempt.</div></div>
+    <div class="panel full-span admin-panel admin-panel-publish"><h3>4. Publish staged files to GitHub</h3><p class="subtext">Database and TPG valuation changes are saved separately. Prompt edits are saved from Prompt Manager.</p>${databasePublishSummaryHtml()}${repositoryFields()}<div class="field" style="margin-top:10px"><label for="github-token">Fine-grained GitHub token</label><input id="github-token" class="token-input" type="password" autocomplete="off" placeholder="Paste only when testing or saving"></div><div class="button-row" style="margin-top:12px"><button class="button" data-action="test-repo">Test Repository Access</button><button class="button green" data-action="save-database">Save Database to GitHub</button><button class="button green" data-action="save-valuations">Save TPG Valuations to GitHub</button></div><div id="github-status" class="validation-strip">The token field is cleared after every GitHub attempt.</div></div>
   </section>`;
 }
 
@@ -541,7 +577,7 @@ function repositoryFields() {
 function validationHtml(validation) {
   if (!validation) return `<div class="validation-strip">No import has been validated.</div>`;
   const good = validation.valid;
-  return `<div class="validation-strip ${good ? "good" : "bad"}">${good ? `Validation passed for ${escapeHtml(validation.type)}.` : `Validation found ${validation.rejected.length} rejected item(s).`} ${validation.accepted.length} item(s) accepted.</div><div class="summary-grid">${summaryCard("Import type", validation.type)}${summaryCard("Accepted", validation.summary.acceptedCount)}${summaryCard("Rejected", validation.summary.rejectedCount)}${summaryCard("Mode", state.importMode)}</div>${validation.errors.length ? `<div class="test-results"><ul>${validation.errors.map((error) => `<li>${escapeHtml(error)}</li>`).join("")}</ul></div>` : ""}${validation.valid ? `<button class="button primary" style="margin-top:12px" data-action="apply-import">Apply Validated Import</button>` : ""}`;
+  return `<div class="validation-strip ${good ? "good" : "bad"}">${good ? `Validation passed for ${escapeHtml(validation.type)}.` : `Validation found ${validation.rejected.length} rejected item(s).`} ${validation.accepted.length} item(s) accepted.</div><div class="summary-grid">${summaryCard("Import type", validation.type)}${summaryCard("Accepted", validation.summary.acceptedCount)}${summaryCard("Rejected", validation.summary.rejectedCount)}${summaryCard("Mode", state.importMode)}</div>${validation.errors.length ? `<div class="test-results"><ul>${validation.errors.map((error) => `<li>${escapeHtml(error)}</li>`).join("")}</ul></div>` : ""}${validation.valid ? `<button class="button primary" style="margin-top:12px" data-action="apply-import">Apply Validated Import to Staged Database</button>` : ""}`;
 }
 
 function summaryCard(label, value) {
@@ -572,7 +608,7 @@ function promptManagerHtml() {
     ["JSON transport", preflight.hasTransport || state.promptWorkflow === "two-step" && state.promptStage === "research"], ["Parse audit", preflight.hasParseAudit]
   ];
   const preflightHtml = `<div class="prompt-preflight ${preflight.valid || (state.promptWorkflow === "two-step" && state.promptStage === "research") ? "good" : "bad"}"><strong>Prompt preflight</strong>${preflightItems.map(([label, ok]) => `<span class="preflight-chip ${ok ? "ok" : "fail"}">${ok ? "✓" : "!"} ${escapeHtml(label)}</span>`).join("")}${preflight.unresolved.length ? `<span class="preflight-warning">Unresolved: ${escapeHtml(preflight.unresolved.join(", "))}</span>` : ""}</div>`;
-  return `<div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="prompt-manager-title"><div class="modal"><div class="modal-header"><div><h2 id="prompt-manager-title">Prompt Manager</h2><div class="subtext">Choose the data category first, then choose one-step Search or two-step Deep Research for ChatGPT or Gemini.</div></div><button class="button" data-action="close-prompts">✕</button></div><div class="modal-body"><div class="prompt-choice-grid"><div class="field"><label>1. Data category / saved template</label><select id="template-select" class="saved-template-select">${state.stagedPrompts.templates.map((item) => `<option value="${escapeHtml(item.id)}" ${item.id === template.id ? "selected" : ""}>${escapeHtml(item.name)}</option>`).join("")}</select><div class="template-meta">${escapeHtml(template.description)} · ${selectedCount} active card${selectedCount === 1 ? "" : "s"}</div></div><div class="prompt-choice"><div class="choice-label">2. Workflow</div><div class="segmented prompt-segment"><button class="${state.promptWorkflow === "one-step" ? "active" : ""}" data-action="set-prompt-workflow" data-value="one-step">1-Step · Regular Search</button><button class="${state.promptWorkflow === "two-step" ? "active" : ""}" data-action="set-prompt-workflow" data-value="two-step">2-Step · Deep Research</button></div></div><div class="prompt-choice"><div class="choice-label">3. Platform</div><div class="segmented prompt-segment"><button class="${state.promptProvider === "chatgpt" ? "active" : ""}" data-action="set-prompt-provider" data-value="chatgpt">ChatGPT</button><button class="${state.promptProvider === "gemini" ? "active" : ""}" data-action="set-prompt-provider" data-value="gemini">Gemini</button></div></div>${state.promptWorkflow === "two-step" ? `<div class="prompt-choice"><div class="choice-label">4. Deep Research step</div><div class="segmented prompt-segment"><button class="${state.promptStage === "research" ? "active" : ""}" data-action="set-prompt-stage" data-value="research">Step 1 · Evidence Ledger</button><button class="${state.promptStage === "json" ? "active" : ""}" data-action="set-prompt-stage" data-value="json">Step 2 · JSON Conversion</button></div></div>` : ""}</div><div class="workflow-summary"><strong>${escapeHtml(variant)}</strong><span>${escapeHtml(usage)}</span></div>${preflightHtml}<div class="transport-notice"><strong>Reliable copy/paste format:</strong> prompts require exactly one fenced <code>json</code> code block. CardTrack accepts either the whole code block or only its contents and automatically removes the outer fence.</div><div class="prompt-actions prompt-actions-main"><button class="button primary" data-action="copy-prompt">${copyLabel}</button><button class="button orange" data-action="copy-repair-prompt">🛠 Copy JSON Repair Prompt</button><button class="button" data-action="save-template-local">Save Category Edit</button><button class="button" data-action="restore-template">Restore Default</button><button class="button" data-action="import-prompts">Import</button><button class="button" data-action="export-current-prompt">Export Current</button><button class="button" data-action="export-prompts">Export Library</button></div><div class="prompt-layout"><div><div class="editor-label"><span>Editable category research instructions</span><span class="subtext">CardTrack appends the provider, exact schema, source policy and copy/paste safety contract automatically. Keep required {{...}} placeholders.</span></div><div class="editor-wrap"><pre id="prompt-highlight" class="editor-highlight" aria-hidden="true">${highlightPrompt(content)}</pre><textarea id="prompt-editor" class="editor-input" spellcheck="false">${escapeHtml(content)}</textarea></div></div><div><div class="editor-label"><span>Resolved prompt to copy</span><span class="subtext">Current date, active catalog, stored data, exact schema and approved domains are injected automatically</span></div><pre id="resolved-prompt" class="resolved-preview">${escapeHtml(resolved)}</pre></div></div><div class="modal-footer"><div style="flex:1;min-width:280px"><div class="field"><label>Fine-grained GitHub token</label><input id="prompt-github-token" type="password" autocomplete="off"></div><div class="button-row" style="margin-top:8px"><button class="button purple" data-action="save-prompts-github">💾 Save Prompt Library to GitHub</button><span class="prompt-saved-time"><strong>Last saved to GitHub:</strong> ${escapeHtml(lastSaved)}</span></div><div class="subtext">Writes only ${PROMPTS_PATH}. Newly added active cards are inserted into every resolved prompt automatically.</div></div><span class="subtext">${state.promptDirty ? "Unsaved prompt changes" : "Prompt library unchanged"}</span></div><div class="test-box"><h3>🧪 Test returned JSON against CardTrack schema</h3><p class="subtext">Paste the complete returned JSON code block or only its contents. CardTrack strips fences, extracts the object, validates the category and reports malformed Markdown or encoded JSON clearly.</p><textarea id="prompt-test-json" placeholder="Paste the model's complete JSON code block here">${escapeHtml(state.promptTestText)}</textarea><div class="button-row" style="margin-top:9px"><button class="button primary" data-action="test-json">Test JSON</button><button class="button" data-action="copy-to-publisher" ${state.promptTestResult?.valid ? "" : "disabled"}>Copy to Publisher</button></div>${promptTestHtml()}</div></div></div></div>`;
+  return `<div class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="prompt-manager-title"><div class="modal"><div class="modal-header"><div><h2 id="prompt-manager-title">Prompt Manager</h2><div class="subtext">Choose the data category first, then choose one-step Search or two-step Deep Research for ChatGPT or Gemini.</div></div><button class="button" data-action="close-prompts">✕</button></div><div class="modal-body"><div class="prompt-choice-grid"><div class="field"><label>1. Data category / saved template</label><select id="template-select" class="saved-template-select">${state.stagedPrompts.templates.map((item) => `<option value="${escapeHtml(item.id)}" ${item.id === template.id ? "selected" : ""}>${escapeHtml(item.name)}</option>`).join("")}</select><div class="template-meta">${escapeHtml(template.description)} · ${selectedCount} active card${selectedCount === 1 ? "" : "s"}</div></div><div class="prompt-choice"><div class="choice-label">2. Workflow</div><div class="segmented prompt-segment"><button class="${state.promptWorkflow === "one-step" ? "active" : ""}" data-action="set-prompt-workflow" data-value="one-step">1-Step · Regular Search</button><button class="${state.promptWorkflow === "two-step" ? "active" : ""}" data-action="set-prompt-workflow" data-value="two-step">2-Step · Deep Research</button></div></div><div class="prompt-choice"><div class="choice-label">3. Platform</div><div class="segmented prompt-segment"><button class="${state.promptProvider === "chatgpt" ? "active" : ""}" data-action="set-prompt-provider" data-value="chatgpt">ChatGPT</button><button class="${state.promptProvider === "gemini" ? "active" : ""}" data-action="set-prompt-provider" data-value="gemini">Gemini</button></div></div>${state.promptWorkflow === "two-step" ? `<div class="prompt-choice"><div class="choice-label">4. Deep Research step</div><div class="segmented prompt-segment"><button class="${state.promptStage === "research" ? "active" : ""}" data-action="set-prompt-stage" data-value="research">Step 1 · Evidence Ledger</button><button class="${state.promptStage === "json" ? "active" : ""}" data-action="set-prompt-stage" data-value="json">Step 2 · JSON Conversion</button></div></div>` : ""}</div><div class="workflow-summary"><strong>${escapeHtml(variant)}</strong><span>${escapeHtml(usage)}</span></div>${preflightHtml}<div class="transport-notice"><strong>Reliable copy/paste format:</strong> prompts require exactly one fenced <code>json</code> code block. CardTrack accepts either the whole code block or only its contents and automatically removes the outer fence.</div><div class="prompt-actions prompt-actions-main"><button class="button primary" data-action="copy-prompt">${copyLabel}</button><button class="button orange" data-action="copy-repair-prompt">🛠 Copy JSON Repair Prompt</button><button class="button" data-action="save-template-local">Save Category Edit</button><button class="button" data-action="restore-template">Restore Default</button><button class="button" data-action="import-prompts">Import</button><button class="button" data-action="export-current-prompt">Export Current</button><button class="button" data-action="export-prompts">Export Library</button></div><div class="prompt-layout"><div><div class="editor-label"><span>Editable category research instructions</span><span class="subtext">CardTrack appends the provider, exact schema, source policy and copy/paste safety contract automatically. Keep required {{...}} placeholders.</span></div><div class="editor-wrap"><pre id="prompt-highlight" class="editor-highlight" aria-hidden="true">${highlightPrompt(content)}</pre><textarea id="prompt-editor" class="editor-input" spellcheck="false">${escapeHtml(content)}</textarea></div></div><div><div class="editor-label"><span>Resolved prompt to copy</span><span class="subtext">Current date, active catalog, stored data, exact schema and approved domains are injected automatically</span></div><pre id="resolved-prompt" class="resolved-preview">${escapeHtml(resolved)}</pre></div></div><div class="modal-footer"><div style="flex:1;min-width:280px"><div class="field"><label>Fine-grained GitHub token</label><input id="prompt-github-token" class="token-input" type="password" autocomplete="off"></div><div class="button-row" style="margin-top:8px"><button class="button purple" data-action="save-prompts-github">💾 Save Prompt Library to GitHub</button><span class="prompt-saved-time"><strong>Last saved to GitHub:</strong> ${escapeHtml(lastSaved)}</span></div><div class="subtext">Writes only ${PROMPTS_PATH}. Newly added active cards are inserted into every resolved prompt automatically.</div></div><span class="subtext">${state.promptDirty ? "Unsaved prompt changes" : "Prompt library unchanged"}</span></div><div class="test-box"><h3>🧪 Test returned JSON against CardTrack schema</h3><p class="subtext">Paste the complete returned JSON code block or only its contents. CardTrack strips fences, extracts the object, validates the category and reports malformed Markdown or encoded JSON clearly.</p><textarea id="prompt-test-json" placeholder="Paste the model's complete JSON code block here">${escapeHtml(state.promptTestText)}</textarea><div class="button-row" style="margin-top:9px"><button class="button primary" data-action="test-json">Test JSON</button><button class="button" data-action="clear-prompt-test">Clear</button><button class="button" data-action="copy-to-publisher" ${state.promptTestResult?.valid ? "" : "disabled"}>Copy to Publisher</button></div>${promptTestHtml()}</div></div></div></div>`;
 }
 
 function highlightPrompt(content) {
@@ -725,7 +761,11 @@ async function handleAction(event) {
       state.validation = validateSectionPayload(payload, state.stagedDatabase, {type: state.importType});
       render();
     } else if (action === "clear-import") {
-      state.importText = ""; state.validation = null; render();
+      state.importText = "";
+      state.importType = "auto";
+      state.validation = null;
+      render();
+      toast("Import JSON cleared. Import type reset to Auto-detect.");
     } else if (action === "apply-import") {
       if (!state.validation?.valid) return;
       if (state.validation.type === "valuations") {
@@ -734,7 +774,27 @@ async function handleAction(event) {
         state.stagedDatabase = applySectionImport(state.stagedDatabase, state.validation, state.importMode);
       }
       const appliedType = state.validation.type;
-      state.importText = ""; state.validation = null; render(); toast(`Validated ${appliedType} import applied to the staged data.`);
+      const appliedCount = state.validation.accepted.length;
+      state.lastAppliedImport = {type: appliedType, count: appliedCount, appliedAt: new Date().toISOString()};
+      state.importText = "";
+      state.importType = "auto";
+      state.validation = null;
+      render();
+      toast(`Validated ${appliedType} import applied to the staged database. Save Database to GitHub to make it available in other browsers.`);
+    } else if (action === "open-fact-sheet") {
+      const cardId = event.currentTarget.dataset.cardId;
+      const card = cardMap().get(cardId);
+      state.factQuery = "";
+      state.factSheetTargetId = cardId;
+      state.tab = "fact-sheets";
+      history.replaceState(null, "", `#fact-sheet=${encodeURIComponent(cardId)}`);
+      render();
+      requestAnimationFrame(() => {
+        const target = document.getElementById(`fact-sheet-${cardId}`);
+        target?.scrollIntoView({behavior: "smooth", block: "start"});
+        if (!detailsMap().has(cardId)) toast(`No fact sheet has been imported for ${card?.name || cardId}. Use Admin Publisher → Prompt Manager → Card Facts & Benefits.`, "error");
+        window.setTimeout(() => target?.classList.remove("fact-card-focus"), 2600);
+      });
     } else if (action === "archive-card") {
       archiveCard(event.currentTarget.dataset.cardId);
     } else if (action === "restore-card") {
@@ -781,6 +841,12 @@ async function handleAction(event) {
       state.promptTestPayload = parseResearchJson(state.promptTestText);
       state.promptTestResult = validateSectionPayload(state.promptTestPayload, state.stagedDatabase, {type: "auto"});
       render();
+    } else if (action === "clear-prompt-test") {
+      state.promptTestText = "";
+      state.promptTestPayload = null;
+      state.promptTestResult = null;
+      render();
+      toast("Prompt Manager JSON tester cleared.");
     } else if (action === "copy-to-publisher") {
       if (!state.promptTestResult?.valid || !state.promptTestPayload) return;
       state.importText = JSON.stringify(state.promptTestPayload, null, 2);
@@ -882,13 +948,30 @@ async function runGithub(mode) {
       setGithubStatus(`Repository access confirmed. Current file SHA starts ${response.sha.slice(0, 8)}.`, true);
       toast("Repository access confirmed.");
     } else if (mode === "database") {
+      if (state.validation?.valid) throw new Error("A validated import is waiting to be applied. Click Apply Validated Import to Staged Database before saving.");
+      if (state.importText.trim()) throw new Error("JSON is still present in the import box. Validate and apply it before saving the database.");
       const check = validateDatabase(state.stagedDatabase, {rejectExpired: false});
       if (!check.valid) throw new Error(`Staged database is invalid: ${check.errors[0]}`);
-      const response = await putJsonFile({...base, path: state.repository.dataPath, value: state.stagedDatabase, message: "Update CardTrack v5 database from Admin Publisher"});
-      state.database = structuredClone(state.stagedDatabase);
+      const expectedDatabase = structuredClone(state.stagedDatabase);
+      const expectedCounts = databaseSectionCounts(expectedDatabase);
+      const response = await putJsonFile({...base, path: state.repository.dataPath, value: expectedDatabase, message: "Update CardTrack v5 database from Admin Publisher"});
+      const commitSha = response.commit?.sha;
+      if (!commitSha) throw new Error("GitHub created the save but did not return a commit SHA for verification.");
+      const verifiedFile = await getJsonFile({...base, branch: commitSha, path: state.repository.dataPath});
+      const verifiedDatabase = migrateDatabase(verifiedFile.value).database;
+      const verifiedCheck = validateDatabase(verifiedDatabase, {rejectExpired: false});
+      if (!verifiedCheck.valid) throw new Error(`GitHub read-back verification failed: ${verifiedCheck.errors[0]}`);
+      if (!sameJson(verifiedDatabase, expectedDatabase)) throw new Error("GitHub read-back verification failed: the committed database does not match the staged database.");
+      const verifiedCounts = databaseSectionCounts(verifiedDatabase);
+      if (verifiedCounts.cardDetails !== expectedCounts.cardDetails) throw new Error(`GitHub read-back verification failed: expected ${expectedCounts.cardDetails} fact sheets but found ${verifiedCounts.cardDetails}.`);
+      state.database = structuredClone(verifiedDatabase);
+      state.stagedDatabase = structuredClone(verifiedDatabase);
       state.databaseMigration = {migrated: false, changes: []};
-      setGithubStatus(`Database saved. Commit: ${response.commit?.html_url || "created"}`, true);
-      toast("Database saved to GitHub. GitHub Actions will redeploy the site.");
+      state.lastDatabaseSaveVerification = {savedAt: new Date().toISOString(), commitSha, ...verifiedCounts};
+      state.lastAppliedImport = null;
+      render();
+      setGithubStatus(`Database saved and verified. ${verifiedCounts.cardDetails} fact sheet${verifiedCounts.cardDetails === 1 ? "" : "s"} committed. Commit: ${response.commit?.html_url || commitSha}`, true);
+      toast(`Database saved and verified on GitHub with ${verifiedCounts.cardDetails} fact sheet${verifiedCounts.cardDetails === 1 ? "" : "s"}.`);
     } else if (mode === "valuations") {
       const validation = validateSectionPayload(state.valuations, state.stagedDatabase, {type: "valuations"});
       if (!validation.valid) throw new Error(`Valuations are invalid: ${validation.errors[0]}`);

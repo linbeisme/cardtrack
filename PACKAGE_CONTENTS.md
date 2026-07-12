@@ -1,4 +1,4 @@
-# Package Contents — CardTrack v5.2.3
+# Package Contents — CardTrack v5.2.4
 
 - `.github/workflows/update-and-deploy.yml` — validates data, runs tests, audits all generated prompts, and deploys GitHub Pages
 - `site/index.html` — static application shell with versioned assets
@@ -6,7 +6,7 @@
 - `site/styles.css` — responsive UI, prompt preflight and transport notices, color-coded tabs, row shades, KPI colors, and animations
 - `site/lib/schema.mjs` — migrations, parser, category source validators, malformed-output diagnostics, section imports, and application version
 - `site/lib/prompts.mjs` — exact category contracts, source-domain injection, ChatGPT/Gemini one-step and two-step prompts, repair prompts, migration, editing, and preflight
-- `site/lib/github.mjs` — GitHub Contents API publisher
+- `site/lib/github.mjs` — GitHub Contents API publisher with commit read-back JSON verification
 - `site/data/default-prompts.json` — package defaults, Prompt Library schema v4, transport contract v2
 - `site/data/prompts.json` — saved prompt library in the complete package only
 - `site/data/cardtrack.json` — card database in the complete package only
@@ -17,5 +17,5 @@
 - `docs/PROMPT_MANAGER_WORKFLOW.md` — detailed one-step, two-step, repair, copy/paste, and validation instructions
 - `docs/UPDATE_INSTRUCTIONS.md` — beginner GitHub update directions
 - `docs/RESEARCH_JSON_FORMATS.md` — accepted import structures and source policies
-- `RELEASE_NOTES_v5.2.3.md` — prompt reliability and parser changes
+- `RELEASE_NOTES_v5.2.4.md` — import reset, token styling, fact-sheet persistence verification, and internal navigation changes
 - Earlier release notes — prior features and compatibility history

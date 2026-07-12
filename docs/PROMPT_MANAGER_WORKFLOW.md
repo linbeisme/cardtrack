@@ -1,4 +1,4 @@
-# Prompt Manager Workflow — v5.2.3
+# Prompt Manager Workflow — v5.2.4
 
 ## One-step Search
 
