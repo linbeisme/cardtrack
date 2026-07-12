@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-07-12T00:31:29.768Z",
+  "generatedAt": "2026-07-12T00:41:46.425Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -573,7 +573,3299 @@
       ]
     }
   ],
-  "cardDetails": [],
+  "cardDetails": [
+    {
+      "cardId": "amex-platinum",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Flights booked directly with airlines or through American Express Travel",
+          "rate": 5,
+          "unit": "x",
+          "cap": 500000,
+          "notes": "On up to $500,000 in eligible flight purchases per calendar year, then 1X."
+        },
+        {
+          "category": "Prepaid hotels booked through American Express Travel",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other eligible purchases",
+          "rate": 1,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "platinum-hotel-credit",
+          "name": "Hotel Credit",
+          "category": "hotel",
+          "faceValueAnnual": 600,
+          "frequency": "semiannual",
+          "amountPerPeriod": 300,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $300 from January through June and $300 from July through December on prepaid Fine Hotels + Resorts or The Hotel Collection bookings through American Express Travel; The Hotel Collection requires at least two nights.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-resy-credit",
+          "name": "Resy Credit",
+          "category": "dining",
+          "faceValueAnnual": 400,
+          "frequency": "quarterly",
+          "amountPerPeriod": 100,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $100 each calendar quarter on eligible purchases at qualifying U.S. Resy restaurants; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-digital-entertainment-credit",
+          "name": "Digital Entertainment Credit",
+          "category": "entertainment",
+          "faceValueAnnual": 300,
+          "frequency": "monthly",
+          "amountPerPeriod": 25,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $25 per month on eligible purchases with participating digital entertainment partners; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-airline-fee-credit",
+          "name": "Airline Fee Credit",
+          "category": "airline",
+          "faceValueAnnual": 200,
+          "frequency": "annual",
+          "amountPerPeriod": 200,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $200 per calendar year for eligible incidental fees charged by one selected qualifying airline.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-uber-cash",
+          "name": "Uber Cash",
+          "category": "rideshare",
+          "faceValueAnnual": 200,
+          "frequency": "monthly",
+          "amountPerPeriod": 15,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "$15 each month plus an additional $20 in December for eligible U.S. Uber rides or Uber Eats orders; add the card to Uber and select an American Express card for payment.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-clear-plus-credit",
+          "name": "CLEAR Plus Credit",
+          "category": "travel",
+          "faceValueAnnual": 219,
+          "frequency": "annual",
+          "amountPerPeriod": 219,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $219 per calendar year for an auto-renewing CLEAR Plus membership, excluding taxes and fees.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 6,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-lululemon-credit",
+          "name": "lululemon Credit",
+          "category": "retail",
+          "faceValueAnnual": 300,
+          "frequency": "quarterly",
+          "amountPerPeriod": 75,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $75 each quarter at eligible U.S. lululemon retail stores excluding outlets and at lululemon.com; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 7,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-walmart-plus-credit",
+          "name": "Walmart Plus Credit",
+          "category": "retail",
+          "faceValueAnnual": 155,
+          "frequency": "monthly",
+          "amountPerPeriod": 12.95,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $12.95 plus applicable taxes each month for one auto-renewing Walmart Plus membership.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 8,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-oura-ring-credit",
+          "name": "Oura Ring Credit",
+          "category": "wellness",
+          "faceValueAnnual": 200,
+          "frequency": "annual",
+          "amountPerPeriod": 200,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $200 per calendar year for an eligible Oura Ring purchase at ouraring.com; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 9,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-equinox-credit",
+          "name": "Equinox Credit",
+          "category": "wellness",
+          "faceValueAnnual": 300,
+          "frequency": "annual",
+          "amountPerPeriod": 300,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $300 per calendar year for an eligible Equinox club membership or Equinox Plus digital subscription; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 10,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-venue-concessions-credit",
+          "name": "American Express Venue Collection Concessions Credit",
+          "category": "entertainment",
+          "faceValueAnnual": 250,
+          "frequency": "annual",
+          "amountPerPeriod": 250,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "10% back on qualifying concessions purchases at participating venues, up to $250 per calendar year; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 11,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "benefitId": "platinum-expedited-security-credit",
+          "name": "Global Entry or TSA PreCheck Fee Credit",
+          "category": "travel",
+          "faceValueAnnual": 120,
+          "frequency": "one-time",
+          "amountPerPeriod": 120,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "One credit every four years: up to $120 for Global Entry or up to $85 for an eligible five-year TSA PreCheck membership.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 12,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        }
+      ],
+      "perks": [
+        {
+          "name": "Global Dining Access by Resy",
+          "category": "dining",
+          "summary": "Access to exclusive reservations, dining experiences and Priority Notify at participating U.S. Resy restaurants after adding the card to the Resy profile.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Platinum Nights by Resy",
+          "category": "dining",
+          "summary": "Access to select reservation inventory at participating Resy restaurants on designated nights and in participating cities.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Platinum Travel Service",
+          "category": "travel",
+          "summary": "Travel consultants can provide custom itineraries and tailored recommendations.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Premium Global Assist Hotline",
+          "category": "travel",
+          "summary": "24-hour emergency coordination and referrals while traveling more than 100 miles from home; third-party charges may apply.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Membership Rewards transfers",
+          "category": "travel",
+          "summary": "Eligible Membership Rewards points can be transferred to participating airline and hotel loyalty programs.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Trip Cancellation and Interruption Insurance",
+          "summary": "For eligible round trips paid with the card, reimbursement for covered nonrefundable expenses is available up to $10,000 per trip and $20,000 per card per 12 consecutive months.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Trip Delay Insurance",
+          "summary": "For covered delays exceeding six hours, eligible additional expenses may be reimbursed up to $500 per trip, with no more than two claims per card per 12 consecutive months.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Car Rental Loss and Damage Insurance",
+          "summary": "Secondary coverage for eligible rental-vehicle damage or theft when the rental is paid with the card and the rental company's collision damage waiver is declined; liability is excluded and geographic restrictions apply.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Cell Phone Protection",
+          "summary": "Up to $800 per approved claim with two approved claims per 12 months and a $50 deductible when the prior month's wireless bill was paid with the card.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Purchase Protection",
+          "summary": "Eligible purchases are covered for up to 90 days against qualifying accidental damage, theft or loss, up to $10,000 per purchase and $50,000 per calendar year.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Return Protection",
+          "summary": "Eligible U.S. purchases may be refunded when the seller will not accept a return within 90 days, up to $300 per item and $1,000 per calendar year.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 6,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Extended Warranty",
+          "summary": "Adds up to one year to eligible original manufacturers' warranties of five years or less, subject to $10,000 per item and $50,000 per calendar-year limits.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 7,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        }
+      ],
+      "loungeAccess": [
+        {
+          "name": "American Express Global Lounge Collection",
+          "summary": "Access to more than 1,550 lounges, including Centurion Lounges, Priority Pass after enrollment, 10 Delta Sky Club visits when flying an eligible Delta itinerary and select partner lounges; guest and access rules vary by network.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        }
+      ],
+      "statusBenefits": [
+        {
+          "name": "Leaders Club Sterling Status",
+          "summary": "Complimentary Leaders Club Sterling status after enrollment, including a 5% points bonus on qualifying stays and five pre-arrival upgrades annually, subject to availability.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Marriott Bonvoy Gold Elite Status",
+          "summary": "Complimentary Marriott Bonvoy Gold Elite status after enrollment.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Hilton Honors Gold Status",
+          "summary": "Complimentary Hilton Honors Gold status after enrollment.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "Premium Car Rental Status",
+          "summary": "Enrollment-based premium status or privileges with Avis, Hertz and National, subject to each program's terms.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        }
+      ],
+      "airlineBenefits": [],
+      "hotelBenefits": [
+        {
+          "name": "Fine Hotels and Resorts benefits",
+          "summary": "Eligible bookings include daily breakfast for two, a $100 property credit, guaranteed 4 p.m. checkout, noon check-in when available and a room upgrade when available.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        },
+        {
+          "name": "The Hotel Collection benefits",
+          "summary": "Eligible bookings of at least two nights include a $100 property credit and a room upgrade when available.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/platinum/"
+        }
+      ],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "American Express Platinum Card",
+          "url": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "amex-gold",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Restaurants worldwide",
+          "rate": 4,
+          "unit": "x",
+          "cap": 50000,
+          "notes": "On up to $50,000 in eligible purchases per calendar year, then 1X."
+        },
+        {
+          "category": "U.S. supermarkets",
+          "rate": 4,
+          "unit": "x",
+          "cap": 25000,
+          "notes": "On up to $25,000 in eligible purchases per calendar year, then 1X."
+        },
+        {
+          "category": "Prepaid hotels booked through American Express Travel",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Flights booked directly with airlines or through American Express Travel",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Prepaid car rentals and cruises booked through American Express Travel",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other eligible purchases",
+          "rate": 1,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "gold-resy-credit",
+          "name": "Resy Credit",
+          "category": "dining",
+          "faceValueAnnual": 100,
+          "frequency": "semiannual",
+          "amountPerPeriod": 50,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $50 from January through June and $50 from July through December at qualifying U.S. Resy restaurants; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        },
+        {
+          "benefitId": "gold-dunkin-credit",
+          "name": "Dunkin Credit",
+          "category": "dining",
+          "faceValueAnnual": 84,
+          "frequency": "monthly",
+          "amountPerPeriod": 7,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $7 per month at U.S. Dunkin locations; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        },
+        {
+          "benefitId": "gold-dining-credit",
+          "name": "Dining Credit",
+          "category": "dining",
+          "faceValueAnnual": 120,
+          "frequency": "monthly",
+          "amountPerPeriod": 10,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $10 per month at participating dining partners, including Grubhub, Seamless, Buffalo Wild Wings, Five Guys, The Cheesecake Factory and Wonder; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        },
+        {
+          "benefitId": "gold-uber-cash",
+          "name": "Uber Cash",
+          "category": "rideshare",
+          "faceValueAnnual": 120,
+          "frequency": "monthly",
+          "amountPerPeriod": 10,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $10 per month for eligible U.S. Uber rides or Uber Eats orders; add the card to Uber and select an American Express card for payment.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        },
+        {
+          "benefitId": "gold-venue-concessions-credit",
+          "name": "American Express Venue Collection Concessions Credit",
+          "category": "entertainment",
+          "faceValueAnnual": 250,
+          "frequency": "annual",
+          "amountPerPeriod": 250,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "10% back on qualifying concessions purchases at participating venues, up to $250 per calendar year; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        }
+      ],
+      "perks": [
+        {
+          "name": "Membership Rewards transfers",
+          "category": "travel",
+          "summary": "Eligible Membership Rewards points can be transferred to participating airline and hotel loyalty programs.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        },
+        {
+          "name": "Global Assist Hotline",
+          "category": "travel",
+          "summary": "Emergency coordination and referrals while traveling more than 100 miles from home; third-party service charges may apply.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        },
+        {
+          "name": "Amex Presale and Reserved Tickets",
+          "category": "entertainment",
+          "summary": "Access to select presale and reserved-ticket inventory while supplies last.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Trip Delay Insurance",
+          "summary": "For covered delays exceeding 12 hours, eligible additional expenses may be reimbursed up to $300 per trip, with no more than two claims per card per 12 consecutive months.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        },
+        {
+          "name": "Baggage Insurance Plan",
+          "summary": "Coverage for eligible lost, damaged or stolen baggage when the common-carrier fare is paid with the card, subject to published limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        },
+        {
+          "name": "Car Rental Loss and Damage Insurance",
+          "summary": "Secondary coverage for eligible rental-vehicle damage or theft when the rental is paid with the card and the rental company's collision damage waiver is declined; liability is excluded and geographic restrictions apply.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        },
+        {
+          "name": "Purchase Protection",
+          "summary": "Eligible purchases are covered against qualifying accidental damage, theft or loss for up to 90 days, subject to published item and annual limits.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        },
+        {
+          "name": "Extended Warranty",
+          "summary": "Adds up to one year to eligible original manufacturers' warranties of five years or less, subject to published limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        }
+      ],
+      "loungeAccess": [],
+      "statusBenefits": [
+        {
+          "name": "Hertz Five Star Status",
+          "summary": "Complimentary Hertz Five Star status after enrollment.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        }
+      ],
+      "airlineBenefits": [],
+      "hotelBenefits": [
+        {
+          "name": "The Hotel Collection benefits",
+          "summary": "Each eligible booking of at least two nights through American Express Travel includes a $100 property credit and a room upgrade when available.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/gold-card/"
+        }
+      ],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "American Express Gold Card",
+          "url": "https://www.americanexpress.com/us/credit-cards/card/gold-card/",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "chase-sapphire-preferred",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Travel purchased through Chase Travel",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": "Hotel purchases reimbursed by the annual hotel credit do not earn points on the credited amount."
+        },
+        {
+          "category": "Dining",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Gas stations, EV charging and eligible vacation-home rentals",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": "Issuer category definitions and eligible vacation-home brands apply."
+        },
+        {
+          "category": "Select streaming services",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Online grocery purchases",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": "Excludes Target, Walmart and wholesale clubs."
+        },
+        {
+          "category": "Other travel",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Lyft purchases through the Lyft app",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": "Available through September 30, 2027."
+        },
+        {
+          "category": "Eligible Peloton equipment and accessories purchases over $150",
+          "rate": 5,
+          "unit": "x",
+          "cap": 5000,
+          "notes": "Available through December 31, 2027; $5,000 aggregate promotional purchase cap applies."
+        },
+        {
+          "category": "Other purchases",
+          "rate": 1,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "csp-chase-travel-hotel-credit",
+          "name": "Chase Travel Hotel Credit",
+          "category": "hotel",
+          "faceValueAnnual": 100,
+          "frequency": "anniversary",
+          "amountPerPeriod": 100,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $100 each account anniversary year for eligible hotel accommodations purchased through Chase Travel; reimbursed purchases do not earn points.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "benefitId": "csp-doordash-nonrestaurant-credit",
+          "name": "DoorDash Non-Restaurant Credit",
+          "category": "delivery",
+          "faceValueAnnual": 120,
+          "frequency": "monthly",
+          "amountPerPeriod": 10,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $10 each month on one eligible grocery, convenience or other non-restaurant DoorDash order through December 31, 2027; active DashPass required and unused value does not roll over.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "benefitId": "csp-expedited-security-credit",
+          "name": "Global Entry, TSA PreCheck or NEXUS Fee Credit",
+          "category": "travel",
+          "faceValueAnnual": 120,
+          "frequency": "one-time",
+          "amountPerPeriod": 120,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $120 once every four years for one eligible application fee charged to the card.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        }
+      ],
+      "perks": [
+        {
+          "name": "Complimentary DashPass",
+          "category": "delivery",
+          "summary": "One year of complimentary DashPass after activation by December 31, 2027; membership automatically renews at the then-current rate unless canceled.",
+          "estimatedAnnualValue": 120,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "name": "Apple TV subscription",
+          "category": "entertainment",
+          "summary": "One complimentary year of Apple TV for eligible cardmembers who activate by December 31, 2026; renewal and eligibility terms apply.",
+          "estimatedAnnualValue": 156,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "name": "Ultimate Rewards transfers",
+          "category": "travel",
+          "summary": "Eligible Ultimate Rewards points can be transferred to participating airline and hotel loyalty programs.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "name": "Travel and emergency assistance services",
+          "category": "travel",
+          "summary": "Referral and coordination help is available while traveling; the cardholder pays for services obtained.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "name": "Roadside dispatch",
+          "category": "auto",
+          "summary": "Pay-per-use roadside assistance coordination is available; service fees are charged to the card.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Primary Auto Rental Coverage",
+          "summary": "Primary reimbursement for covered theft or collision damage to eligible rentals, up to $60,000 for qualifying vehicles with an MSRP of $125,000 or less; liability is not covered and New York domestic coverage is secondary.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "name": "Trip Cancellation and Interruption Insurance",
+          "summary": "Reimbursement for covered prepaid, nonrefundable travel expenses up to $10,000 per covered traveler and $20,000 per trip.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "name": "Trip Delay Reimbursement",
+          "summary": "Up to $500 per covered traveler for eligible expenses when common-carrier travel is delayed more than 12 hours or requires an overnight stay.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "name": "Baggage Delay Insurance",
+          "summary": "Up to $100 per day for five days for eligible essential purchases when baggage is delayed more than six hours.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "name": "Lost Luggage Reimbursement",
+          "summary": "Up to $3,000 per covered traveler for eligible lost, damaged or stolen checked or carry-on baggage.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        },
+        {
+          "name": "Purchase Protection",
+          "summary": "Eligible new purchases are covered for 120 days against damage or theft, up to $500 per item.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 6,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred"
+        }
+      ],
+      "loungeAccess": [],
+      "statusBenefits": [],
+      "airlineBenefits": [],
+      "hotelBenefits": [],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "Chase Sapphire Preferred",
+          "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "chase-sapphire-reserve",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Travel purchased through Chase Travel",
+          "rate": 8,
+          "unit": "x",
+          "cap": null,
+          "notes": "Includes eligible Chase Travel and The Edit purchases; reimbursed purchases may not earn points."
+        },
+        {
+          "category": "Flights booked directly with airlines",
+          "rate": 4,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Hotels booked directly",
+          "rate": 4,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Dining worldwide",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Lyft purchases through the Lyft app",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": "Available through September 30, 2027."
+        },
+        {
+          "category": "Eligible Peloton equipment and accessories purchases over $150",
+          "rate": 10,
+          "unit": "x",
+          "cap": 5000,
+          "notes": "Available through December 31, 2027; $5,000 aggregate promotional purchase cap applies."
+        },
+        {
+          "category": "Other purchases",
+          "rate": 1,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "csr-the-edit-credit",
+          "name": "The Edit Hotel Credit",
+          "category": "hotel",
+          "faceValueAnnual": 500,
+          "frequency": "per-stay",
+          "amountPerPeriod": 250,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $250 per eligible prepaid The Edit stay, with a $500 annual maximum; minimum two-night stay and purchases that qualify do not earn points.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "benefitId": "csr-dining-credit",
+          "name": "Sapphire Reserve Exclusive Tables Dining Credit",
+          "category": "dining",
+          "faceValueAnnual": 300,
+          "frequency": "semiannual",
+          "amountPerPeriod": 150,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $150 from January through June and $150 from July through December at eligible restaurants in the Sapphire Reserve Exclusive Tables program.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "benefitId": "csr-doordash-credits",
+          "name": "DoorDash Credits and Promotions",
+          "category": "delivery",
+          "faceValueAnnual": 300,
+          "frequency": "monthly",
+          "amountPerPeriod": 25,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $5 monthly on eligible restaurant orders and two separate $10 monthly promotions on eligible grocery, retail or other non-restaurant orders through December 31, 2027; active DashPass required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "benefitId": "csr-annual-travel-credit",
+          "name": "Annual Travel Credit",
+          "category": "travel",
+          "faceValueAnnual": 300,
+          "frequency": "anniversary",
+          "amountPerPeriod": 300,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Automatically applied to eligible travel purchases each account anniversary year; reimbursed purchases do not earn points.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "benefitId": "csr-stubhub-credit",
+          "name": "StubHub and viagogo Credit",
+          "category": "entertainment",
+          "faceValueAnnual": 300,
+          "frequency": "semiannual",
+          "amountPerPeriod": 150,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $150 from January through June and $150 from July through December on eligible StubHub or viagogo purchases through December 31, 2027; activation required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 5,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "benefitId": "csr-select-hotel-credit-2026",
+          "name": "Select Chase Travel Hotel Credit",
+          "category": "hotel",
+          "faceValueAnnual": 250,
+          "frequency": "annual",
+          "amountPerPeriod": 250,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Through December 31, 2026, up to $250 for an eligible prepaid stay of at least two nights at participating hotel brands booked through Chase Travel.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 6,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "benefitId": "csr-lyft-credit",
+          "name": "Lyft Credit",
+          "category": "rideshare",
+          "faceValueAnnual": 120,
+          "frequency": "monthly",
+          "amountPerPeriod": 10,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $10 per month on eligible Lyft purchases through September 30, 2027; unused value does not roll over.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 7,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "benefitId": "csr-peloton-credit",
+          "name": "Peloton Membership Credit",
+          "category": "wellness",
+          "faceValueAnnual": 120,
+          "frequency": "monthly",
+          "amountPerPeriod": 10,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $10 per month for eligible Peloton memberships through December 31, 2027; activation required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 8,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "benefitId": "csr-expedited-security-credit",
+          "name": "Global Entry, TSA PreCheck or NEXUS Fee Credit",
+          "category": "travel",
+          "faceValueAnnual": 120,
+          "frequency": "one-time",
+          "amountPerPeriod": 120,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $120 once every four years for one eligible application fee charged to the card.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 9,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        }
+      ],
+      "perks": [
+        {
+          "name": "Apple TV and Apple Music",
+          "category": "entertainment",
+          "summary": "Complimentary Apple TV and Apple Music subscriptions through June 22, 2027 for eligible cardmembers.",
+          "estimatedAnnualValue": 288,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Reserve Travel Designers",
+          "category": "travel",
+          "summary": "Access to a dedicated travel-design service for customized itineraries and reservations; third-party travel costs remain the cardholder's responsibility.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Complimentary DashPass",
+          "category": "delivery",
+          "summary": "One year of complimentary DashPass after activation by December 31, 2027; membership automatically renews at the then-current rate unless canceled.",
+          "estimatedAnnualValue": 120,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Ultimate Rewards transfers",
+          "category": "travel",
+          "summary": "Eligible Ultimate Rewards points can be transferred to participating airline and hotel loyalty programs.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Primary Auto Rental Coverage",
+          "summary": "Primary reimbursement for covered theft or collision damage to eligible rental vehicles, up to $75,000; liability is not covered.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Trip Cancellation and Interruption Insurance",
+          "summary": "Reimbursement for covered prepaid, nonrefundable travel expenses up to $10,000 per covered traveler and $20,000 per trip.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Trip Delay Reimbursement",
+          "summary": "Up to $500 per covered traveler for eligible expenses when common-carrier travel is delayed more than six hours or requires an overnight stay.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Lost Luggage Reimbursement",
+          "summary": "Up to $3,000 per covered traveler for eligible lost or damaged checked or carry-on baggage.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Baggage Delay Insurance",
+          "summary": "Up to $100 per day for five days for eligible essential purchases when baggage is delayed more than six hours.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Emergency Evacuation and Transportation",
+          "summary": "Coverage up to $100,000 for eligible emergency evacuation and transportation arranged through the benefit administrator.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 6,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Emergency Medical and Dental Benefit",
+          "summary": "Coverage up to $2,500, subject to a $50 deductible, for eligible emergency treatment while traveling at least 100 miles from home.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 7,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Purchase Protection",
+          "summary": "Eligible new purchases are covered for 120 days against damage or theft, up to $10,000 per item.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 8,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Return Protection",
+          "summary": "Eligible purchases may be reimbursed when a merchant will not accept a return within 90 days, up to $500 per item and $1,000 per year.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 9,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        }
+      ],
+      "loungeAccess": [
+        {
+          "name": "Chase Sapphire Lounge and Priority Pass Select",
+          "summary": "Complimentary access to Chase Sapphire Lounges by The Club and participating Priority Pass lounges after enrollment, with up to two guests per visit where the published benefit applies.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        },
+        {
+          "name": "Air Canada Maple Leaf Lounge access",
+          "summary": "Access to participating Air Canada Maple Leaf Lounges and Cafes with an eligible same-day boarding pass; guest and location rules apply.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        }
+      ],
+      "statusBenefits": [
+        {
+          "name": "IHG One Rewards Platinum Elite Status",
+          "summary": "Complimentary IHG One Rewards Platinum Elite status through December 31, 2027 after activation.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        }
+      ],
+      "airlineBenefits": [],
+      "hotelBenefits": [
+        {
+          "name": "The Edit hotel benefits",
+          "summary": "Eligible prepaid stays include daily breakfast for two, a property credit, room upgrade when available, early check-in when available and late checkout when available.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve"
+        }
+      ],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "Chase Sapphire Reserve",
+          "url": "https://creditcards.chase.com/rewards-credit-cards/sapphire/reserve",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "capital-one-venture-x",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Hotels and rental cars booked through Capital One Travel",
+          "rate": 10,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Flights, vacation rentals and activities booked through Capital One Travel",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Eligible Capital One Entertainment purchases",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other purchases",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "venture-x-travel-credit",
+          "name": "Capital One Travel Credit",
+          "category": "travel",
+          "faceValueAnnual": 300,
+          "frequency": "annual",
+          "amountPerPeriod": 300,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Annual credit for eligible bookings through Capital One Travel; booking and timing terms apply.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.capitalone.com/learn-grow/money-management/capital-one-venture-vs-venture-x/"
+        },
+        {
+          "benefitId": "venture-x-premier-collection-experience-credit",
+          "name": "Premier Collection Experience Credit",
+          "category": "hotel",
+          "faceValueAnnual": null,
+          "frequency": "per-stay",
+          "amountPerPeriod": 100,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $100 in experience credits per eligible Premier Collection stay; no fixed annual maximum is published.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.capitalone.com/learn-grow/money-management/capital-one-venture-vs-venture-x/"
+        },
+        {
+          "benefitId": "venture-x-lifestyle-collection-experience-credit",
+          "name": "Lifestyle Collection Experience Credit",
+          "category": "hotel",
+          "faceValueAnnual": null,
+          "frequency": "per-stay",
+          "amountPerPeriod": 50,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $50 in experience credits per eligible Lifestyle Collection stay; no fixed annual maximum is published.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.capitalone.com/learn-grow/money-management/capital-one-venture-vs-venture-x/"
+        },
+        {
+          "benefitId": "venture-x-expedited-security-credit",
+          "name": "Global Entry or TSA PreCheck Fee Credit",
+          "category": "travel",
+          "faceValueAnnual": 120,
+          "frequency": "one-time",
+          "amountPerPeriod": 120,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $120 for one eligible Global Entry or TSA PreCheck application fee, subject to the published renewal interval.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.capitalone.com/learn-grow/money-management/capital-one-venture-vs-venture-x/"
+        }
+      ],
+      "perks": [
+        {
+          "name": "10,000 anniversary miles",
+          "category": "rewards",
+          "summary": "Receive 10,000 Capital One miles each account anniversary, subject to account eligibility.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.capitalone.com/learn-grow/money-management/capital-one-venture-vs-venture-x/"
+        },
+        {
+          "name": "PRIOR subscription",
+          "category": "travel",
+          "summary": "Complimentary eligible PRIOR subscription after enrollment.",
+          "estimatedAnnualValue": 149,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture-x/"
+        },
+        {
+          "name": "Capital One Travel booking tools",
+          "category": "travel",
+          "summary": "Eligible bookings may receive price prediction, price-drop protection, price-match support and other platform features under Capital One Travel terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.capitalone.com/learn-grow/money-management/capital-one-venture-vs-venture-x/"
+        },
+        {
+          "name": "Capital One Entertainment access",
+          "category": "entertainment",
+          "summary": "Access to eligible presales, cardholder events and ticket inventory; ticket costs and availability vary.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.capitalone.com/learn-grow/money-management/capital-one-venture-vs-venture-x/"
+        }
+      ],
+      "protections": [],
+      "loungeAccess": [
+        {
+          "name": "Capital One Lounge, Landing and Priority Pass access",
+          "summary": "The primary cardholder receives complimentary access to Capital One Lounges, Capital One Landings and participating Priority Pass lounges after enrollment; guest access and additional-cardholder terms apply.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/disclosures/airport-lounge-terms/"
+        }
+      ],
+      "statusBenefits": [
+        {
+          "name": "Hertz President's Circle Status",
+          "summary": "Complimentary Hertz President's Circle status after enrollment, subject to Hertz program terms.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.capitalone.com/learn-grow/money-management/capital-one-venture-vs-venture-x/"
+        }
+      ],
+      "airlineBenefits": [],
+      "hotelBenefits": [],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "Capital One Venture and Venture X comparison",
+          "url": "https://www.capitalone.com/learn-grow/money-management/capital-one-venture-vs-venture-x/",
+          "sourceType": "issuer"
+        },
+        {
+          "name": "Capital One airport lounge terms",
+          "url": "https://www.capitalone.com/credit-cards/disclosures/airport-lounge-terms/",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "capital-one-venture",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Hotels, vacation rentals, rental cars and activities booked through Capital One Travel",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Eligible Capital One Entertainment purchases",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other purchases",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "venture-lifestyle-collection-experience-credit",
+          "name": "Lifestyle Collection Experience Credit",
+          "category": "hotel",
+          "faceValueAnnual": null,
+          "frequency": "per-stay",
+          "amountPerPeriod": 50,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $50 in experience credits per eligible Lifestyle Collection stay; no fixed annual maximum is published.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
+        },
+        {
+          "benefitId": "venture-expedited-security-credit",
+          "name": "Global Entry or TSA PreCheck Fee Credit",
+          "category": "travel",
+          "faceValueAnnual": 120,
+          "frequency": "one-time",
+          "amountPerPeriod": 120,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $120 for one eligible Global Entry or TSA PreCheck application fee, subject to the published renewal interval.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
+        }
+      ],
+      "perks": [
+        {
+          "name": "Capital One Travel booking tools",
+          "category": "travel",
+          "summary": "Eligible bookings may receive price prediction, price-drop protection, price-match support and other platform features under Capital One Travel terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
+        },
+        {
+          "name": "Capital One Entertainment access",
+          "category": "entertainment",
+          "summary": "Access to eligible presales, cardholder events and ticket inventory; eligible purchases earn 5X miles.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
+        },
+        {
+          "name": "Miles do not expire while the account is open",
+          "category": "rewards",
+          "summary": "Earned miles remain available while the account is open and in good standing, subject to program terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
+        },
+        {
+          "name": "Travel assistance services",
+          "category": "travel",
+          "summary": "Travel assistance coordination is available for eligible situations; third-party service costs may apply.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Auto Rental Collision Damage Waiver",
+          "summary": "Coverage for eligible collision damage or theft when the rental is paid with the card and the rental company's collision damage waiver is declined; terms and exclusions apply.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
+        },
+        {
+          "name": "Travel Accident Insurance",
+          "summary": "Common-carrier travel accident coverage for eligible covered loss when the fare is paid with the card; policy limits and exclusions apply.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
+        },
+        {
+          "name": "Extended Warranty",
+          "summary": "Eligible purchases may receive additional warranty coverage under the card's benefit terms.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
+        }
+      ],
+      "loungeAccess": [],
+      "statusBenefits": [
+        {
+          "name": "Hertz Five Star Status",
+          "summary": "Complimentary Hertz Five Star status after enrollment, subject to Hertz program terms.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.capitalone.com/credit-cards/venture/"
+        }
+      ],
+      "airlineBenefits": [],
+      "hotelBenefits": [],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "Capital One Venture Rewards",
+          "url": "https://www.capitalone.com/credit-cards/venture/",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "citi-strata-premier",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Hotels, car rentals and attractions booked through Citi Travel",
+          "rate": 10,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Air travel and other hotel purchases",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Restaurants",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Supermarkets",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Gas stations and EV charging stations",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other purchases",
+          "rate": 1,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "strata-premier-hotel-benefit",
+          "name": "Annual Hotel Benefit",
+          "category": "hotel",
+          "faceValueAnnual": 100,
+          "frequency": "annual",
+          "amountPerPeriod": 100,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "$100 off one hotel stay of $500 or more, excluding taxes and fees, booked through Citi Travel online or by phone each calendar year.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card"
+        }
+      ],
+      "perks": [
+        {
+          "name": "ThankYou Points transfers",
+          "category": "travel",
+          "summary": "Eligible ThankYou Points can be transferred to participating airline and hotel programs, subject to current partner and account terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card"
+        },
+        {
+          "name": "The Reserve by Citi Travel",
+          "category": "travel",
+          "summary": "Access to participating premium-hotel inventory and published booking benefits through Citi Travel; property and booking terms apply.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card"
+        },
+        {
+          "name": "Citi Entertainment",
+          "category": "entertainment",
+          "summary": "Access to select presale tickets and experiences, subject to availability and separate charges.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card"
+        },
+        {
+          "name": "Free FICO Score",
+          "category": "security",
+          "summary": "Eligible cardholders can access a FICO score through Citi account tools, subject to program terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Trip Cancellation and Interruption Protection",
+          "summary": "Coverage for eligible nonrefundable common-carrier travel expenses when a covered event cancels or interrupts a trip; limits and exclusions apply.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card"
+        },
+        {
+          "name": "Trip Delay Protection",
+          "summary": "Reimbursement for eligible expenses after a covered common-carrier delay, subject to waiting periods, limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card"
+        },
+        {
+          "name": "Lost or Damaged Luggage Protection",
+          "summary": "Coverage for eligible lost or damaged checked and carry-on baggage on covered common-carrier trips, subject to limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card"
+        },
+        {
+          "name": "MasterRental Coverage",
+          "summary": "Coverage for eligible rental-vehicle damage or theft when the rental is paid with the card and required terms are met; exclusions and coverage priority apply.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card"
+        }
+      ],
+      "loungeAccess": [],
+      "statusBenefits": [],
+      "airlineBenefits": [],
+      "hotelBenefits": [],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "Citi Strata Premier",
+          "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "ihg-premier",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "IHG Hotels and Resorts",
+          "rate": 10,
+          "unit": "x",
+          "cap": null,
+          "notes": "Card earnings are separate from IHG member and elite-status earnings."
+        },
+        {
+          "category": "Travel",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Dining",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Gas stations",
+          "rate": 5,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other purchases",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "ihg-premier-united-travelbank",
+          "name": "United TravelBank Cash",
+          "category": "airline",
+          "faceValueAnnual": 50,
+          "frequency": "annual",
+          "amountPerPeriod": 50,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $50 in United TravelBank Cash each calendar year after registering the card with a United MileagePlus account.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks"
+        },
+        {
+          "benefitId": "ihg-premier-spend-credit",
+          "name": "Annual Spend Statement Credit",
+          "category": "rewards",
+          "faceValueAnnual": 100,
+          "frequency": "annual",
+          "amountPerPeriod": 100,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Receive a $100 statement credit after at least $20,000 in eligible purchases in a calendar year; the same threshold also awards 10,000 IHG points.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks"
+        },
+        {
+          "benefitId": "ihg-premier-expedited-security-credit",
+          "name": "Global Entry, TSA PreCheck or NEXUS Fee Credit",
+          "category": "travel",
+          "faceValueAnnual": 120,
+          "frequency": "one-time",
+          "amountPerPeriod": 120,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $120 once every four years for one eligible application fee charged to the card.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks"
+        }
+      ],
+      "perks": [
+        {
+          "name": "10,000 annual spend bonus points",
+          "category": "rewards",
+          "summary": "Receive 10,000 IHG points after at least $20,000 in eligible purchases in a calendar year, in addition to the associated statement credit.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks"
+        },
+        {
+          "name": "Discount on purchased IHG points",
+          "category": "rewards",
+          "summary": "Receive at least 20% off eligible IHG points purchases, subject to purchase terms and promotional availability.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks"
+        },
+        {
+          "name": "Early access to reward-night sales",
+          "category": "hotel",
+          "summary": "Eligible cardholders receive early access to select IHG reward-night promotions, subject to availability and promotion terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks"
+        }
+      ],
+      "protections": [],
+      "loungeAccess": [],
+      "statusBenefits": [
+        {
+          "name": "IHG One Rewards Platinum Elite Status",
+          "summary": "Automatic Platinum Elite status while the eligible card account remains open.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks"
+        },
+        {
+          "name": "IHG One Rewards Diamond Elite Status after spend",
+          "summary": "Spend at least $40,000 in a calendar year to earn Diamond Elite status through December 31 of the following year.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks"
+        }
+      ],
+      "airlineBenefits": [],
+      "hotelBenefits": [
+        {
+          "name": "Anniversary Free Night",
+          "summary": "One free-night award after each card anniversary at an eligible IHG property; cardholders may add IHG points for higher-priced awards under program rules.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks"
+        },
+        {
+          "name": "Fourth Reward Night Free",
+          "summary": "When redeeming points for a stay of four or more consecutive nights, the fourth reward night is free.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks"
+        }
+      ],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "IHG One Rewards Premier card benefits",
+          "url": "https://www.chase.com/personal/credit-cards/ihg/premier/premier-perks",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "world-of-hyatt",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Hyatt hotels and resorts",
+          "rate": 4,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Restaurants",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Airline tickets purchased directly from airlines",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Local transit and commuting",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Fitness clubs and gym memberships",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other purchases",
+          "rate": 1,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "hyatt-doordash-quarterly-credit",
+          "name": "DoorDash Non-Restaurant Credit",
+          "category": "delivery",
+          "faceValueAnnual": 40,
+          "frequency": "quarterly",
+          "amountPerPeriod": 10,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $10 off one eligible non-restaurant DoorDash order each quarter through December 31, 2027; active DashPass required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        }
+      ],
+      "perks": [
+        {
+          "name": "Complimentary DashPass",
+          "category": "delivery",
+          "summary": "One year of complimentary DashPass after activation by December 31, 2027; membership automatically renews at the then-current rate unless canceled.",
+          "estimatedAnnualValue": 120,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        },
+        {
+          "name": "Visa Signature Concierge",
+          "category": "concierge",
+          "summary": "Complimentary concierge assistance; the cardholder pays for goods and services purchased.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Trip Cancellation and Interruption Insurance",
+          "summary": "Reimbursement for covered prepaid, nonrefundable passenger fares up to $5,000 per covered traveler and $10,000 per trip.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        },
+        {
+          "name": "Baggage Delay Insurance",
+          "summary": "Up to $100 per day for five days for eligible essential purchases when baggage is delayed more than six hours.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        },
+        {
+          "name": "Lost Luggage Reimbursement",
+          "summary": "Up to $3,000 per covered traveler for eligible lost, damaged or stolen checked or carry-on baggage.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        },
+        {
+          "name": "Auto Rental Collision Damage Waiver",
+          "summary": "Coverage for eligible rental-vehicle theft or collision damage; coverage is generally secondary for rentals in the United States and terms and exclusions apply.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        },
+        {
+          "name": "Purchase Protection",
+          "summary": "Eligible new purchases are covered for 120 days against damage or theft, up to $500 per item.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        }
+      ],
+      "loungeAccess": [],
+      "statusBenefits": [
+        {
+          "name": "World of Hyatt Discoverist Status",
+          "summary": "Automatic Discoverist status while the eligible card account remains open.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        },
+        {
+          "name": "Five qualifying night credits annually",
+          "summary": "Receive five qualifying night credits each calendar year toward World of Hyatt elite status.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        },
+        {
+          "name": "Two qualifying night credits per $5,000 spend",
+          "summary": "Receive two additional qualifying night credits for every $5,000 in eligible card purchases.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        }
+      ],
+      "airlineBenefits": [],
+      "hotelBenefits": [
+        {
+          "name": "Annual Category 1-4 Free Night",
+          "summary": "One Category 1-4 free-night award each cardmember anniversary.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        },
+        {
+          "name": "Additional Category 1-4 Free Night after spend",
+          "summary": "One additional Category 1-4 free-night award after $15,000 in eligible purchases in a calendar year.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card"
+        }
+      ],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "World of Hyatt Credit Card",
+          "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "marriott-boundless",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Participating Marriott Bonvoy hotels",
+          "rate": 6,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Grocery stores, gas stations and dining",
+          "rate": 3,
+          "unit": "x",
+          "cap": 6000,
+          "notes": "On the first $6,000 in combined purchases in these categories each calendar year."
+        },
+        {
+          "category": "Other purchases",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "boundless-airline-credit",
+          "name": "Limited-Time Airline Credit",
+          "category": "airline",
+          "faceValueAnnual": 100,
+          "frequency": "semiannual",
+          "amountPerPeriod": 50,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Earn up to $50 after $250 in eligible airline purchases from June 4 through December 31, 2026 and another $50 after $250 from January 1 through June 30, 2027.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        },
+        {
+          "benefitId": "boundless-doordash-quarterly-credit",
+          "name": "DoorDash Non-Restaurant Credit",
+          "category": "delivery",
+          "faceValueAnnual": 40,
+          "frequency": "quarterly",
+          "amountPerPeriod": 10,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $10 off one eligible non-restaurant DoorDash order each quarter through December 31, 2027; active DashPass required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        }
+      ],
+      "perks": [
+        {
+          "name": "Complimentary DashPass",
+          "category": "delivery",
+          "summary": "One year of complimentary DashPass after activation by December 31, 2027; membership automatically renews at the then-current rate unless canceled.",
+          "estimatedAnnualValue": 120,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        },
+        {
+          "name": "Visa Signature Concierge",
+          "category": "concierge",
+          "summary": "Complimentary concierge assistance; the cardholder pays for goods and services purchased.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Baggage Delay Insurance",
+          "summary": "Up to $100 per day for five days for eligible essential purchases when baggage is delayed more than six hours.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        },
+        {
+          "name": "Lost Luggage Reimbursement",
+          "summary": "Up to $3,000 per covered traveler for eligible lost, damaged or stolen checked or carry-on baggage.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        },
+        {
+          "name": "Trip Delay Reimbursement",
+          "summary": "Up to $500 per covered traveler for eligible expenses when common-carrier travel is delayed more than 12 hours or requires an overnight stay.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        },
+        {
+          "name": "Purchase Protection",
+          "summary": "Eligible new purchases are covered for 120 days against damage or theft, up to $500 per item; New York coverage is 90 days.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        }
+      ],
+      "loungeAccess": [],
+      "statusBenefits": [
+        {
+          "name": "Marriott Bonvoy Silver Elite Status",
+          "summary": "Automatic Silver Elite status while the eligible card account remains open.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        },
+        {
+          "name": "15 Elite Night Credits annually",
+          "summary": "Receive 15 elite night credits each calendar year toward Marriott Bonvoy elite status.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        },
+        {
+          "name": "One Elite Night Credit per $5,000 spend",
+          "summary": "Receive one additional elite night credit for each $5,000 in eligible card purchases.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        },
+        {
+          "name": "Marriott Bonvoy Gold Elite Status after spend",
+          "summary": "Earn Gold Elite status after $35,000 in eligible card purchases in a calendar year.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        }
+      ],
+      "airlineBenefits": [],
+      "hotelBenefits": [
+        {
+          "name": "Annual Free Night Award",
+          "summary": "One free-night award after each account anniversary, redeemable at participating Marriott properties costing up to 35,000 points; points may be added under Marriott award rules.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless"
+        }
+      ],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "Marriott Bonvoy Boundless",
+          "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "marriott-brilliant",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Participating Marriott Bonvoy hotels",
+          "rate": 6,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Restaurants worldwide",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Flights booked directly with airlines",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other purchases",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "brilliant-property-credit",
+          "name": "Marriott Bonvoy Property Credit",
+          "category": "hotel",
+          "faceValueAnnual": null,
+          "frequency": "per-stay",
+          "amountPerPeriod": 100,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $100 in property credit per eligible direct booking of at least two nights at participating Ritz-Carlton or St. Regis properties using the designated rate; no fixed annual maximum is published.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "benefitId": "brilliant-dining-credit",
+          "name": "Brilliant Dining Credit",
+          "category": "dining",
+          "faceValueAnnual": 300,
+          "frequency": "monthly",
+          "amountPerPeriod": 25,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $25 per month for eligible restaurant purchases worldwide; unused monthly value does not roll over.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "benefitId": "brilliant-expedited-security-credit",
+          "name": "Global Entry or TSA PreCheck Fee Credit",
+          "category": "travel",
+          "faceValueAnnual": 120,
+          "frequency": "one-time",
+          "amountPerPeriod": 120,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "One credit every four years: up to $120 for Global Entry or up to $85 for an eligible five-year TSA PreCheck membership.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "benefitId": "brilliant-venue-concessions-credit",
+          "name": "American Express Venue Collection Concessions Credit",
+          "category": "entertainment",
+          "faceValueAnnual": 250,
+          "frequency": "annual",
+          "amountPerPeriod": 250,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "10% back on qualifying concessions purchases at participating venues, up to $250 per calendar year; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        }
+      ],
+      "perks": [
+        {
+          "name": "Brilliant Earned Choice Award",
+          "category": "rewards",
+          "summary": "After $60,000 in eligible purchases in a calendar year, select one published Brilliant Earned Choice Award; one award per calendar year.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "Premium Internet Access",
+          "category": "hotel",
+          "summary": "Complimentary premium in-room internet access on eligible Marriott stays; booking requirements apply.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "Premium Global Assist Hotline",
+          "category": "travel",
+          "summary": "Emergency coordination and referrals while traveling more than 100 miles from home; approved emergency medical transportation may be coordinated under benefit terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "Amex Presale and Reserved Tickets",
+          "category": "entertainment",
+          "summary": "Access to select presale and reserved-ticket inventory while supplies last.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Trip Cancellation and Interruption Insurance",
+          "summary": "For eligible round trips paid with the card, reimbursement is available for covered nonrefundable expenses, subject to benefit limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "Trip Delay Insurance",
+          "summary": "For covered delays, eligible additional expenses may be reimbursed subject to the published waiting period, limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "Baggage Insurance Plan",
+          "summary": "Coverage is available for eligible lost, damaged or stolen checked and carry-on baggage when the common-carrier fare is paid with the card, subject to limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "Car Rental Loss and Damage Insurance",
+          "summary": "Coverage for eligible rental-vehicle damage or theft when the rental is paid with the card and the rental company's collision damage waiver is declined; liability is excluded and geographic restrictions apply.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "Return Protection",
+          "summary": "Eligible purchases may be reimbursed when a merchant will not accept a qualifying return, subject to benefit limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "Purchase Protection",
+          "summary": "Eligible purchases are covered against qualifying accidental damage, theft or loss, subject to benefit limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 6,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "Extended Warranty",
+          "summary": "Eligible purchases may receive additional warranty coverage under the card's benefit terms.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 7,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "Cell Phone Protection",
+          "summary": "Coverage is available for eligible cell-phone damage or theft when the wireless bill is paid with the card, subject to claim limits, deductible and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 8,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        }
+      ],
+      "loungeAccess": [
+        {
+          "name": "Priority Pass Select",
+          "summary": "Unlimited visits to participating Priority Pass lounges after enrollment; participating locations, guest charges and access restrictions vary.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        }
+      ],
+      "statusBenefits": [
+        {
+          "name": "Marriott Bonvoy Platinum Elite Status",
+          "summary": "Automatic Marriott Bonvoy Platinum Elite status while the eligible card account remains open.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        },
+        {
+          "name": "25 Elite Night Credits annually",
+          "summary": "Receive 25 elite night credits each calendar year toward Marriott Bonvoy elite status; member-account limitations apply.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        }
+      ],
+      "airlineBenefits": [],
+      "hotelBenefits": [
+        {
+          "name": "Annual 85,000-point Free Night Award",
+          "summary": "One free-night award after each card renewal month, redeemable at participating Marriott properties costing up to 85,000 points; certain properties charge resort fees.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/"
+        }
+      ],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "Marriott Bonvoy Brilliant American Express Card",
+          "url": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "delta-gold",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Eligible Delta purchases",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Restaurants worldwide and U.S. takeout and delivery",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "U.S. supermarkets",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other purchases",
+          "rate": 1,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "delta-gold-flight-credit",
+          "name": "Delta Flight Credit",
+          "category": "airline",
+          "faceValueAnnual": 200,
+          "frequency": "annual",
+          "amountPerPeriod": 200,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Earn a $200 Delta flight credit after $10,000 in eligible purchases in a calendar year; issuance and use terms apply.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        },
+        {
+          "benefitId": "delta-gold-stays-credit",
+          "name": "Delta Stays Credit",
+          "category": "hotel",
+          "faceValueAnnual": 100,
+          "frequency": "annual",
+          "amountPerPeriod": 100,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $100 per calendar year on eligible prepaid hotel or vacation-rental bookings through Delta Stays.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        },
+        {
+          "benefitId": "delta-gold-rideshare-credit",
+          "name": "Rideshare Credit",
+          "category": "rideshare",
+          "faceValueAnnual": 120,
+          "frequency": "monthly",
+          "amountPerPeriod": 10,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Available beginning 12 months after account opening; up to $10 per month on eligible U.S. rideshare purchases after enrollment, with unused monthly value expiring.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        },
+        {
+          "benefitId": "delta-gold-venue-concessions-credit",
+          "name": "American Express Venue Collection Concessions Credit",
+          "category": "entertainment",
+          "faceValueAnnual": 250,
+          "frequency": "annual",
+          "amountPerPeriod": 250,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "10% back on qualifying concessions purchases at participating venues, up to $250 per calendar year; enrollment required.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        }
+      ],
+      "perks": [
+        {
+          "name": "TakeOff 15",
+          "category": "airline",
+          "summary": "Receive a 15% discount on the mileage price of eligible Delta-operated award flights booked through Delta; taxes, fees and partner-operated flights are excluded.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        },
+        {
+          "name": "Pay with Miles",
+          "category": "airline",
+          "summary": "Eligible cardholders can use miles toward the cash price of qualifying Delta tickets under Delta Pay with Miles rules.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        },
+        {
+          "name": "Global Assist Hotline",
+          "category": "travel",
+          "summary": "Emergency coordination and referrals are available when traveling more than 100 miles from home; third-party service costs may apply.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Baggage Insurance Plan",
+          "summary": "Coverage is available for eligible lost, damaged or stolen baggage when the common-carrier fare is paid with the card, subject to limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        },
+        {
+          "name": "Car Rental Loss and Damage Insurance",
+          "summary": "Secondary coverage for eligible rental-vehicle damage or theft when the rental is paid with the card and the rental company's collision damage waiver is declined; liability is excluded and geographic restrictions apply.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        },
+        {
+          "name": "Purchase Protection",
+          "summary": "Eligible purchases are covered against qualifying accidental damage or theft for up to 90 days, subject to published per-purchase and annual limits.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        },
+        {
+          "name": "Extended Warranty",
+          "summary": "Adds up to one year to eligible original manufacturers' warranties of five years or less, subject to published limits and exclusions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        }
+      ],
+      "loungeAccess": [],
+      "statusBenefits": [],
+      "airlineBenefits": [
+        {
+          "name": "First and second checked bags free",
+          "summary": "The basic cardmember and eligible companions receive the first checked bag free on eligible Delta itineraries and a second checked bag free on eligible domestic Delta flights; reservation terms apply.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        },
+        {
+          "name": "Zone 5 Priority Boarding",
+          "summary": "The basic cardmember and eligible companions on the same reservation receive Zone 5 priority boarding on Delta- and Delta Connection-operated flights when the cardmember's SkyMiles number is included.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        },
+        {
+          "name": "20% back on eligible inflight purchases",
+          "summary": "Receive a 20% statement credit on eligible pre-purchased meals and inflight food and beverage purchases on Delta-operated flights charged to the card.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/"
+        }
+      ],
+      "hotelBenefits": [],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "Delta SkyMiles Gold American Express Card",
+          "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "united-explorer",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "United purchases",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": "The issuer may display a higher total that includes separate MileagePlus member earnings on the primary cardmember's fare."
+        },
+        {
+          "category": "Dining, including eligible delivery services",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Hotel stays booked directly with hotels",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other purchases",
+          "rate": 1,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [
+        {
+          "benefitId": "united-explorer-travel-credit",
+          "name": "United Travel Credit",
+          "category": "airline",
+          "faceValueAnnual": 100,
+          "frequency": "annual",
+          "amountPerPeriod": 100,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Earn $100 in United TravelBank cash after at least $10,000 in eligible purchases in a calendar year.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "benefitId": "united-explorer-hotels-credit",
+          "name": "United Hotels Credit",
+          "category": "hotel",
+          "faceValueAnnual": 100,
+          "frequency": "anniversary",
+          "amountPerPeriod": 50,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Receive $50 back on each of the first two eligible prepaid hotel stays purchased through United Hotels, up to $100 each account anniversary year.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "benefitId": "united-explorer-jsx-credit",
+          "name": "JSX Credit",
+          "category": "airline",
+          "faceValueAnnual": 100,
+          "frequency": "anniversary",
+          "amountPerPeriod": 100,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $100 each account anniversary year for eligible flights purchased directly from JSX.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "benefitId": "united-explorer-rental-travelbank-credit",
+          "name": "Avis and Budget United TravelBank Credit",
+          "category": "car-rental",
+          "faceValueAnnual": 50,
+          "frequency": "anniversary",
+          "amountPerPeriod": 25,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Receive $25 in United TravelBank cash on each of the first two eligible Avis or Budget rentals booked through the qualifying United channel, up to $50 each anniversary year.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "benefitId": "united-explorer-instacart-credit",
+          "name": "Instacart Credit",
+          "category": "grocery",
+          "faceValueAnnual": 120,
+          "frequency": "monthly",
+          "amountPerPeriod": 10,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "One $10 Instacart credit each month through December 31, 2027 for eligible purchases made directly through Instacart.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "benefitId": "united-explorer-rideshare-credit",
+          "name": "Rideshare Credit",
+          "category": "rideshare",
+          "faceValueAnnual": 60,
+          "frequency": "monthly",
+          "amountPerPeriod": 5,
+          "firstYearOnly": false,
+          "enrollmentRequired": true,
+          "conditions": "Up to $5 per month for eligible rideshare purchases after enrollment; yearly opt-in is required and unused monthly value does not roll over.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 6,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "benefitId": "united-explorer-expedited-security-credit",
+          "name": "Global Entry, TSA PreCheck or NEXUS Fee Credit",
+          "category": "travel",
+          "faceValueAnnual": 120,
+          "frequency": "one-time",
+          "amountPerPeriod": 120,
+          "firstYearOnly": false,
+          "enrollmentRequired": false,
+          "conditions": "Up to $120 once every four years for one eligible application fee charged to the card.",
+          "estimatedUtilization": 1,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 7,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        }
+      ],
+      "perks": [
+        {
+          "name": "Three-month complimentary Instacart Plus membership",
+          "category": "grocery",
+          "summary": "Three complimentary months of Instacart Plus through December 31, 2027, followed by automatic enrollment at a discounted annual rate unless canceled.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "United Card Events",
+          "category": "entertainment",
+          "summary": "Access to select cardmember events and experiences, subject to availability and separate charges.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "Visa Signature Concierge",
+          "category": "concierge",
+          "summary": "Complimentary concierge assistance; the cardholder pays for goods and services purchased.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Primary Auto Rental Coverage",
+          "summary": "Primary reimbursement for covered theft or collision damage to eligible rentals, up to $60,000 for qualifying vehicles with an MSRP of $125,000 or less; liability is not covered.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "Trip Cancellation and Interruption Insurance",
+          "summary": "Reimbursement for covered prepaid, nonrefundable travel expenses up to $1,500 per covered traveler and $6,000 per trip.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "Trip Delay Reimbursement",
+          "summary": "Up to $500 per covered traveler for eligible expenses when common-carrier travel is delayed more than 12 hours or requires an overnight stay.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "Baggage Delay Insurance",
+          "summary": "Up to $100 per day for three days for eligible essential purchases when baggage is delayed more than six hours.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "Lost Luggage Reimbursement",
+          "summary": "Up to $3,000 per covered traveler for eligible lost, damaged or stolen checked or carry-on baggage.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "Purchase Protection",
+          "summary": "Eligible new purchases are covered for 120 days against damage or theft, up to $10,000 per item.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 6,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "Extended Warranty",
+          "summary": "Adds one year to eligible U.S. manufacturers' warranties of three years or less, up to four years from purchase.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 7,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        }
+      ],
+      "loungeAccess": [
+        {
+          "name": "Two United Club one-time passes",
+          "summary": "Receive two United Club one-time passes after account opening and again after each card anniversary; the cardholder or eligible authorized user must be present and access is subject to club capacity and itinerary rules.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        }
+      ],
+      "statusBenefits": [
+        {
+          "name": "Premier qualifying points from spend",
+          "summary": "Earn one Premier qualifying point for every $20 in eligible purchases, up to 1,000 PQP per calendar year.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        }
+      ],
+      "airlineBenefits": [
+        {
+          "name": "Cardmember award pricing",
+          "summary": "Eligible cardholders receive savings of at least 10% on United-operated award flights; Premier members receive at least 15% savings, subject to itinerary restrictions.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "10,000-mile award-flight discount after spend",
+          "summary": "After $20,000 in eligible purchases in a calendar year, receive one 10,000-mile discount for an eligible United- or United Express-operated award itinerary.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "First checked bag free",
+          "summary": "The primary cardmember and one companion on the same eligible United-operated itinerary receive one free standard checked bag when reservation and payment requirements are met.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "Priority boarding",
+          "summary": "The primary cardmember and companions on the same reservation receive priority boarding on eligible United flights.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        },
+        {
+          "name": "25% back on inflight and United Club purchases",
+          "summary": "Receive a 25% statement credit on eligible United-operated inflight food, beverage and Wi-Fi purchases and eligible United Club premium drinks charged to the card.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer"
+        }
+      ],
+      "hotelBenefits": [],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "United Explorer Card",
+          "url": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "southwest-priority",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Southwest Airlines purchases",
+          "rate": 4,
+          "unit": "x",
+          "cap": null,
+          "notes": "Qualifying purchases must be made directly with Southwest; exclusions apply."
+        },
+        {
+          "category": "Gas stations and restaurants",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other purchases",
+          "rate": 1,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [],
+      "perks": [
+        {
+          "name": "7,500 anniversary points",
+          "category": "rewards",
+          "summary": "Receive 7,500 Rapid Rewards points after each cardmember anniversary, subject to account eligibility.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        },
+        {
+          "name": "Rapid Rewards points do not expire",
+          "category": "rewards",
+          "summary": "Rapid Rewards points do not expire while the program account remains open, subject to program terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        },
+        {
+          "name": "Unlimited reward seats without blackout dates",
+          "category": "airline",
+          "summary": "Southwest states that reward seats are not subject to blackout dates or seat restrictions, subject to program availability and terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        }
+      ],
+      "protections": [
+        {
+          "name": "Lost Luggage Reimbursement",
+          "summary": "Up to $3,000 per covered traveler for eligible lost, damaged or stolen checked or carry-on baggage; New York limits differ.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        },
+        {
+          "name": "Baggage Delay Insurance",
+          "summary": "Up to $100 per day for three days for eligible essential purchases when baggage is delayed more than six hours.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        },
+        {
+          "name": "Extended Warranty",
+          "summary": "Adds one year to eligible U.S. manufacturers' warranties of three years or less, up to four years from purchase.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        },
+        {
+          "name": "Purchase Protection",
+          "summary": "Eligible new purchases are covered for 120 days against damage or theft, up to $500 per item; New York coverage is 90 days.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        }
+      ],
+      "loungeAccess": [],
+      "statusBenefits": [
+        {
+          "name": "Tier Qualifying Points from spend",
+          "summary": "Earn 2,500 tier qualifying points toward A-List status for every $5,000 in eligible purchases annually.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        },
+        {
+          "name": "Companion Pass qualifying-points boost",
+          "summary": "Receive a 10,000-point annual boost used solely toward Companion Pass qualification; the boost is not redeemable Rapid Rewards currency.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        }
+      ],
+      "airlineBenefits": [
+        {
+          "name": "Preferred seat selection",
+          "summary": "The primary cardmember and up to eight additional passengers on the same reservation may select an available Preferred seat at booking at no additional charge.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        },
+        {
+          "name": "Extra Legroom seat upgrades",
+          "summary": "The primary cardmember and up to eight additional passengers on the same reservation may upgrade to an available Extra Legroom seat within 48 hours before departure at no additional charge.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        },
+        {
+          "name": "First checked bag free",
+          "summary": "The primary cardmember and up to eight additional passengers on the same eligible reservation receive the first standard checked bag free when the cardmember's Rapid Rewards number is included.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        },
+        {
+          "name": "Group 5 boarding",
+          "summary": "The primary cardmember and up to eight additional passengers on the same reservation receive Group 5 boarding on eligible Southwest flights.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        },
+        {
+          "name": "25% back on inflight purchases",
+          "summary": "Receive a 25% statement credit on eligible Southwest inflight purchases charged to the card.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 5,
+          "sourceUrl": "https://creditcards.chase.com/travel-credit-cards/southwest/priority"
+        }
+      ],
+      "hotelBenefits": [],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "Southwest Rapid Rewards Priority Credit Card",
+          "url": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "alaska-ascent",
+      "foreignTransactionFee": 0,
+      "earnRates": [
+        {
+          "category": "Alaska Airlines and Hawaiian Airlines purchases",
+          "rate": 3,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Gas stations and EV charging stations",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Cable and eligible streaming services",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Local transit, including rideshare",
+          "rate": 2,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        },
+        {
+          "category": "Other purchases",
+          "rate": 1,
+          "unit": "x",
+          "cap": null,
+          "notes": null
+        }
+      ],
+      "credits": [],
+      "perks": [
+        {
+          "name": "10% rewards bonus with eligible Bank of America account",
+          "category": "rewards",
+          "summary": "Eligible Bank of America consumer checking or savings customers receive a 10% bonus on rewards earned from card purchases, subject to linked-account terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/"
+        },
+        {
+          "name": "No blackout dates on award travel",
+          "category": "airline",
+          "summary": "Atmos Rewards award travel is not subject to blackout dates, although award inventory and pricing vary.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/"
+        },
+        {
+          "name": "Points do not expire on an active account",
+          "category": "rewards",
+          "summary": "Atmos Rewards points do not expire while the loyalty account remains active, subject to program terms.",
+          "estimatedAnnualValue": 0,
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/"
+        }
+      ],
+      "protections": [],
+      "loungeAccess": [],
+      "statusBenefits": [],
+      "airlineBenefits": [
+        {
+          "name": "Annual Companion Fare after spend",
+          "summary": "Receive a companion fare from $99 plus taxes and fees from $23 after at least $6,000 in eligible purchases during the prior account anniversary year.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 1,
+          "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/"
+        },
+        {
+          "name": "Free checked bag and preferred boarding",
+          "summary": "The primary cardholder and up to six guests on the same eligible reservation receive a free checked bag and preferred boarding when payment and loyalty-account requirements are met.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 2,
+          "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/"
+        },
+        {
+          "name": "Alaska Lounge Plus membership discount",
+          "summary": "Receive $100 off an eligible Alaska Lounge Plus membership purchased with the card, subject to current membership terms.",
+          "isTopBenefit": true,
+          "isUniqueBenefit": true,
+          "displayOrder": 3,
+          "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/"
+        },
+        {
+          "name": "20% back on inflight purchases",
+          "summary": "Receive a 20% statement credit on eligible Alaska Airlines and Hawaiian Airlines inflight purchases charged to the card.",
+          "isTopBenefit": false,
+          "isUniqueBenefit": false,
+          "displayOrder": 4,
+          "sourceUrl": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/"
+        }
+      ],
+      "hotelBenefits": [],
+      "lastVerifiedAt": "2026-07-12T00:33:51Z",
+      "sources": [
+        {
+          "name": "Atmos Rewards Ascent Visa Signature",
+          "url": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
+          "sourceType": "issuer"
+        }
+      ]
+    }
+  ],
   "transferPrograms": [
     {
       "programId": "american-express-membership-rewards",
