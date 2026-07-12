@@ -24,6 +24,8 @@ jobs:
         run: node scripts/validate-data.mjs
       - name: Run tests
         run: node tests/run-tests.mjs
+      - name: Audit generated prompts
+        run: node scripts/audit-prompts.mjs
       - name: Configure Pages
         uses: actions/configure-pages@v6
       - name: Upload Pages artifact

@@ -1,4 +1,4 @@
-export const APP_VERSION = "5.2.2";
+export const APP_VERSION = "5.2.3";
 export const SCHEMA_VERSION = 5;
 export const LEGACY_OFFER_SCHEMA_VERSION = 3;
 export const DATABASE_COMPATIBILITY_VERSION = 2;
@@ -115,6 +115,22 @@ function sourceHost(value) {
   catch { return ""; }
 }
 
+function hasMarkdownLink(value) {
+  return typeof value === "string" && /\[[^\]]*\]\(https?:\/\//i.test(value);
+}
+
+function validatePlainText(value, path, {required = false, maxLength = null} = {}) {
+  const errors = [];
+  if (required && (typeof value !== "string" || !value.trim())) errors.push(`${path} is required.`);
+  if (value !== undefined && value !== null && typeof value !== "string") errors.push(`${path} must be text or null.`);
+  if (typeof value === "string") {
+    if (hasMarkdownLink(value)) errors.push(`${path} must be plain text and may not contain a Markdown link.`);
+    if (/%(?:22|5B|5D|7B|7D)/i.test(value) && !/^https:\/\//i.test(value)) errors.push(`${path} contains URL-encoded JSON punctuation.`);
+    if (maxLength !== null && value.length > maxLength) errors.push(`${path} must be at most ${maxLength} characters.`);
+  }
+  return errors;
+}
+
 const TRACKING_PARAMETERS = new Set([
   "gclid", "dclid", "fbclid", "msclkid", "mc_cid", "mc_eid", "ref", "referrer"
 ]);
@@ -174,14 +190,29 @@ function clone(value) {
 
 export function stripJsonFences(text) {
   if (typeof text !== "string") return "";
-  return text.replace(/^\s*```(?:json)?\s*/i, "").replace(/\s*```\s*$/i, "").trim();
+  const normalized = text.replace(/^\uFEFF/, "").trim();
+  const fenced = normalized.match(/```(?:json)?\s*([\s\S]*?)\s*```/i);
+  if (fenced) return fenced[1].trim();
+  if (normalized.startsWith("{") || normalized.startsWith("[")) return normalized;
+  const firstObject = normalized.indexOf("{");
+  const lastObject = normalized.lastIndexOf("}");
+  if (firstObject >= 0 && lastObject > firstObject) return normalized.slice(firstObject, lastObject + 1).trim();
+  return normalized;
 }
 
 export function parseResearchJson(text) {
   const cleaned = stripJsonFences(text);
   if (!cleaned) throw new Error("No JSON was provided.");
   try { return JSON.parse(cleaned); }
-  catch (error) { throw new Error(`JSON could not be parsed: ${error.message}`); }
+  catch (error) {
+    if (/%(?:22|5B|5D|7B|7D)/i.test(cleaned)) {
+      throw new Error("JSON could not be parsed because URL-encoded JSON punctuation was found (for example %22 or %7B). Copy the content from the model's JSON code-block Copy button, or use Prompt Manager's JSON Repair Prompt.");
+    }
+    if (/\[[^\]]*\]\(https?:\/\//i.test(cleaned) || /\[https?:\/\//i.test(cleaned)) {
+      throw new Error("JSON could not be parsed because Markdown-wrapped links were found. Use plain URL strings or run Prompt Manager's JSON Repair Prompt.");
+    }
+    throw new Error(`JSON could not be parsed: ${error.message}`);
+  }
 }
 
 export function effectiveStatus(offer, card) {
@@ -237,7 +268,7 @@ export function validateCard(card, index = 0) {
 function validateSource(source, path, {policy = "cardDetails"} = {}) {
   const errors = [];
   if (!isPlainObject(source)) return [`${path} must be an object.`];
-  if (typeof source.name !== "string" || !source.name.trim()) errors.push(`${path}.name is required.`);
+  errors.push(...validatePlainText(source.name, `${path}.name`, {required: true}));
   const normalizedUrl = normalizeApprovedSourceUrl(source.url, policy);
   if (!normalizedUrl) {
     const host = sourceHost(source?.url);
@@ -269,7 +300,7 @@ export function validateOffer(offer, cardsById, index = 0, options = {}) {
   if (!isDateOnlyOrNull(offer.expirationDate)) errors.push(`${p}.expirationDate must be YYYY-MM-DD or null.`);
   if (!isIsoUtc(offer.lastVerifiedAt)) errors.push(`${p}.lastVerifiedAt must be ISO UTC.`);
   if (!CONFIDENCE.has(offer.confidence)) errors.push(`${p}.confidence is not allowed.`);
-  if (typeof offer.note !== "string" || !offer.note.trim() || offer.note.length > 500) errors.push(`${p}.note is required and must be at most 500 characters.`);
+  errors.push(...validatePlainText(offer.note, `${p}.note`, {required: true, maxLength: 500}));
   if (!Array.isArray(offer.sources) || offer.sources.length === 0) errors.push(`${p}.sources must contain at least one source.`);
   else offer.sources.forEach((source, sourceIndex) => errors.push(...validateSource(source, `${p}.sources[${sourceIndex}]`, {policy: "offers"})));
   if (offer.expirationDate && options.rejectExpired !== false) {
@@ -293,7 +324,14 @@ export function validateCardDetail(item, cardsById, index = 0) {
   const benefitArrays = ["credits", "perks", "protections", "loungeAccess", "statusBenefits", "airlineBenefits", "hotelBenefits"];
   benefitArrays.forEach((field) => (item[field] || []).forEach((benefit, i) => {
     const bp = `${p}.${field}[${i}]`;
-    if (!isPlainObject(benefit) || typeof benefit.name !== "string" || !benefit.name.trim()) errors.push(`${bp}.name is required.`);
+    if (!isPlainObject(benefit)) {
+      errors.push(`${bp} must be an object.`);
+      return;
+    }
+    errors.push(...validatePlainText(benefit.name, `${bp}.name`, {required: true}));
+    for (const fieldName of ["category", "summary", "conditions", "notes"]) {
+      if (benefit[fieldName] !== undefined) errors.push(...validatePlainText(benefit[fieldName], `${bp}.${fieldName}`));
+    }
     if (benefit.isTopBenefit !== undefined && typeof benefit.isTopBenefit !== "boolean") errors.push(`${bp}.isTopBenefit must be boolean when provided.`);
     if (benefit.isUniqueBenefit !== undefined && typeof benefit.isUniqueBenefit !== "boolean") errors.push(`${bp}.isUniqueBenefit must be boolean when provided.`);
     if (benefit.displayOrder !== undefined && (!Number.isInteger(benefit.displayOrder) || benefit.displayOrder < 0)) errors.push(`${bp}.displayOrder must be a non-negative integer when provided.`);
@@ -323,14 +361,15 @@ export function validateTransferProgram(item, cardsById, index = 0) {
   const p = `transferPrograms[${index}]`;
   if (!isPlainObject(item)) return [`${p} must be an object.`];
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(item.programId || "")) errors.push(`${p}.programId must be a lowercase slug.`);
-  if (typeof item.programName !== "string" || !item.programName.trim()) errors.push(`${p}.programName is required.`);
+  errors.push(...validatePlainText(item.programName, `${p}.programName`, {required: true}));
   if (!Array.isArray(item.cards)) errors.push(`${p}.cards must be an array.`);
   else item.cards.forEach((cardId) => { if (!cardsById.has(cardId)) errors.push(`${p}.cards contains unknown cardId '${cardId}'.`); });
   if (!Array.isArray(item.partners)) errors.push(`${p}.partners must be an array.`);
   else item.partners.forEach((partner, i) => {
     const pp = `${p}.partners[${i}]`;
     if (!isPlainObject(partner)) return errors.push(`${pp} must be an object.`);
-    for (const field of ["partnerId", "partnerName", "partnerType", "ratioDisplay"]) if (typeof partner[field] !== "string" || !partner[field].trim()) errors.push(`${pp}.${field} is required.`);
+    for (const field of ["partnerId", "partnerName", "partnerType", "ratioDisplay"]) errors.push(...validatePlainText(partner[field], `${pp}.${field}`, {required: true}));
+    if (partner.notes !== undefined) errors.push(...validatePlainText(partner.notes, `${pp}.notes`));
     if (!isIsoUtc(partner.lastVerifiedAt)) errors.push(`${pp}.lastVerifiedAt must be ISO UTC.`);
     if (!Array.isArray(partner.sources) || !partner.sources.length) errors.push(`${pp}.sources must contain at least one source.`);
     else partner.sources.forEach((source, sourceIndex) => errors.push(...validateSource(source, `${pp}.sources[${sourceIndex}]`, {policy: "transferPrograms"})));
@@ -344,7 +383,8 @@ export function validateTransferBonus(item, programIds, index = 0, options = {})
   if (!isPlainObject(item)) return [`${p} must be an object.`];
   if (typeof item.transferBonusId !== "string" || !item.transferBonusId.trim()) errors.push(`${p}.transferBonusId is required.`);
   if (!programIds.has(item.sourceProgramId)) errors.push(`${p}.sourceProgramId is not in transferPrograms.`);
-  for (const field of ["destinationProgramId", "destinationProgramName", "standardRatio", "effectiveRatio", "publicOrTargeted"]) if (typeof item[field] !== "string" || !item[field].trim()) errors.push(`${p}.${field} is required.`);
+  for (const field of ["destinationProgramId", "destinationProgramName", "standardRatio", "effectiveRatio", "publicOrTargeted"]) errors.push(...validatePlainText(item[field], `${p}.${field}`, {required: true}));
+  if (item.note !== undefined) errors.push(...validatePlainText(item.note, `${p}.note`));
   if (!finiteNonNegative(item.bonusPercent)) errors.push(`${p}.bonusPercent must be non-negative.`);
   if (!isDateOnlyOrNull(item.startDate) || item.startDate === null) errors.push(`${p}.startDate must be YYYY-MM-DD.`);
   if (!isDateOnlyOrNull(item.endDate) || item.endDate === null) errors.push(`${p}.endDate must be YYYY-MM-DD.`);

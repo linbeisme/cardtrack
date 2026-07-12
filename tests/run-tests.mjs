@@ -19,9 +19,11 @@ import {
 import {
   filterCards,
   migratePromptLibrary,
+  promptPreflight,
   promptVariantLabel,
   resolvePrompt,
   resolvePromptVariant,
+  resolveRepairPromptVariant,
   restoreTemplateDefault,
   updateTemplateContent,
   validatePromptLibrary
@@ -66,7 +68,7 @@ const bonus = {
   transferBonusId: "chase-hyatt-test", sourceProgramId: "chase-ultimate-rewards", destinationProgramId: "world-of-hyatt", destinationProgramName: "World of Hyatt", bonusPercent: 20, standardRatio: "1:1", effectiveRatio: "1:1.2", publicOrTargeted: "public", startDate: "2026-07-01", endDate: "2026-12-31", enrollmentRequired: false, note: "Test bonus", lastVerifiedAt: "2026-07-10T12:00:00Z", sources: [{name: "Chase", url: "https://www.chase.com/", sourceType: "issuer"}]
 };
 
-await test("app version is v5.2.2", () => assert.equal(APP_VERSION, "5.2.2"));
+await test("app version is v5.2.3", () => assert.equal(APP_VERSION, "5.2.3"));
 await test("saved v5 database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
 await test("prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
 await test("default library has required feature prompts", () => {
@@ -76,14 +78,16 @@ await test("default library has required feature prompts", () => {
 await test("valuation snapshot validates", () => assert.equal(validateSectionPayload(valuations, database, {type: "valuations"}).valid, true));
 
 await test("prompt library schema supports workflow metadata", () => {
-  assert.equal(defaults.schemaVersion, 3);
+  assert.equal(defaults.schemaVersion, 4);
+  assert.equal(defaults.transportVersion, 2);
   assert.ok(Object.hasOwn(defaults, "lastSavedToGitHubAt"));
 });
-await test("one-step ChatGPT prompt requests regular Search and raw JSON", () => {
+await test("one-step ChatGPT prompt requests Search and fenced JSON transport", () => {
   const template = prompts.templates.find((item) => item.id === "full-catalog");
   const resolved = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "one-step", provider: "chatgpt", stage: "json"});
   assert.match(resolved, /normal ChatGPT chat with Search enabled/);
-  assert.match(resolved, /raw JSON object/);
+  assert.match(resolved, /exactly one fenced code block labeled json/);
+  assert.match(resolved, /JSON\.parse/);
   assert.match(resolved, /chase-sapphire-preferred/);
 });
 await test("one-step Gemini prompt is provider-specific", () => {
@@ -92,15 +96,15 @@ await test("one-step Gemini prompt is provider-specific", () => {
   assert.match(resolved, /normal Gemini chat with Google Search/);
   assert.match(resolved, /Do NOT use Gemini Deep Research/);
 });
-await test("two-step deep research has separate report and JSON prompts", () => {
+await test("two-step deep research has separate evidence and JSON prompts", () => {
   const template = prompts.templates.find((item) => item.id === "transfer-partners");
   const research = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "two-step", provider: "chatgpt", stage: "research"});
   const json = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "two-step", provider: "chatgpt", stage: "json"});
   assert.match(research, /STEP 1 OF 2/);
-  assert.match(research, /structured evidence report/);
+  assert.match(research, /structured evidence ledger/);
   assert.match(json, /STEP 2 OF 2/);
   assert.match(json, /SAME ChatGPT Deep Research conversation/);
-  assert.match(json, /Return exactly one raw JSON object/);
+  assert.match(json, /exactly one fenced code block labeled json/);
 });
 await test("newly added active cards appear in every resolved prompt", () => {
   const cards = structuredClone(database.cards);
@@ -262,7 +266,7 @@ await test("header remains normal flow and table header is contained", () => {
 });
 
 await test("prompt manager exposes category workflow provider and step controls", () => {
-  for (const text of ["1-Step · Regular Search", "2-Step · Deep Research", "ChatGPT", "Gemini", "Step 1 · Research Report", "Step 2 · JSON Conversion"]) assert.ok(appSource.includes(text));
+  for (const text of ["1-Step · Regular Search", "2-Step · Deep Research", "ChatGPT", "Gemini", "Step 1 · Evidence Ledger", "Step 2 · JSON Conversion", "Copy JSON Repair Prompt"]) assert.ok(appSource.includes(text));
 });
 await test("prompt library shows GitHub save time and dynamic card update notice", () => {
   assert.match(appSource, /Last saved to GitHub/);
@@ -313,10 +317,12 @@ await test("fact sheets list all benefits and prioritize top unique items", () =
 });
 await test("Card Facts prompt requests complete benefit inventories", () => {
   const template = defaults.templates.find((item) => item.id === "card-facts");
-  assert.match(template.defaultPrompt, /Return EVERY currently verified recurring perk and benefit/);
-  assert.match(template.defaultPrompt, /isTopBenefit/);
-  assert.match(template.defaultPrompt, /isUniqueBenefit/);
-  assert.match(template.defaultPrompt, /displayOrder/);
+  const resolved = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "one-step", provider: "chatgpt"});
+  assert.match(template.defaultPrompt, /every currently verified recurring card fact and benefit/i);
+  assert.match(resolved, /isTopBenefit/);
+  assert.match(resolved, /isUniqueBenefit/);
+  assert.match(resolved, /displayOrder/);
+  assert.match(resolved, /Do not add estimatedAnnualValue to protections/);
 });
 await test("resolved prompts include category-specific approved-domain rules", () => {
   const factTemplate = prompts.templates.find((item) => item.id === "card-facts");
@@ -338,11 +344,106 @@ await test("Current Offers KPI cards are clickable filters", () => {
 
 await test("versioned asset URLs prevent stale browser modules", async () => {
   const indexSource = await fs.readFile(path.join(root, "site/index.html"), "utf8");
-  assert.match(indexSource, /app\.js\?v=5\.2\.2/);
-  assert.match(indexSource, /styles\.css\?v=5\.2\.2/);
-  assert.match(appSource, /schema\.mjs\?v=5\.2\.2/);
-  assert.match(appSource, /prompts\.mjs\?v=5\.2\.2/);
+  assert.match(indexSource, /app\.js\?v=5\.2\.3/);
+  assert.match(indexSource, /styles\.css\?v=5\.2\.3/);
+  assert.match(appSource, /schema\.mjs\?v=5\.2\.3/);
+  assert.match(appSource, /prompts\.mjs\?v=5\.2\.3/);
 });
+
+
+await test("parser extracts JSON from a fenced block surrounded by prose", () => {
+  const parsed = parseResearchJson("Here is the result:\n```json\n{\"dataType\":\"offers\",\"offers\":[]}\n```\nDone");
+  assert.deepEqual(parsed, {dataType: "offers", offers: []});
+});
+await test("parser gives targeted error for encoded JSON punctuation", () => {
+  assert.throws(() => parseResearchJson('{%22schemaVersion%22:5}'), /URL-encoded JSON punctuation/);
+});
+await test("parser gives targeted error for malformed Markdown links", () => {
+  assert.throws(() => parseResearchJson('{"name":"[Atmos](https://example.com)"'), /Markdown-wrapped links|could not be parsed/);
+});
+await test("card facts reject Markdown links in plain-text fields", () => {
+  const bad = structuredClone(fact);
+  bad.credits[0].name = "[Hotel credit](https://creditcards.chase.com/rewards-credit-cards/sapphire/preferred)";
+  const result = validateSectionPayload({schemaVersion: 5, dataType: "cardDetails", cardDetails: [bad]}, database);
+  assert.equal(result.valid, false);
+  assert.match(result.errors.join(" "), /plain text and may not contain a Markdown link/);
+});
+await test("repair prompt covers all observed output failures", () => {
+  const template = prompts.templates.find((item) => item.id === "card-facts");
+  const repair = resolveRepairPromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {provider: "gemini"});
+  for (const pattern of [/Markdown links/, /URL-encoded JSON structure/, /missing commas/, /exactly one fenced code block/, /vertexaisearch/, /JSON\.parse/]) assert.match(repair, pattern);
+});
+await test("prompt manager displays transport preflight and repair controls", () => {
+  assert.match(appSource, /Prompt preflight/);
+  assert.match(appSource, /Reliable copy\/paste format/);
+  assert.match(appSource, /copy-repair-prompt/);
+  assert.match(cssSource, /\.prompt-preflight/);
+  assert.match(cssSource, /\.transport-notice/);
+});
+await test("representative fenced welcome-offer output parses and validates", () => {
+  const payload = {schemaVersion: 5, dataType: "offers", offers: [baseOffer], errors: [], validation: {acceptedCount: 1, rejectedCount: 0}};
+  const parsed = parseResearchJson(`\`\`\`json\n${JSON.stringify(payload)}\n\`\`\``);
+  assert.equal(validateSectionPayload(parsed, database).valid, true);
+});
+await test("representative fenced card-facts output parses and validates", () => {
+  const payload = {schemaVersion: 5, dataType: "cardDetails", generatedAt: "2026-07-11T12:00:00Z", cardDetails: [fact], errors: []};
+  const parsed = parseResearchJson(`\`\`\`json\n${JSON.stringify(payload)}\n\`\`\``);
+  assert.equal(validateSectionPayload(parsed, database).valid, true);
+});
+await test("representative fenced transfer-program output parses and validates", () => {
+  const payload = {schemaVersion: 5, dataType: "transferPrograms", generatedAt: "2026-07-11T12:00:00Z", transferPrograms: [program], errors: []};
+  const parsed = parseResearchJson(`\`\`\`json\n${JSON.stringify(payload)}\n\`\`\``);
+  assert.equal(validateSectionPayload(parsed, database).valid, true);
+});
+await test("representative fenced transfer-bonus output parses and validates", () => {
+  const withProgram = applySectionImport(database, validateSectionPayload({dataType: "transferPrograms", transferPrograms: [program]}, database), "merge");
+  const payload = {schemaVersion: 5, dataType: "transferBonuses", generatedAt: "2026-07-11T12:00:00Z", transferBonuses: [bonus], errors: []};
+  const parsed = parseResearchJson(`\`\`\`json\n${JSON.stringify(payload)}\n\`\`\``);
+  assert.equal(validateSectionPayload(parsed, withProgram).valid, true);
+});
+await test("representative fenced valuation output parses and validates", () => {
+  const parsed = parseResearchJson(`\`\`\`json\n${JSON.stringify(valuations)}\n\`\`\``);
+  assert.equal(validateSectionPayload(parsed, database, {type: "valuations"}).valid, true);
+});
+await test("prompt library migration upgrades transport metadata", () => {
+  const legacy = structuredClone(savedPrompts);
+  legacy.schemaVersion = 3;
+  delete legacy.transportVersion;
+  const migrated = migratePromptLibrary(legacy, defaults);
+  assert.equal(migrated.library.schemaVersion, 4);
+  assert.equal(migrated.library.transportVersion, 2);
+  assert.match(migrated.changes.join(" "), /transport upgraded/);
+});
+
+for (const template of prompts.templates) {
+  for (const provider of ["chatgpt", "gemini"]) {
+    await test(`one-step prompt preflight ${template.id} ${provider}`, () => {
+      const resolved = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "one-step", provider});
+      const preflight = promptPreflight(resolved);
+      assert.equal(preflight.valid, true, JSON.stringify(preflight));
+      assert.match(resolved, /exactly one fenced code block labeled json/);
+      assert.match(resolved, /FINAL CARDTRACK SCHEMA/);
+      assert.match(resolved, /APPROVED DOMAINS/);
+      assert.doesNotMatch(resolved, /\{\{[A-Z0-9_]+\}\}/);
+      assert.ok(resolved.length < 140000, `resolved prompt too large: ${resolved.length}`);
+    });
+    await test(`two-step research prompt ${template.id} ${provider}`, () => {
+      const resolved = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "two-step", provider, stage: "research"});
+      assert.match(resolved, /STEP 1 OF 2/);
+      assert.match(resolved, /evidence ledger/);
+      assert.match(resolved, /direct canonical HTTPS source URL/);
+      assert.doesNotMatch(resolved, /\{\{[A-Z0-9_]+\}\}/);
+    });
+    await test(`two-step JSON prompt preflight ${template.id} ${provider}`, () => {
+      const resolved = resolvePromptVariant(prompts, template, database.cards, new Date("2026-07-11T12:00:00Z"), database, {workflow: "two-step", provider, stage: "json"});
+      const preflight = promptPreflight(resolved);
+      assert.equal(preflight.valid, true, JSON.stringify(preflight));
+      assert.match(resolved, /STEP 2 OF 2/);
+      assert.match(resolved, /exactly one fenced code block labeled json/);
+      assert.match(resolved, /JSON\.parse/);
+    });
+  }
+}
 
 if (process.exitCode) process.exit(process.exitCode);
 console.log(`\n${passed} tests passed.`);
