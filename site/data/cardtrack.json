@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-07-11T06:21:30.041Z",
+  "generatedAt": "2026-07-12T00:26:47.388Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -574,6 +574,1854 @@
     }
   ],
   "cardDetails": [],
-  "transferPrograms": [],
+  "transferPrograms": [
+    {
+      "programId": "american-express-membership-rewards",
+      "programName": "American Express Membership Rewards",
+      "cards": [
+        "amex-platinum",
+        "amex-gold"
+      ],
+      "partners": [
+        {
+          "partnerId": "aer-lingus-aerclub",
+          "partnerName": "Aer Lingus AerClub",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "aeromexico-rewards",
+          "partnerName": "Aeromexico Rewards",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1.6,
+          "ratioDisplay": "1:1.6",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "air-canada-aeroplan",
+          "partnerName": "Air Canada Aeroplan",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "air-france-klm-flying-blue",
+          "partnerName": "Air France-KLM Flying Blue",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "ana-mileage-club",
+          "partnerName": "ANA Mileage Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "avianca-lifemiles",
+          "partnerName": "Avianca LifeMiles",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "british-airways-club",
+          "partnerName": "British Airways Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "cathay-pacific-asia-miles",
+          "partnerName": "Cathay Pacific Asia Miles",
+          "partnerType": "airline",
+          "sourceRatio": 5,
+          "destinationRatio": 4,
+          "ratioDisplay": "5:4",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards program updates",
+              "url": "https://www.americanexpress.com/content/dam/amex/us/rewards/membership-rewards/mr-updates-final-february-2026-v2.pdf",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "delta-skymiles",
+          "partnerName": "Delta SkyMiles",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "emirates-skywards",
+          "partnerName": "Emirates Skywards",
+          "partnerType": "airline",
+          "sourceRatio": 5,
+          "destinationRatio": 4,
+          "ratioDisplay": "5:4",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "iberia-club",
+          "partnerName": "Iberia Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "jetblue-trueblue",
+          "partnerName": "JetBlue TrueBlue",
+          "partnerType": "airline",
+          "sourceRatio": 5,
+          "destinationRatio": 4,
+          "ratioDisplay": "5:4",
+          "notes": "Equivalent to 250 Membership Rewards points for 200 TrueBlue points.",
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "qantas-frequent-flyer",
+          "partnerName": "Qantas Frequent Flyer",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "qatar-airways-privilege-club",
+          "partnerName": "Qatar Airways Privilege Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "singapore-airlines-krisflyer",
+          "partnerName": "Singapore Airlines KrisFlyer",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "virgin-atlantic-flying-club",
+          "partnerName": "Virgin Atlantic Flying Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "choice-privileges",
+          "partnerName": "Choice Privileges",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "hilton-honors",
+          "partnerName": "Hilton Honors",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 2,
+          "ratioDisplay": "1:2",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "marriott-bonvoy",
+          "partnerName": "Marriott Bonvoy",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "American Express Membership Rewards transfer partners",
+              "url": "https://global.americanexpress.com/rewards/transfer",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "American Express Membership Rewards transfer partner guide",
+              "url": "https://thepointsguy.com/credit-cards/membership-rewards-partner-guide/",
+              "sourceType": "aggregator"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "programId": "chase-ultimate-rewards-sapphire-preferred",
+      "programName": "Chase Ultimate Rewards - Sapphire Preferred",
+      "cards": [
+        "chase-sapphire-preferred"
+      ],
+      "partners": [
+        {
+          "partnerId": "aer-lingus-aerclub",
+          "partnerName": "Aer Lingus AerClub",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "air-canada-aeroplan",
+          "partnerName": "Air Canada Aeroplan",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "air-france-klm-flying-blue",
+          "partnerName": "Air France-KLM Flying Blue",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "british-airways-club",
+          "partnerName": "British Airways Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "iberia-club",
+          "partnerName": "Iberia Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "jetblue-trueblue",
+          "partnerName": "JetBlue TrueBlue",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "singapore-airlines-krisflyer",
+          "partnerName": "Singapore Airlines KrisFlyer",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "southwest-rapid-rewards",
+          "partnerName": "Southwest Rapid Rewards",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "united-mileageplus",
+          "partnerName": "United MileagePlus",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "virgin-atlantic-flying-club",
+          "partnerName": "Virgin Atlantic Flying Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "ihg-one-rewards",
+          "partnerName": "IHG One Rewards",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "marriott-bonvoy",
+          "partnerName": "Marriott Bonvoy",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "world-of-hyatt",
+          "partnerName": "World of Hyatt",
+          "partnerType": "hotel",
+          "sourceRatio": 4,
+          "destinationRatio": 3,
+          "ratioDisplay": "4:3",
+          "notes": "For Sapphire Preferred accounts opened before June 15, 2026, transfers remain 1:1 through September 30, 2026. The 4:3 ratio applies immediately to accounts opened on or after June 15, 2026 and to all Sapphire Preferred accounts beginning October 1, 2026.",
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "wyndham-rewards",
+          "partnerName": "Wyndham Rewards",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Sapphire Preferred benefits",
+              "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+              "sourceType": "issuer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "programId": "chase-ultimate-rewards-sapphire-reserve",
+      "programName": "Chase Ultimate Rewards - Sapphire Reserve",
+      "cards": [
+        "chase-sapphire-reserve"
+      ],
+      "partners": [
+        {
+          "partnerId": "aer-lingus-aerclub",
+          "partnerName": "Aer Lingus AerClub",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "air-canada-aeroplan",
+          "partnerName": "Air Canada Aeroplan",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "air-france-klm-flying-blue",
+          "partnerName": "Air France-KLM Flying Blue",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "british-airways-club",
+          "partnerName": "British Airways Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "iberia-club",
+          "partnerName": "Iberia Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "jetblue-trueblue",
+          "partnerName": "JetBlue TrueBlue",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "singapore-airlines-krisflyer",
+          "partnerName": "Singapore Airlines KrisFlyer",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "southwest-rapid-rewards",
+          "partnerName": "Southwest Rapid Rewards",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "united-mileageplus",
+          "partnerName": "United MileagePlus",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "virgin-atlantic-flying-club",
+          "partnerName": "Virgin Atlantic Flying Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "ihg-one-rewards",
+          "partnerName": "IHG One Rewards",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "marriott-bonvoy",
+          "partnerName": "Marriott Bonvoy",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "world-of-hyatt",
+          "partnerName": "World of Hyatt",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "wyndham-rewards",
+          "partnerName": "Wyndham Rewards",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Chase Ultimate Rewards transfer instructions and partners",
+              "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Chase Ultimate Rewards transfer partners guide",
+              "url": "https://thepointsguy.com/loyalty-programs/chase-ultimate-rewards-transfer-partners/",
+              "sourceType": "aggregator"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "programId": "capital-one-miles",
+      "programName": "Capital One Miles",
+      "cards": [
+        "capital-one-venture-x",
+        "capital-one-venture"
+      ],
+      "partners": [
+        {
+          "partnerId": "aeromexico-rewards",
+          "partnerName": "Aeromexico Rewards",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "air-canada-aeroplan",
+          "partnerName": "Air Canada Aeroplan",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "avianca-lifemiles",
+          "partnerName": "Avianca LifeMiles",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "british-airways-club",
+          "partnerName": "British Airways Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "cathay-pacific-asia-miles",
+          "partnerName": "Cathay Pacific Asia Miles",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "etihad-guest",
+          "partnerName": "Etihad Guest",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "finnair-plus",
+          "partnerName": "Finnair Plus",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "air-france-klm-flying-blue",
+          "partnerName": "Air France-KLM Flying Blue",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "qantas-frequent-flyer",
+          "partnerName": "Qantas Frequent Flyer",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "qatar-airways-privilege-club",
+          "partnerName": "Qatar Airways Privilege Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "singapore-airlines-krisflyer",
+          "partnerName": "Singapore Airlines KrisFlyer",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "tap-miles-and-go",
+          "partnerName": "TAP Miles&Go",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "turkish-airlines-miles-and-smiles",
+          "partnerName": "Turkish Airlines Miles&Smiles",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "virgin-red",
+          "partnerName": "Virgin Red",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "emirates-skywards",
+          "partnerName": "Emirates Skywards",
+          "partnerType": "airline",
+          "sourceRatio": 2,
+          "destinationRatio": 1.5,
+          "ratioDisplay": "2:1.5",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "eva-air-infinity-mileagelands",
+          "partnerName": "EVA Air Infinity MileageLands",
+          "partnerType": "airline",
+          "sourceRatio": 2,
+          "destinationRatio": 1.5,
+          "ratioDisplay": "2:1.5",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "japan-airlines-mileage-bank",
+          "partnerName": "Japan Airlines Mileage Bank",
+          "partnerType": "airline",
+          "sourceRatio": 2,
+          "destinationRatio": 1.5,
+          "ratioDisplay": "2:1.5",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "jetblue-trueblue",
+          "partnerName": "JetBlue TrueBlue",
+          "partnerType": "airline",
+          "sourceRatio": 5,
+          "destinationRatio": 3,
+          "ratioDisplay": "5:3",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "choice-privileges",
+          "partnerName": "Choice Privileges",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "wyndham-rewards",
+          "partnerName": "Wyndham Rewards",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "i-prefer-hotel-rewards",
+          "partnerName": "I Prefer Hotel Rewards",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 2,
+          "ratioDisplay": "1:2",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        },
+        {
+          "partnerId": "all-accor-live-limitless",
+          "partnerName": "ALL - Accor Live Limitless",
+          "partnerType": "hotel",
+          "sourceRatio": 2,
+          "destinationRatio": 1,
+          "ratioDisplay": "2:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Capital One miles transfer partners",
+              "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+              "sourceType": "issuer"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "programId": "citi-thankyou-points",
+      "programName": "Citi ThankYou Points",
+      "cards": [
+        "citi-strata-premier"
+      ],
+      "partners": [
+        {
+          "partnerId": "aeromexico-rewards",
+          "partnerName": "Aeromexico Rewards",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "american-airlines-aadvantage",
+          "partnerName": "American Airlines AAdvantage",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "avianca-lifemiles",
+          "partnerName": "Avianca LifeMiles",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "cathay-pacific-asia-miles",
+          "partnerName": "Cathay Pacific Asia Miles",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "emirates-skywards",
+          "partnerName": "Emirates Skywards",
+          "partnerType": "airline",
+          "sourceRatio": 5,
+          "destinationRatio": 4,
+          "ratioDisplay": "5:4",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "etihad-guest",
+          "partnerName": "Etihad Guest",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "eva-air-infinity-mileagelands",
+          "partnerName": "EVA Air Infinity MileageLands",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "air-france-klm-flying-blue",
+          "partnerName": "Air France-KLM Flying Blue",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "jetblue-trueblue",
+          "partnerName": "JetBlue TrueBlue",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "qantas-frequent-flyer",
+          "partnerName": "Qantas Frequent Flyer",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "qatar-airways-privilege-club",
+          "partnerName": "Qatar Airways Privilege Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "singapore-airlines-krisflyer",
+          "partnerName": "Singapore Airlines KrisFlyer",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "thai-airways-royal-orchid-plus",
+          "partnerName": "Thai Airways Royal Orchid Plus",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "turkish-airlines-miles-and-smiles",
+          "partnerName": "Turkish Airlines Miles&Smiles",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "virgin-atlantic-flying-club",
+          "partnerName": "Virgin Atlantic Flying Club",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "virgin-red",
+          "partnerName": "Virgin Red",
+          "partnerType": "airline",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": "Virgin Red is a broad rewards club; it is classified as airline here because the CardTrack transfer-partner schema permits only airline or hotel.",
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "all-accor-live-limitless",
+          "partnerName": "ALL - Accor Live Limitless",
+          "partnerType": "hotel",
+          "sourceRatio": 2,
+          "destinationRatio": 1,
+          "ratioDisplay": "2:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "choice-privileges",
+          "partnerName": "Choice Privileges",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1.5,
+          "ratioDisplay": "1:1.5",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "leaders-club",
+          "partnerName": "Leaders Club",
+          "partnerType": "hotel",
+          "sourceRatio": 5,
+          "destinationRatio": 1,
+          "ratioDisplay": "5:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "i-prefer-hotel-rewards",
+          "partnerName": "I Prefer Hotel Rewards",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 2,
+          "ratioDisplay": "1:2",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        },
+        {
+          "partnerId": "wyndham-rewards",
+          "partnerName": "Wyndham Rewards",
+          "partnerType": "hotel",
+          "sourceRatio": 1,
+          "destinationRatio": 1,
+          "ratioDisplay": "1:1",
+          "notes": null,
+          "lastVerifiedAt": "2026-07-12T00:19:52Z",
+          "sources": [
+            {
+              "name": "Citi ThankYou Rewards transfer partner FAQ",
+              "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+              "sourceType": "issuer"
+            },
+            {
+              "name": "Citi ThankYou transfer partners and ratios",
+              "url": "https://www.nerdwallet.com/travel/learn/citi-transfer-partners-guide",
+              "sourceType": "aggregator"
+            }
+          ]
+        }
+      ]
+    }
+  ],
   "transferBonuses": []
 }
