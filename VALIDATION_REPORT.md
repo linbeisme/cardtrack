@@ -1,15 +1,26 @@
-# CardTrack v5.2.4 Validation Report
+# CardTrack v5.2.5 Validation Report
 
 ## Automated validation
 
-- 132 automated tests passed.
-- 80 generated prompt variants audited across 10 categories, two providers, one-step, two-step, and repair workflows.
+- 132 automated tests passed on the complete package.
+- The same 132 tests passed on a simulated live upgrade containing 15 existing Card Facts records.
+- 80 generated prompt variants passed preflight in both the seed-data and populated-fact-sheet scenarios.
 - JavaScript syntax checks passed for app.js, schema.mjs, prompts.mjs, github.mjs, and tests.
-- Saved database validation passed: 15 cards and 15 offers.
-- Prompt library validation passed: 10 templates.
-- TPG valuation validation passed: 11 program valuations.
+- Saved database validation passed for 15 cards and 15 offers.
+- Populated upgrade validation passed for 15 cards, 15 offers, and 15 card fact sheets.
+- Prompt library validation passed for 10 templates.
+- TPG valuation validation passed for 11 program valuations.
 
-## New regression coverage
+## v5.2.5 regression fixes
+
+- Section-merge testing now supports repositories that already contain Card Facts for all active cards.
+- The merge test verifies that unrelated offers, transfer programs, transfer bonuses, and existing fact sheets remain unchanged.
+- Card Facts prompts inject compact current-data summaries rather than every nested saved benefit record.
+- Complete Data Refresh prompts inject compact summaries of offers, fact sheets, transfer programs, and transfer bonuses.
+- One-step ChatGPT and Gemini prompts remain below the 140,000-character guard with 15 populated fact sheets.
+- Existing identifiers, verification dates, counts, top-benefit names, and source-host context remain available to the research prompt.
+
+## Existing v5.2.4 regression coverage retained
 
 - Clear Import resets Import Type to Auto-detect.
 - Prompt Manager JSON tester Clear resets all test state.
@@ -23,6 +34,5 @@
 
 - Complete package contains all application and seed data files.
 - Update-only package excludes site/data/cardtrack.json, site/data/prompts.json, and site/data/tpg-valuations.json.
-- Update-only overlay test preserved an existing Card Facts record, saved prompt library, and TPG valuation file.
-- The overlaid repository revalidated successfully and all 132 tests passed.
+- Update-only overlay testing preserved existing live data.
 - ZIP integrity checks passed.

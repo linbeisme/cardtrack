@@ -1,4 +1,4 @@
-# Package Contents — CardTrack v5.2.4
+# Package Contents — CardTrack v5.2.5
 
 - `.github/workflows/update-and-deploy.yml` — validates data, runs tests, audits all generated prompts, and deploys GitHub Pages
 - `site/index.html` — static application shell with versioned assets
@@ -17,5 +17,5 @@
 - `docs/PROMPT_MANAGER_WORKFLOW.md` — detailed one-step, two-step, repair, copy/paste, and validation instructions
 - `docs/UPDATE_INSTRUCTIONS.md` — beginner GitHub update directions
 - `docs/RESEARCH_JSON_FORMATS.md` — accepted import structures and source policies
-- `RELEASE_NOTES_v5.2.4.md` — import reset, token styling, fact-sheet persistence verification, and internal navigation changes
+- `RELEASE_NOTES_v5.2.5.md` — import reset, token styling, fact-sheet persistence verification, and internal navigation changes
 - Earlier release notes — prior features and compatibility history

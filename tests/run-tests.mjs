@@ -68,7 +68,7 @@ const bonus = {
   transferBonusId: "chase-hyatt-test", sourceProgramId: "chase-ultimate-rewards", destinationProgramId: "world-of-hyatt", destinationProgramName: "World of Hyatt", bonusPercent: 20, standardRatio: "1:1", effectiveRatio: "1:1.2", publicOrTargeted: "public", startDate: "2026-07-01", endDate: "2026-12-31", enrollmentRequired: false, note: "Test bonus", lastVerifiedAt: "2026-07-10T12:00:00Z", sources: [{name: "Chase", url: "https://www.chase.com/", sourceType: "issuer"}]
 };
 
-await test("app version is v5.2.4", () => assert.equal(APP_VERSION, "5.2.4"));
+await test("app version is v5.2.5", () => assert.equal(APP_VERSION, "5.2.5"));
 await test("saved v5 database validates", () => assert.equal(validateDatabase(database, {rejectExpired: false}).valid, true));
 await test("prompt library validates", () => assert.equal(validatePromptLibrary(prompts).valid, true));
 await test("default library has required feature prompts", () => {
@@ -182,10 +182,19 @@ await test("transfer bonus validates after program import", () => {
   assert.equal(validateSectionPayload({dataType: "transferBonuses", transferBonuses: [bonus]}, withProgram).valid, true);
 });
 await test("section merge preserves unrelated data", () => {
+  const beforeDetails = structuredClone(database.cardDetails || []);
   const validation = validateSectionPayload({dataType: "cardDetails", cardDetails: [fact]}, database);
   const next = applySectionImport(database, validation, "merge");
+  const expectedIds = new Set(beforeDetails.map((item) => item.cardId));
+  expectedIds.add(fact.cardId);
   assert.equal(next.offers.length, database.offers.length);
-  assert.equal(next.cardDetails.length, 1);
+  assert.deepEqual(next.transferPrograms, database.transferPrograms || []);
+  assert.deepEqual(next.transferBonuses, database.transferBonuses || []);
+  assert.equal(next.cardDetails.length, expectedIds.size);
+  assert.deepEqual(next.cardDetails.find((item) => item.cardId === fact.cardId), fact);
+  for (const item of beforeDetails.filter((entry) => entry.cardId !== fact.cardId)) {
+    assert.deepEqual(next.cardDetails.find((entry) => entry.cardId === item.cardId), item);
+  }
 });
 await test("legacy data arrays are initialized before section merge", () => {
   const legacy = structuredClone(savedDatabase);
@@ -344,10 +353,10 @@ await test("Current Offers KPI cards are clickable filters", () => {
 
 await test("versioned asset URLs prevent stale browser modules", async () => {
   const indexSource = await fs.readFile(path.join(root, "site/index.html"), "utf8");
-  assert.match(indexSource, /app\.js\?v=5\.2\.4/);
-  assert.match(indexSource, /styles\.css\?v=5\.2\.4/);
-  assert.match(appSource, /schema\.mjs\?v=5\.2\.4/);
-  assert.match(appSource, /prompts\.mjs\?v=5\.2\.4/);
+  assert.match(indexSource, /app\.js\?v=5\.2\.5/);
+  assert.match(indexSource, /styles\.css\?v=5\.2\.5/);
+  assert.match(appSource, /schema\.mjs\?v=5\.2\.5/);
+  assert.match(appSource, /prompts\.mjs\?v=5\.2\.5/);
 });
 
 

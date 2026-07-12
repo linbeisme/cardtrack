@@ -42,6 +42,77 @@ function catalogForPrompt(cards = []) {
   }));
 }
 
+function safeUrlHost(value) {
+  try { return new URL(String(value || "")).hostname.replace(/^www\./, ""); }
+  catch { return null; }
+}
+
+function compactOffer(item = {}) {
+  return {
+    cardId: item.cardId,
+    channel: item.channel,
+    bonusAmount: item.bonusAmount,
+    bonusUnit: item.bonusUnit,
+    spendRequirement: item.spendRequirement,
+    spendPeriodMonths: item.spendPeriodMonths,
+    annualFee: item.annualFee,
+    annualFeeWaivedFirstYear: item.annualFeeWaivedFirstYear,
+    status: item.status,
+    expirationDate: item.expirationDate,
+    lastVerifiedAt: item.lastVerifiedAt
+  };
+}
+
+function compactCardDetail(item = {}) {
+  const groups = ["earnRates", "credits", "perks", "protections", "loungeAccess", "statusBenefits", "airlineBenefits", "hotelBenefits"];
+  const counts = Object.fromEntries(groups.map((field) => [field, Array.isArray(item[field]) ? item[field].length : 0]));
+  const benefitGroups = groups.filter((field) => field !== "earnRates");
+  const topBenefits = benefitGroups.flatMap((field) => (item[field] || []).filter((benefit) => benefit?.isTopBenefit).map((benefit) => benefit.name)).filter(Boolean).slice(0, 6);
+  const sourceHosts = [...new Set([
+    ...(item.sources || []).map((source) => safeUrlHost(source?.url)),
+    ...benefitGroups.flatMap((field) => (item[field] || []).map((benefit) => safeUrlHost(benefit?.sourceUrl)))
+  ].filter(Boolean))].slice(0, 8);
+  return {
+    cardId: item.cardId,
+    foreignTransactionFee: item.foreignTransactionFee,
+    lastVerifiedAt: item.lastVerifiedAt,
+    counts,
+    topBenefits,
+    sourceHosts
+  };
+}
+
+function compactTransferProgram(item = {}) {
+  return {
+    programId: item.programId,
+    programName: item.programName,
+    cards: item.cards || [],
+    partners: (item.partners || []).map((partner) => ({
+      partnerId: partner.partnerId,
+      partnerName: partner.partnerName,
+      partnerType: partner.partnerType,
+      ratioDisplay: partner.ratioDisplay,
+      lastVerifiedAt: partner.lastVerifiedAt
+    }))
+  };
+}
+
+function compactTransferBonus(item = {}) {
+  return {
+    transferBonusId: item.transferBonusId,
+    sourceProgramId: item.sourceProgramId,
+    destinationProgramId: item.destinationProgramId,
+    destinationProgramName: item.destinationProgramName,
+    bonusPercent: item.bonusPercent,
+    standardRatio: item.standardRatio,
+    effectiveRatio: item.effectiveRatio,
+    publicOrTargeted: item.publicOrTargeted,
+    startDate: item.startDate,
+    endDate: item.endDate,
+    lastVerifiedAt: item.lastVerifiedAt
+  };
+}
+
 function databaseSummary(database = {}, selectedCards = [], policy = "complete") {
   const ids = new Set((Array.isArray(selectedCards) ? selectedCards : []).map((card) => card.id));
   const offers = (database.offers || []).filter((item) => ids.has(item.cardId));
@@ -54,11 +125,23 @@ function databaseSummary(database = {}, selectedCards = [], policy = "complete")
     lastVerifiedAt: item.lastVerifiedAt
   }));
   if (policy === "offers") return {schemaVersion: database.schemaVersion, existingOffers: offers};
-  if (policy === "cardDetails") return {schemaVersion: database.schemaVersion, existingFeeStatus: compactFeeStatus, existingCardDetails: details};
+  if (policy === "cardDetails") return {
+    schemaVersion: database.schemaVersion,
+    existingFeeStatus: compactFeeStatus,
+    existingCardDetailsSummary: details.map(compactCardDetail),
+    summaryNote: "Existing fact sheets are summarized to keep the prompt within provider limits. Re-research all current facts from approved sources."
+  };
   if (policy === "transferPrograms") return {schemaVersion: database.schemaVersion, transferPrograms: database.transferPrograms || []};
   if (policy === "transferBonuses") return {schemaVersion: database.schemaVersion, transferPrograms: database.transferPrograms || [], transferBonuses: database.transferBonuses || []};
   if (policy === "valuations") return {schemaVersion: database.schemaVersion, representedPrograms: [...new Set((selectedCards || []).map((card) => card.program))]};
-  return {schemaVersion: database.schemaVersion, existingOffers: offers, existingCardDetails: details, transferPrograms: database.transferPrograms || [], transferBonuses: database.transferBonuses || []};
+  return {
+    schemaVersion: database.schemaVersion,
+    existingOffersSummary: offers.map(compactOffer),
+    existingCardDetailsSummary: details.map(compactCardDetail),
+    transferProgramsSummary: (database.transferPrograms || []).map(compactTransferProgram),
+    transferBonusesSummary: (database.transferBonuses || []).map(compactTransferBonus),
+    summaryNote: "Current data is intentionally summarized to keep the complete-refresh prompt within provider limits. Re-verify every current field."
+  };
 }
 
 function sourcePolicyForTemplate(template = {}) {
