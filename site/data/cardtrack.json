@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-07-12T00:57:33.100Z",
+  "generatedAt": "2026-07-20T22:19:48.711Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -5728,17 +5728,12 @@
       "startDate": "2026-07-01",
       "endDate": "2026-07-31",
       "enrollmentRequired": false,
-      "note": "American Express applies the 30% bonus to eligible U.S. Membership Rewards transfers to Virgin Atlantic Flying Club during the promotion period.",
-      "lastVerifiedAt": "2026-07-12T00:28:04Z",
+      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Virgin Atlantic Flying Club through July 31, 2026.",
+      "lastVerifiedAt": "2026-07-20T22:00:00Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Virgin Atlantic transfer bonus",
           "url": "https://frequentmiler.com/30-percent-transfer-bonus-american-express-membership-rewards-virgin-atlantic/",
-          "sourceType": "aggregator"
-        },
-        {
-          "name": "The Points Guy current transfer bonuses",
-          "url": "https://thepointsguy.com/loyalty-programs/current-transfer-bonuses/",
           "sourceType": "aggregator"
         }
       ]
@@ -5863,17 +5858,12 @@
       "startDate": "2026-07-01",
       "endDate": "2026-07-31",
       "enrollmentRequired": false,
-      "note": "The standard transfer is 1,000 Capital One miles to 750 EVA Air miles. The 30% bonus increases the destination amount to 975 EVA Air miles per 1,000 Capital One miles.",
-      "lastVerifiedAt": "2026-07-12T00:28:04Z",
+      "note": "Capital One normally transfers 1,000 miles to 750 EVA Air Infinity MileageLands miles. The 30% bonus increases the destination amount to 975 EVA Air miles per 1,000 Capital One miles.",
+      "lastVerifiedAt": "2026-07-20T22:00:00Z",
       "sources": [
         {
           "name": "Frequent Miler Capital One to EVA Air transfer bonus",
           "url": "https://frequentmiler.com/30-transfer-bonus-capital-one-miles-eva-air/",
-          "sourceType": "aggregator"
-        },
-        {
-          "name": "One Mile at a Time Capital One to EVA Air transfer bonus",
-          "url": "https://onemileatatime.com/deals/capital-one-eva-air-transfer-bonus/",
           "sourceType": "aggregator"
         }
       ]
@@ -5901,6 +5891,77 @@
         {
           "name": "Doctor of Credit Citi to Accor transfer bonus",
           "url": "https://www.doctorofcredit.com/citi-thankyou-points-50-transfer-bonus-to-accor-10-75-4/",
+          "sourceType": "aggregator"
+        }
+      ]
+    },
+    {
+      "transferBonusId": "chase-sapphire-preferred-ihg-one-rewards-100-july-2026",
+      "sourceProgramId": "chase-ultimate-rewards-sapphire-preferred",
+      "destinationProgramId": "ihg-one-rewards",
+      "destinationProgramName": "IHG One Rewards",
+      "bonusPercent": 100,
+      "standardRatio": "1:1",
+      "effectiveRatio": "1:2",
+      "publicOrTargeted": "public",
+      "startDate": "2026-07-15",
+      "endDate": "2026-07-30",
+      "enrollmentRequired": false,
+      "note": "Chase is offering a 100% transfer bonus from Ultimate Rewards to IHG One Rewards from July 15 through July 30, 2026. A lower 70% bonus is scheduled after this period and is not included as active for today.",
+      "lastVerifiedAt": "2026-07-20T22:00:00Z",
+      "sources": [
+        {
+          "name": "Frequent Miler Chase to IHG transfer bonus",
+          "url": "https://frequentmiler.com/chase-is-offering-a-70-100-transfer-bonus-to-ihg-one-rewards-give-it-a-miss/",
+          "sourceType": "aggregator"
+        }
+      ]
+    },
+    {
+      "transferBonusId": "chase-sapphire-reserve-ihg-one-rewards-100-july-2026",
+      "sourceProgramId": "chase-ultimate-rewards-sapphire-reserve",
+      "destinationProgramId": "ihg-one-rewards",
+      "destinationProgramName": "IHG One Rewards",
+      "bonusPercent": 100,
+      "standardRatio": "1:1",
+      "effectiveRatio": "1:2",
+      "publicOrTargeted": "public",
+      "startDate": "2026-07-15",
+      "endDate": "2026-07-30",
+      "enrollmentRequired": false,
+      "note": "Chase is offering a 100% transfer bonus from Ultimate Rewards to IHG One Rewards from July 15 through July 30, 2026. A lower 70% bonus is scheduled after this period and is not included as active for today.",
+      "lastVerifiedAt": "2026-07-20T22:00:00Z",
+      "sources": [
+        {
+          "name": "Frequent Miler Chase to IHG transfer bonus",
+          "url": "https://frequentmiler.com/chase-is-offering-a-70-100-transfer-bonus-to-ihg-one-rewards-give-it-a-miss/",
+          "sourceType": "aggregator"
+        }
+      ]
+    },
+    {
+      "transferBonusId": "citi-thankyou-air-france-klm-flying-blue-20-july-august-2026",
+      "sourceProgramId": "citi-thankyou-points",
+      "destinationProgramId": "air-france-klm-flying-blue",
+      "destinationProgramName": "Air France-KLM Flying Blue",
+      "bonusPercent": 20,
+      "standardRatio": "1:1",
+      "effectiveRatio": "1:1.2",
+      "publicOrTargeted": "public",
+      "startDate": "2026-07-19",
+      "endDate": "2026-08-22",
+      "enrollmentRequired": false,
+      "note": "Citi ThankYou Rewards is offering a 20% transfer bonus to Air France-KLM Flying Blue from July 19, 2026 through August 22, 2026. Eligible premium ThankYou cards include Citi Strata Premier.",
+      "lastVerifiedAt": "2026-07-20T22:00:00Z",
+      "sources": [
+        {
+          "name": "Frequent Miler Citi to Air France KLM Flying Blue transfer bonus",
+          "url": "https://frequentmiler.com/citi-thankyou-air-france-klm-flying-blue-20-percent-transfer-bonus/",
+          "sourceType": "aggregator"
+        },
+        {
+          "name": "Doctor of Credit Citi to Flying Blue transfer bonus",
+          "url": "https://www.doctorofcredit.com/citi-thankyou-points-20-transfer-bonus-to-flying-blue-airfrance-klm-2/",
           "sourceType": "aggregator"
         }
       ]
