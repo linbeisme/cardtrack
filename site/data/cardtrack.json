@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-07-20T22:19:48.711Z",
+  "generatedAt": "2026-07-24T16:41:06.402Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -297,9 +297,9 @@
       "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-07-24T16:41:38Z",
       "confidence": "high",
-      "note": "Issuer labels this a limited-time public offer. It exceeds the 60,000-point baseline; no supported expiration date was found.",
+      "note": "Issuer displays an offer ending soon for 100,000 points after $5,000 in purchases within the first 3 months. No specific expiration date was published.",
       "sources": [
         {
           "name": "Chase Sapphire Preferred",
@@ -319,9 +319,9 @@
       "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-07-24T16:41:38Z",
       "confidence": "high",
-      "note": "Current public offer exceeds the 60,000-point baseline and is not labeled limited-time on the issuer page.",
+      "note": "Current issuer offer is 100,000 points after $6,000 in purchases within the first 3 months. The issuer does not label the offer as time-limited.",
       "sources": [
         {
           "name": "Chase Sapphire Reserve",
@@ -363,9 +363,9 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-07-24T16:41:38Z",
       "confidence": "high",
-      "note": "Public offer matches the stored 75,000-mile baseline.",
+      "note": "Current public offer matches the catalog baseline: 75,000 miles after $4,000 in purchases within the first 3 months.",
       "sources": [
         {
           "name": "Capital One Venture Rewards",
@@ -449,15 +449,15 @@
       "spendPeriodMonths": 3,
       "annualFee": 95,
       "annualFeeWaivedFirstYear": false,
-      "status": "review",
+      "status": "limited",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-07-24T16:41:38Z",
       "confidence": "high",
-      "note": "Mixed offer includes points plus a free-night certificate. The point-equivalent display should be reviewed before comparing it with pure-point offers.",
+      "note": "Limited-time offer provides 125,000 points plus one Free Night Award after $3,000 in eligible purchases within 3 months. bonusAmount includes only the stated points and excludes the certificate value.",
       "sources": [
         {
           "name": "Marriott Bonvoy Boundless",
-          "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy-boundless",
+          "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
           "sourceType": "issuer"
         }
       ]
@@ -539,9 +539,9 @@
       "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-07-24T16:41:38Z",
       "confidence": "high",
-      "note": "Current public offer exceeds the 50,000-point baseline. Annual fee shown is the current issuer-published recurring fee.",
+      "note": "Current public offer is 60,000 points after $2,000 in purchases within the first 3 months. The annual fee is applied to the first billing statement.",
       "sources": [
         {
           "name": "Southwest Rapid Rewards Priority",
@@ -552,18 +552,18 @@
     },
     {
       "cardId": "alaska-ascent",
-      "bonusAmount": 50000,
+      "bonusAmount": 70000,
       "bonusUnit": "miles",
       "channel": "public",
-      "spendRequirement": 2000,
+      "spendRequirement": 2500,
       "spendPeriodMonths": 3,
       "annualFee": 95,
       "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-07-24T16:41:38Z",
       "confidence": "high",
-      "note": "Limited-time offer includes 50,000 miles plus a companion-ticket benefit after qualifying spend. The non-mile benefit is not included in the estimated TPG cash value.",
+      "note": "Limited-time online offer provides 70,000 Atmos Rewards points and a $99 Companion Fare after $2,500 in purchases within the first 90 days. The companion benefit is excluded from bonusAmount.",
       "sources": [
         {
           "name": "Atmos Rewards Ascent Visa Signature",
