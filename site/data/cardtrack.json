@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-07-24T16:41:06.402Z",
+  "generatedAt": "2026-07-24T16:56:55.796Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -5729,7 +5729,7 @@
       "endDate": "2026-07-31",
       "enrollmentRequired": false,
       "note": "American Express Membership Rewards is offering a 30% transfer bonus to Virgin Atlantic Flying Club through July 31, 2026.",
-      "lastVerifiedAt": "2026-07-20T22:00:00Z",
+      "lastVerifiedAt": "2026-07-24T09:58:52Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Virgin Atlantic transfer bonus",
@@ -5859,7 +5859,7 @@
       "endDate": "2026-07-31",
       "enrollmentRequired": false,
       "note": "Capital One normally transfers 1,000 miles to 750 EVA Air Infinity MileageLands miles. The 30% bonus increases the destination amount to 975 EVA Air miles per 1,000 Capital One miles.",
-      "lastVerifiedAt": "2026-07-20T22:00:00Z",
+      "lastVerifiedAt": "2026-07-24T09:58:52Z",
       "sources": [
         {
           "name": "Frequent Miler Capital One to EVA Air transfer bonus",
@@ -5907,8 +5907,8 @@
       "startDate": "2026-07-15",
       "endDate": "2026-07-30",
       "enrollmentRequired": false,
-      "note": "Chase is offering a 100% transfer bonus from Ultimate Rewards to IHG One Rewards from July 15 through July 30, 2026. A lower 70% bonus is scheduled after this period and is not included as active for today.",
-      "lastVerifiedAt": "2026-07-20T22:00:00Z",
+      "note": "Chase is offering a 100% transfer bonus from Ultimate Rewards to IHG One Rewards from July 15 through July 30, 2026.",
+      "lastVerifiedAt": "2026-07-24T09:58:52Z",
       "sources": [
         {
           "name": "Frequent Miler Chase to IHG transfer bonus",
@@ -5929,8 +5929,8 @@
       "startDate": "2026-07-15",
       "endDate": "2026-07-30",
       "enrollmentRequired": false,
-      "note": "Chase is offering a 100% transfer bonus from Ultimate Rewards to IHG One Rewards from July 15 through July 30, 2026. A lower 70% bonus is scheduled after this period and is not included as active for today.",
-      "lastVerifiedAt": "2026-07-20T22:00:00Z",
+      "note": "Chase is offering a 100% transfer bonus from Ultimate Rewards to IHG One Rewards from July 15 through July 30, 2026.",
+      "lastVerifiedAt": "2026-07-24T09:58:52Z",
       "sources": [
         {
           "name": "Frequent Miler Chase to IHG transfer bonus",
@@ -5952,7 +5952,7 @@
       "endDate": "2026-08-22",
       "enrollmentRequired": false,
       "note": "Citi ThankYou Rewards is offering a 20% transfer bonus to Air France-KLM Flying Blue from July 19, 2026 through August 22, 2026. Eligible premium ThankYou cards include Citi Strata Premier.",
-      "lastVerifiedAt": "2026-07-20T22:00:00Z",
+      "lastVerifiedAt": "2026-07-24T09:58:52Z",
       "sources": [
         {
           "name": "Frequent Miler Citi to Air France KLM Flying Blue transfer bonus",
