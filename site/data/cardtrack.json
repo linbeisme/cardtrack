@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-07-24T16:58:10.967Z",
+  "generatedAt": "2026-07-24T18:28:05.003Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -5739,114 +5739,6 @@
       ]
     },
     {
-      "transferBonusId": "amex-membership-rewards-hilton-honors-20-july-2026",
-      "sourceProgramId": "american-express-membership-rewards",
-      "destinationProgramId": "hilton-honors",
-      "destinationProgramName": "Hilton Honors",
-      "bonusPercent": 20,
-      "standardRatio": "1:2",
-      "effectiveRatio": "1:2.4",
-      "publicOrTargeted": "public",
-      "startDate": "2026-07-01",
-      "endDate": "2026-07-14",
-      "enrollmentRequired": false,
-      "note": "American Express applies the 20% bonus to eligible U.S. Membership Rewards transfers to Hilton Honors during the promotion period.",
-      "lastVerifiedAt": "2026-07-12T00:28:04Z",
-      "sources": [
-        {
-          "name": "Frequent Miler Amex to Hilton transfer bonus",
-          "url": "https://frequentmiler.com/20-percent-transfer-bonus-american-express-membership-rewards-hilton-honors/",
-          "sourceType": "aggregator"
-        },
-        {
-          "name": "One Mile at a Time Amex to Hilton transfer bonus",
-          "url": "https://onemileatatime.com/deals/amex-hilton-transfer-bonus/",
-          "sourceType": "aggregator"
-        }
-      ]
-    },
-    {
-      "transferBonusId": "amex-membership-rewards-avianca-lifemiles-15-june-july-2026",
-      "sourceProgramId": "american-express-membership-rewards",
-      "destinationProgramId": "avianca-lifemiles",
-      "destinationProgramName": "Avianca LifeMiles",
-      "bonusPercent": 15,
-      "standardRatio": "1:1",
-      "effectiveRatio": "1:1.15",
-      "publicOrTargeted": "public",
-      "startDate": "2026-06-15",
-      "endDate": "2026-07-15",
-      "enrollmentRequired": false,
-      "note": "The bonus is provided by LifeMiles rather than American Express and may post separately within 24 hours. The member must already be registered with LifeMiles before transferring.",
-      "lastVerifiedAt": "2026-07-12T00:28:04Z",
-      "sources": [
-        {
-          "name": "Frequent Miler Amex to Avianca LifeMiles transfer bonus",
-          "url": "https://frequentmiler.com/15-transfer-bonus-from-amex-membership-rewards-to-avianca-lifemiles/",
-          "sourceType": "aggregator"
-        },
-        {
-          "name": "One Mile at a Time Amex to Avianca LifeMiles transfer bonus",
-          "url": "https://onemileatatime.com/deals/amex-avianca-lifemiles-transfer-bonus/",
-          "sourceType": "aggregator"
-        }
-      ]
-    },
-    {
-      "transferBonusId": "chase-sapphire-preferred-virgin-atlantic-30-june-july-2026",
-      "sourceProgramId": "chase-ultimate-rewards-sapphire-preferred",
-      "destinationProgramId": "virgin-atlantic-flying-club",
-      "destinationProgramName": "Virgin Atlantic Flying Club",
-      "bonusPercent": 30,
-      "standardRatio": "1:1",
-      "effectiveRatio": "1:1.3",
-      "publicOrTargeted": "public",
-      "startDate": "2026-06-09",
-      "endDate": "2026-07-14",
-      "enrollmentRequired": false,
-      "note": "Chase applies the 30% bonus in the transfer ratio for eligible Ultimate Rewards transfers to Virgin Atlantic Flying Club.",
-      "lastVerifiedAt": "2026-07-12T00:28:04Z",
-      "sources": [
-        {
-          "name": "Frequent Miler Chase to Virgin Atlantic transfer bonus",
-          "url": "https://frequentmiler.com/chase-ultimate-rewards-virgin-atlantic-30-percent-transfer-bonus/",
-          "sourceType": "aggregator"
-        },
-        {
-          "name": "One Mile at a Time Chase to Virgin Atlantic transfer bonus",
-          "url": "https://onemileatatime.com/deals/chase-virgin-atlantic-transfer-bonus/",
-          "sourceType": "aggregator"
-        }
-      ]
-    },
-    {
-      "transferBonusId": "chase-sapphire-reserve-virgin-atlantic-30-june-july-2026",
-      "sourceProgramId": "chase-ultimate-rewards-sapphire-reserve",
-      "destinationProgramId": "virgin-atlantic-flying-club",
-      "destinationProgramName": "Virgin Atlantic Flying Club",
-      "bonusPercent": 30,
-      "standardRatio": "1:1",
-      "effectiveRatio": "1:1.3",
-      "publicOrTargeted": "public",
-      "startDate": "2026-06-09",
-      "endDate": "2026-07-14",
-      "enrollmentRequired": false,
-      "note": "Chase applies the 30% bonus in the transfer ratio for eligible Ultimate Rewards transfers to Virgin Atlantic Flying Club.",
-      "lastVerifiedAt": "2026-07-12T00:28:04Z",
-      "sources": [
-        {
-          "name": "Frequent Miler Chase to Virgin Atlantic transfer bonus",
-          "url": "https://frequentmiler.com/chase-ultimate-rewards-virgin-atlantic-30-percent-transfer-bonus/",
-          "sourceType": "aggregator"
-        },
-        {
-          "name": "One Mile at a Time Chase to Virgin Atlantic transfer bonus",
-          "url": "https://onemileatatime.com/deals/chase-virgin-atlantic-transfer-bonus/",
-          "sourceType": "aggregator"
-        }
-      ]
-    },
-    {
       "transferBonusId": "capital-one-miles-eva-air-30-july-2026",
       "sourceProgramId": "capital-one-miles",
       "destinationProgramId": "eva-air-infinity-mileagelands",
@@ -5864,33 +5756,6 @@
         {
           "name": "Frequent Miler Capital One to EVA Air transfer bonus",
           "url": "https://frequentmiler.com/30-transfer-bonus-capital-one-miles-eva-air/",
-          "sourceType": "aggregator"
-        }
-      ]
-    },
-    {
-      "transferBonusId": "citi-thankyou-all-accor-50-june-july-2026",
-      "sourceProgramId": "citi-thankyou-points",
-      "destinationProgramId": "all-accor-live-limitless",
-      "destinationProgramName": "ALL - Accor Live Limitless",
-      "bonusPercent": 50,
-      "standardRatio": "2:1",
-      "effectiveRatio": "2:1.5",
-      "publicOrTargeted": "public",
-      "startDate": "2026-06-14",
-      "endDate": "2026-07-18",
-      "enrollmentRequired": false,
-      "note": "For Citi Strata Premier, the standard transfer is 1,000 ThankYou points to 500 ALL points. The 50% bonus increases the destination amount to 750 ALL points.",
-      "lastVerifiedAt": "2026-07-12T00:28:04Z",
-      "sources": [
-        {
-          "name": "Frequent Miler Citi to ALL Accor transfer bonus",
-          "url": "https://frequentmiler.com/50-percent-transfer-bonus-citi-thankyou-accor-all/",
-          "sourceType": "aggregator"
-        },
-        {
-          "name": "Doctor of Credit Citi to Accor transfer bonus",
-          "url": "https://www.doctorofcredit.com/citi-thankyou-points-50-transfer-bonus-to-accor-10-75-4/",
           "sourceType": "aggregator"
         }
       ]
