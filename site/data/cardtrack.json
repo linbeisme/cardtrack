@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-08-04T04:16:01.705Z",
+  "generatedAt": "2026-08-05T20:18:57.485Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -5717,95 +5717,7 @@
   ],
   "transferBonuses": [
     {
-      "transferBonusId": "amex-membership-rewards-virgin-atlantic-30-july-2026",
-      "sourceProgramId": "american-express-membership-rewards",
-      "destinationProgramId": "virgin-atlantic-flying-club",
-      "destinationProgramName": "Virgin Atlantic Flying Club",
-      "bonusPercent": 30,
-      "standardRatio": "1:1",
-      "effectiveRatio": "1:1.3",
-      "publicOrTargeted": "public",
-      "startDate": "2026-07-01",
-      "endDate": "2026-07-31",
-      "enrollmentRequired": false,
-      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Virgin Atlantic Flying Club through July 31, 2026.",
-      "lastVerifiedAt": "2026-07-24T09:58:52Z",
-      "sources": [
-        {
-          "name": "Frequent Miler Amex to Virgin Atlantic transfer bonus",
-          "url": "https://frequentmiler.com/30-percent-transfer-bonus-american-express-membership-rewards-virgin-atlantic/",
-          "sourceType": "aggregator"
-        }
-      ]
-    },
-    {
-      "transferBonusId": "capital-one-miles-eva-air-30-july-2026",
-      "sourceProgramId": "capital-one-miles",
-      "destinationProgramId": "eva-air-infinity-mileagelands",
-      "destinationProgramName": "EVA Air Infinity MileageLands",
-      "bonusPercent": 30,
-      "standardRatio": "2:1.5",
-      "effectiveRatio": "2:1.95",
-      "publicOrTargeted": "public",
-      "startDate": "2026-07-01",
-      "endDate": "2026-07-31",
-      "enrollmentRequired": false,
-      "note": "Capital One normally transfers 1,000 miles to 750 EVA Air Infinity MileageLands miles. The 30% bonus increases the destination amount to 975 EVA Air miles per 1,000 Capital One miles.",
-      "lastVerifiedAt": "2026-07-24T09:58:52Z",
-      "sources": [
-        {
-          "name": "Frequent Miler Capital One to EVA Air transfer bonus",
-          "url": "https://frequentmiler.com/30-transfer-bonus-capital-one-miles-eva-air/",
-          "sourceType": "aggregator"
-        }
-      ]
-    },
-    {
-      "transferBonusId": "chase-sapphire-preferred-ihg-one-rewards-100-july-2026",
-      "sourceProgramId": "chase-ultimate-rewards-sapphire-preferred",
-      "destinationProgramId": "ihg-one-rewards",
-      "destinationProgramName": "IHG One Rewards",
-      "bonusPercent": 100,
-      "standardRatio": "1:1",
-      "effectiveRatio": "1:2",
-      "publicOrTargeted": "public",
-      "startDate": "2026-07-15",
-      "endDate": "2026-07-30",
-      "enrollmentRequired": false,
-      "note": "Chase is offering a 100% transfer bonus from Ultimate Rewards to IHG One Rewards from July 15 through July 30, 2026.",
-      "lastVerifiedAt": "2026-07-24T09:58:52Z",
-      "sources": [
-        {
-          "name": "Frequent Miler Chase to IHG transfer bonus",
-          "url": "https://frequentmiler.com/chase-is-offering-a-70-100-transfer-bonus-to-ihg-one-rewards-give-it-a-miss/",
-          "sourceType": "aggregator"
-        }
-      ]
-    },
-    {
-      "transferBonusId": "chase-sapphire-reserve-ihg-one-rewards-100-july-2026",
-      "sourceProgramId": "chase-ultimate-rewards-sapphire-reserve",
-      "destinationProgramId": "ihg-one-rewards",
-      "destinationProgramName": "IHG One Rewards",
-      "bonusPercent": 100,
-      "standardRatio": "1:1",
-      "effectiveRatio": "1:2",
-      "publicOrTargeted": "public",
-      "startDate": "2026-07-15",
-      "endDate": "2026-07-30",
-      "enrollmentRequired": false,
-      "note": "Chase is offering a 100% transfer bonus from Ultimate Rewards to IHG One Rewards from July 15 through July 30, 2026.",
-      "lastVerifiedAt": "2026-07-24T09:58:52Z",
-      "sources": [
-        {
-          "name": "Frequent Miler Chase to IHG transfer bonus",
-          "url": "https://frequentmiler.com/chase-is-offering-a-70-100-transfer-bonus-to-ihg-one-rewards-give-it-a-miss/",
-          "sourceType": "aggregator"
-        }
-      ]
-    },
-    {
-      "transferBonusId": "citi-thankyou-air-france-klm-flying-blue-20-july-august-2026",
+      "transferBonusId": "citi-thankyou-air-france-klm-flying-blue-20-august-2026",
       "sourceProgramId": "citi-thankyou-points",
       "destinationProgramId": "air-france-klm-flying-blue",
       "destinationProgramName": "Air France-KLM Flying Blue",
@@ -5816,18 +5728,18 @@
       "startDate": "2026-07-19",
       "endDate": "2026-08-22",
       "enrollmentRequired": false,
-      "note": "Citi ThankYou Rewards is offering a 20% transfer bonus to Air France-KLM Flying Blue from July 19, 2026 through August 22, 2026. Eligible premium ThankYou cards include Citi Strata Premier.",
-      "lastVerifiedAt": "2026-07-24T09:58:52Z",
+      "note": "Citi ThankYou Rewards is offering a 20% transfer bonus to Air France-KLM Flying Blue from July 19, 2026 through August 22, 2026 at 11:59 p.m. Eastern Time. Citi Strata Premier cardholders can transfer 1,000 ThankYou Points to 1,200 Flying Blue miles.",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
-          "name": "Frequent Miler Citi to Air France KLM Flying Blue transfer bonus",
+          "name": "Frequent Miler Citi to Flying Blue transfer bonus",
           "url": "https://frequentmiler.com/citi-thankyou-air-france-klm-flying-blue-20-percent-transfer-bonus/",
           "sourceType": "aggregator"
         },
         {
-          "name": "Doctor of Credit Citi to Flying Blue transfer bonus",
-          "url": "https://www.doctorofcredit.com/citi-thankyou-points-20-transfer-bonus-to-flying-blue-airfrance-klm-2/",
-          "sourceType": "aggregator"
+          "name": "Citi ThankYou Rewards transfer partner FAQ",
+          "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+          "sourceType": "issuer"
         }
       ]
     },
@@ -5843,8 +5755,8 @@
       "startDate": "2026-07-27",
       "endDate": "2026-08-28",
       "enrollmentRequired": true,
-      "note": "Cathay is offering a 10% bonus on eligible U.S. points conversions to Asia Miles. Registration is required, the combined bonus is capped at 10,000 Asia Miles across participating partners, and bonus miles may take approximately 12 weeks to post.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
+      "note": "Cathay is offering a 10% bonus on eligible U.S. points conversions to Asia Miles through August 28, 2026 at 11:59 p.m. Pacific Time. Registration is required. The combined bonus is capped at 10,000 Asia Miles across participating partners, and bonus miles may take approximately 12 weeks to post.",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
           "name": "Cathay 10% bonus miles points conversion campaign",
@@ -5855,6 +5767,11 @@
           "name": "Frequent Miler Cathay Pacific Asia Miles transfer bonus",
           "url": "https://frequentmiler.com/get-a-10-bonus-when-transferring-bank-or-hotel-points-to-cathay-pacific-asia-miles/",
           "sourceType": "aggregator"
+        },
+        {
+          "name": "American Express Membership Rewards transfer partners",
+          "url": "https://global.americanexpress.com/rewards/transfer",
+          "sourceType": "issuer"
         }
       ]
     },
@@ -5870,8 +5787,8 @@
       "startDate": "2026-07-27",
       "endDate": "2026-08-28",
       "enrollmentRequired": true,
-      "note": "Cathay is offering a 10% bonus on eligible U.S. points conversions to Asia Miles. Registration is required, the combined bonus is capped at 10,000 Asia Miles across participating partners, and bonus miles may take approximately 12 weeks to post.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
+      "note": "Cathay is offering a 10% bonus on eligible U.S. points conversions to Asia Miles through August 28, 2026 at 11:59 p.m. Pacific Time. Registration is required. The combined bonus is capped at 10,000 Asia Miles across participating partners, and bonus miles may take approximately 12 weeks to post.",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
           "name": "Cathay 10% bonus miles points conversion campaign",
@@ -5882,6 +5799,11 @@
           "name": "Frequent Miler Cathay Pacific Asia Miles transfer bonus",
           "url": "https://frequentmiler.com/get-a-10-bonus-when-transferring-bank-or-hotel-points-to-cathay-pacific-asia-miles/",
           "sourceType": "aggregator"
+        },
+        {
+          "name": "Capital One miles transfer partners",
+          "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+          "sourceType": "issuer"
         }
       ]
     },
@@ -5897,8 +5819,8 @@
       "startDate": "2026-07-27",
       "endDate": "2026-08-28",
       "enrollmentRequired": true,
-      "note": "Cathay is offering a 10% bonus on eligible U.S. points conversions to Asia Miles. Registration is required, the combined bonus is capped at 10,000 Asia Miles across participating partners, and bonus miles may take approximately 12 weeks to post.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
+      "note": "Cathay is offering a 10% bonus on eligible U.S. points conversions to Asia Miles through August 28, 2026 at 11:59 p.m. Pacific Time. Registration is required. The combined bonus is capped at 10,000 Asia Miles across participating partners, and bonus miles may take approximately 12 weeks to post.",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
           "name": "Cathay 10% bonus miles points conversion campaign",
@@ -5909,33 +5831,11 @@
           "name": "Frequent Miler Cathay Pacific Asia Miles transfer bonus",
           "url": "https://frequentmiler.com/get-a-10-bonus-when-transferring-bank-or-hotel-points-to-cathay-pacific-asia-miles/",
           "sourceType": "aggregator"
-        }
-      ]
-    },
-    {
-      "transferBonusId": "citi-thankyou-air-france-klm-flying-blue-20-august-2026",
-      "sourceProgramId": "citi-thankyou-points",
-      "destinationProgramId": "air-france-klm-flying-blue",
-      "destinationProgramName": "Air France-KLM Flying Blue",
-      "bonusPercent": 20,
-      "standardRatio": "1:1",
-      "effectiveRatio": "1:1.2",
-      "publicOrTargeted": "public",
-      "startDate": "2026-07-19",
-      "endDate": "2026-08-22",
-      "enrollmentRequired": false,
-      "note": "Citi ThankYou Rewards is offering a 20% transfer bonus to Air France-KLM Flying Blue through August 22, 2026. Eligible premium ThankYou cards include Citi Strata Premier.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
-      "sources": [
-        {
-          "name": "Frequent Miler Citi to Flying Blue transfer bonus",
-          "url": "https://frequentmiler.com/citi-thankyou-air-france-klm-flying-blue-20-percent-transfer-bonus/",
-          "sourceType": "aggregator"
         },
         {
-          "name": "Doctor of Credit Citi to Flying Blue transfer bonus",
-          "url": "https://www.doctorofcredit.com/citi-thankyou-points-20-transfer-bonus-to-flying-blue-airfrance-klm-2/",
-          "sourceType": "aggregator"
+          "name": "Citi ThankYou Rewards transfer partner FAQ",
+          "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+          "sourceType": "issuer"
         }
       ]
     },
@@ -5952,12 +5852,17 @@
       "endDate": "2026-08-31",
       "enrollmentRequired": false,
       "note": "Chase is offering a 70% transfer bonus from Ultimate Rewards to IHG One Rewards from July 31 through August 31, 2026.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
           "name": "Frequent Miler Chase to IHG transfer bonus",
           "url": "https://frequentmiler.com/chase-is-offering-a-70-100-transfer-bonus-to-ihg-one-rewards-give-it-a-miss/",
           "sourceType": "aggregator"
+        },
+        {
+          "name": "Chase Sapphire Preferred benefits",
+          "url": "https://www.chase.com/sapphire-cards/personal/preferred",
+          "sourceType": "issuer"
         }
       ]
     },
@@ -5974,12 +5879,17 @@
       "endDate": "2026-08-31",
       "enrollmentRequired": false,
       "note": "Chase is offering a 70% transfer bonus from Ultimate Rewards to IHG One Rewards from July 31 through August 31, 2026.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
           "name": "Frequent Miler Chase to IHG transfer bonus",
           "url": "https://frequentmiler.com/chase-is-offering-a-70-100-transfer-bonus-to-ihg-one-rewards-give-it-a-miss/",
           "sourceType": "aggregator"
+        },
+        {
+          "name": "Chase Ultimate Rewards transfer instructions and partners",
+          "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+          "sourceType": "issuer"
         }
       ]
     },
@@ -5995,8 +5905,8 @@
       "startDate": "2026-08-01",
       "endDate": "2026-08-31",
       "enrollmentRequired": false,
-      "note": "Capital One is offering a 15% transfer bonus to Avianca LifeMiles from August 1 through August 31, 2026. Transfers use the normal 1:1 ratio before the bonus.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
+      "note": "Capital One is offering a 15% transfer bonus to Avianca LifeMiles from August 1 through August 31, 2026. Transfers use the normal 1:1 ratio before the bonus, resulting in 1,150 LifeMiles for every 1,000 Capital One miles transferred.",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
           "name": "One Mile at a Time Capital One to Avianca LifeMiles transfer bonus",
@@ -6004,7 +5914,7 @@
           "sourceType": "aggregator"
         },
         {
-          "name": "Capital One miles transfer partners and ratios",
+          "name": "Capital One miles transfer partners",
           "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
           "sourceType": "issuer"
         }
@@ -6022,13 +5932,18 @@
       "startDate": "2026-08-01",
       "endDate": "2026-08-31",
       "enrollmentRequired": false,
-      "note": "Turkish Airlines is offering a 40% bonus on eligible Citi ThankYou transfers through August 31, 2026 at 23:59 Türkiye time. Bonus miles are capped at 50,000 and are credited after the campaign ends.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
+      "note": "Turkish Airlines is offering a 40% bonus on eligible Citi ThankYou transfers from August 1 through August 31, 2026 at 23:59 Türkiye time. Bonus miles are capped at 50,000, no extra Status Miles are awarded, and the bonus miles will be credited after the campaign ends.",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
-          "name": "Frequent Miler Citi to Turkish Airlines Miles&Smiles transfer bonus",
-          "url": "https://frequentmiler.com/40-percent-transfer-bonus-citi-thankyou-turkish-milesandsmiles/",
-          "sourceType": "aggregator"
+          "name": "Turkish Airlines Citi ThankYou transfer campaign",
+          "url": "https://www.turkishairlines.com/en-us/miles-and-smiles/campaigns/earn-40-percent-extra-miles-with-citi/index.html",
+          "sourceType": "airline"
+        },
+        {
+          "name": "Citi ThankYou Rewards transfer partner FAQ",
+          "url": "https://www.citi.com/credit-cards/money-management/citi-thankyou-rewards-faqs",
+          "sourceType": "issuer"
         }
       ]
     },
@@ -6044,13 +5959,18 @@
       "startDate": "2026-08-03",
       "endDate": "2026-09-27",
       "enrollmentRequired": false,
-      "note": "American Express Membership Rewards is offering a 30% transfer bonus to British Airways Club through September 27, 2026.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
+      "note": "American Express Membership Rewards is offering a 30% transfer bonus to British Airways Club from August 3 through September 27, 2026.",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Avios transfer bonus",
           "url": "https://frequentmiler.com/30-percent-transfer-bonus-american-express-membership-rewards-avios-british-airways-iberia-aer-lingus/",
           "sourceType": "aggregator"
+        },
+        {
+          "name": "American Express Membership Rewards transfer partners",
+          "url": "https://global.americanexpress.com/rewards/transfer",
+          "sourceType": "issuer"
         }
       ]
     },
@@ -6066,13 +5986,18 @@
       "startDate": "2026-08-03",
       "endDate": "2026-09-27",
       "enrollmentRequired": false,
-      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Iberia Club through September 27, 2026.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
+      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Iberia Club from August 3 through September 27, 2026.",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Avios transfer bonus",
           "url": "https://frequentmiler.com/30-percent-transfer-bonus-american-express-membership-rewards-avios-british-airways-iberia-aer-lingus/",
           "sourceType": "aggregator"
+        },
+        {
+          "name": "American Express Membership Rewards transfer partners",
+          "url": "https://global.americanexpress.com/rewards/transfer",
+          "sourceType": "issuer"
         }
       ]
     },
@@ -6088,13 +6013,18 @@
       "startDate": "2026-08-03",
       "endDate": "2026-09-27",
       "enrollmentRequired": false,
-      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Aer Lingus AerClub through September 27, 2026.",
-      "lastVerifiedAt": "2026-08-04T04:13:00Z",
+      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Aer Lingus AerClub from August 3 through September 27, 2026.",
+      "lastVerifiedAt": "2026-08-05T19:02:00Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Avios transfer bonus",
           "url": "https://frequentmiler.com/30-percent-transfer-bonus-american-express-membership-rewards-avios-british-airways-iberia-aer-lingus/",
           "sourceType": "aggregator"
+        },
+        {
+          "name": "American Express Membership Rewards transfer partners",
+          "url": "https://global.americanexpress.com/rewards/transfer",
+          "sourceType": "issuer"
         }
       ]
     }
