@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-08-05T20:18:57.485Z",
+  "generatedAt": "2026-08-07T15:32:46.985Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -243,18 +243,18 @@
       "annualFeeWaivedFirstYear": false,
       "status": "targeted",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
-      "confidence": "medium",
-      "note": "Issuer displays a personalized 'as high as' welcome offer. The maximum is not guaranteed to every applicant.",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
+      "confidence": "high",
+      "note": "Issuer displays a personalized as-high-as offer of 175,000 Membership Rewards points after $12,000 in purchases within 6 months; exact eligibility and amount vary by applicant.",
       "sources": [
         {
-          "name": "American Express Platinum Card",
+          "name": "The Platinum Card by American Express",
           "url": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
           "sourceType": "issuer"
         },
         {
-          "name": "NerdWallet Amex Platinum review",
-          "url": "https://www.nerdwallet.com/reviews/credit-cards/american-express-platinum",
+          "name": "NerdWallet American Express Platinum review",
+          "url": "https://www.nerdwallet.com/credit-cards/reviews/american-express-platinum",
           "sourceType": "aggregator"
         }
       ]
@@ -264,42 +264,37 @@
       "bonusAmount": 100000,
       "bonusUnit": "points",
       "channel": "targeted",
-      "spendRequirement": 8000,
+      "spendRequirement": 6000,
       "spendPeriodMonths": 6,
       "annualFee": 325,
       "annualFeeWaivedFirstYear": false,
       "status": "targeted",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
-      "confidence": "medium",
-      "note": "Issuer displays a personalized 'as high as' welcome offer. The maximum is not guaranteed to every applicant.",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
+      "confidence": "high",
+      "note": "Issuer displays a personalized as-high-as offer of 100,000 Membership Rewards points after $6,000 in purchases within 6 months; exact eligibility and amount vary by applicant.",
       "sources": [
         {
           "name": "American Express Gold Card",
           "url": "https://www.americanexpress.com/us/credit-cards/card/gold-card/",
           "sourceType": "issuer"
-        },
-        {
-          "name": "NerdWallet Amex Gold review",
-          "url": "https://www.nerdwallet.com/reviews/credit-cards/american-express-gold",
-          "sourceType": "aggregator"
         }
       ]
     },
     {
       "cardId": "chase-sapphire-preferred",
-      "bonusAmount": 100000,
+      "bonusAmount": 75000,
       "bonusUnit": "points",
       "channel": "public",
       "spendRequirement": 5000,
       "spendPeriodMonths": 3,
       "annualFee": 95,
       "annualFeeWaivedFirstYear": false,
-      "status": "limited",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-24T16:41:38Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "high",
-      "note": "Issuer displays an offer ending soon for 100,000 points after $5,000 in purchases within the first 3 months. No specific expiration date was published.",
+      "note": "Issuer page shows 75,000 points after $5,000 in purchases in the first 3 months; no specific end date was found.",
       "sources": [
         {
           "name": "Chase Sapphire Preferred",
@@ -319,9 +314,9 @@
       "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-24T16:41:38Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "high",
-      "note": "Current issuer offer is 100,000 points after $6,000 in purchases within the first 3 months. The issuer does not label the offer as time-limited.",
+      "note": "Issuer page shows 100,000 points after $6,000 in purchases in the first 3 months; no specific end date was found.",
       "sources": [
         {
           "name": "Chase Sapphire Reserve",
@@ -341,14 +336,19 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "medium",
-      "note": "Public offer matches the stored 75,000-mile baseline.",
+      "note": "Current approved sources support the standard 75,000-mile offer after $4,000 in purchases in the first 3 months; no specific end date was found.",
       "sources": [
         {
           "name": "Capital One Venture X",
           "url": "https://www.capitalone.com/credit-cards/venture-x/",
           "sourceType": "issuer"
+        },
+        {
+          "name": "NerdWallet Capital One Venture X review",
+          "url": "https://www.nerdwallet.com/credit-cards/reviews/capital-one-venture-x",
+          "sourceType": "aggregator"
         }
       ]
     },
@@ -363,9 +363,9 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-24T16:41:38Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "high",
-      "note": "Current public offer matches the catalog baseline: 75,000 miles after $4,000 in purchases within the first 3 months.",
+      "note": "Issuer page supports the standard 75,000-mile offer after $4,000 in purchases in the first 3 months; no specific end date was found.",
       "sources": [
         {
           "name": "Capital One Venture Rewards",
@@ -385,35 +385,40 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "medium",
-      "note": "Public offer matches the stored 60,000-point baseline.",
+      "note": "Approved sources support the standard 60,000 ThankYou point offer after $4,000 in purchases in the first 3 months; no specific end date was found.",
       "sources": [
         {
-          "name": "Citi Strata Premier",
+          "name": "Citi Strata Premier Card",
           "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
           "sourceType": "issuer"
+        },
+        {
+          "name": "The Points Guy Citi Strata Premier Card",
+          "url": "https://thepointsguy.com/credit-cards/citi-strata-premier-card/",
+          "sourceType": "aggregator"
         }
       ]
     },
     {
       "cardId": "ihg-premier",
-      "bonusAmount": 150000,
+      "bonusAmount": 140000,
       "bonusUnit": "points",
       "channel": "public",
       "spendRequirement": 3000,
       "spendPeriodMonths": 3,
       "annualFee": 99,
       "annualFeeWaivedFirstYear": false,
-      "status": "elevated",
+      "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "high",
-      "note": "Tiered public offer reaches 150,000 total points and exceeds the 140,000-point baseline.",
+      "note": "Issuer page shows 140,000 points after $3,000 in purchases in the first 3 months; no specific end date was found.",
       "sources": [
         {
-          "name": "IHG One Rewards Premier",
-          "url": "https://creditcards.chase.com/travel-credit-cards/ihg/premier",
+          "name": "IHG One Rewards Premier Credit Card",
+          "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier",
           "sourceType": "issuer"
         }
       ]
@@ -429,12 +434,12 @@
       "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "high",
-      "note": "Limited-time tiered offer: 45,000 points after $5,000 in 3 months, plus up to 30,000 points through qualifying purchases. No supported end date was found.",
+      "note": "Issuer page shows a limited-time offer up to 75,000 points after qualifying purchases: 45,000 after $5,000 in 3 months plus up to 30,000 more through qualifying purchases in 6 months.",
       "sources": [
         {
-          "name": "World of Hyatt Credit Card",
+          "name": "World of Hyatt Credit Cards",
           "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt",
           "sourceType": "issuer"
         }
@@ -451,12 +456,12 @@
       "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-24T16:41:38Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "high",
-      "note": "Limited-time offer provides 125,000 points plus one Free Night Award after $3,000 in eligible purchases within 3 months. bonusAmount includes only the stated points and excludes the certificate value.",
+      "note": "Issuer page shows 125,000 points plus 1 Free Night Award after $3,000 in eligible purchases within 3 months. bonusAmount includes only the stated points and excludes certificate value.",
       "sources": [
         {
-          "name": "Marriott Bonvoy Boundless",
+          "name": "Marriott Bonvoy Boundless Credit Card",
           "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy/boundless",
           "sourceType": "issuer"
         }
@@ -473,14 +478,19 @@
       "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "medium",
-      "note": "Current public offer exceeds the 95,000-point baseline.",
+      "note": "Approved sources report a tiered public offer totaling 150,000 points after $8,000 in total purchases within 6 months; no specific end date was found.",
       "sources": [
         {
-          "name": "Marriott Bonvoy Brilliant",
+          "name": "Marriott Bonvoy Brilliant American Express Card",
           "url": "https://www.americanexpress.com/us/credit-cards/card/marriott-bonvoy-brilliant/",
           "sourceType": "issuer"
+        },
+        {
+          "name": "The Points Guy Marriott Bonvoy current offers",
+          "url": "https://thepointsguy.com/credit-cards/marriott-bonvoy-current-offers/",
+          "sourceType": "aggregator"
         }
       ]
     },
@@ -517,13 +527,13 @@
       "annualFeeWaivedFirstYear": true,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-11T06:14:00Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "high",
-      "note": "Current public offer exceeds the 50,000-mile baseline. The recurring annual fee is waived for the first year.",
+      "note": "Issuer page supports up to 60,000 miles with qualifying purchases and authorized-user activity; annual fee is waived for the first year.",
       "sources": [
         {
           "name": "United Explorer Card",
-          "url": "https://creditcards.chase.com/travel-credit-cards/united/explorer",
+          "url": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
           "sourceType": "issuer"
         }
       ]
@@ -539,12 +549,12 @@
       "annualFeeWaivedFirstYear": false,
       "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-24T16:41:38Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "high",
-      "note": "Current public offer is 60,000 points after $2,000 in purchases within the first 3 months. The annual fee is applied to the first billing statement.",
+      "note": "Issuer page supports 60,000 points after $2,000 in purchases in the first 3 months; the annual fee is applied to the first billing statement.",
       "sources": [
         {
-          "name": "Southwest Rapid Rewards Priority",
+          "name": "Southwest Rapid Rewards Priority Credit Card",
           "url": "https://creditcards.chase.com/travel-credit-cards/southwest/priority",
           "sourceType": "issuer"
         }
@@ -561,14 +571,41 @@
       "annualFeeWaivedFirstYear": false,
       "status": "limited",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-07-24T16:41:38Z",
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
       "confidence": "high",
-      "note": "Limited-time online offer provides 70,000 Atmos Rewards points and a $99 Companion Fare after $2,500 in purchases within the first 90 days. The companion benefit is excluded from bonusAmount.",
+      "note": "Issuer page supports a limited-time online offer of 70,000 points plus a $99 Companion Fare after $2,500 in purchases within 90 days; companion fare is excluded from bonusAmount.",
       "sources": [
         {
-          "name": "Atmos Rewards Ascent Visa Signature",
+          "name": "Atmos Rewards Ascent Visa Signature Credit Card",
           "url": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
           "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "cardId": "delta-gold",
+      "bonusAmount": 80000,
+      "bonusUnit": "miles",
+      "channel": "targeted",
+      "spendRequirement": 2000,
+      "spendPeriodMonths": 6,
+      "annualFee": 150,
+      "annualFeeWaivedFirstYear": true,
+      "status": "targeted",
+      "expirationDate": null,
+      "lastVerifiedAt": "2026-08-07T15:34:00Z",
+      "confidence": "medium",
+      "note": "Approved sources report a personalized as-high-as offer of 80,000 bonus miles after $2,000 in eligible purchases in 6 months; introductory annual fee is $0 for the first year.",
+      "sources": [
+        {
+          "name": "Delta SkyMiles Gold American Express Card",
+          "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
+          "sourceType": "issuer"
+        },
+        {
+          "name": "The Points Guy Delta SkyMiles Gold American Express Card",
+          "url": "https://thepointsguy.com/credit-cards/delta-skymiles-gold-american-express-card/",
+          "sourceType": "aggregator"
         }
       ]
     }
