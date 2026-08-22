@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-08-22T14:13:49.832Z",
+  "generatedAt": "2026-08-22T14:15:42.314Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -5719,7 +5719,7 @@
       "endDate": "2026-08-22",
       "enrollmentRequired": false,
       "note": "Citi ThankYou Rewards is offering a 20% transfer bonus to Air France-KLM Flying Blue from July 19, 2026 through August 22, 2026 at 11:59 p.m. Eastern Time. Citi Strata Premier cardholders can transfer 1,000 ThankYou Points to 1,200 Flying Blue miles.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "Frequent Miler Citi to Flying Blue transfer bonus",
@@ -5746,7 +5746,7 @@
       "endDate": "2026-08-28",
       "enrollmentRequired": true,
       "note": "Cathay is offering a 10% bonus on eligible U.S. points conversions to Asia Miles through August 28, 2026 at 11:59 p.m. Pacific Time. Registration is required. The combined bonus is capped at 10,000 Asia Miles across participating partners, and bonus miles may take approximately 12 weeks to post.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "Cathay 10% bonus miles points conversion campaign",
@@ -5778,7 +5778,7 @@
       "endDate": "2026-08-28",
       "enrollmentRequired": true,
       "note": "Cathay is offering a 10% bonus on eligible U.S. points conversions to Asia Miles through August 28, 2026 at 11:59 p.m. Pacific Time. Registration is required. The combined bonus is capped at 10,000 Asia Miles across participating partners, and bonus miles may take approximately 12 weeks to post.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "Cathay 10% bonus miles points conversion campaign",
@@ -5810,7 +5810,7 @@
       "endDate": "2026-08-28",
       "enrollmentRequired": true,
       "note": "Cathay is offering a 10% bonus on eligible U.S. points conversions to Asia Miles through August 28, 2026 at 11:59 p.m. Pacific Time. Registration is required. The combined bonus is capped at 10,000 Asia Miles across participating partners, and bonus miles may take approximately 12 weeks to post.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "Cathay 10% bonus miles points conversion campaign",
@@ -5842,7 +5842,7 @@
       "endDate": "2026-08-31",
       "enrollmentRequired": false,
       "note": "Chase is offering a 70% transfer bonus from Ultimate Rewards to IHG One Rewards from July 31 through August 31, 2026.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "Frequent Miler Chase to IHG transfer bonus",
@@ -5869,7 +5869,7 @@
       "endDate": "2026-08-31",
       "enrollmentRequired": false,
       "note": "Chase is offering a 70% transfer bonus from Ultimate Rewards to IHG One Rewards from July 31 through August 31, 2026.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "Frequent Miler Chase to IHG transfer bonus",
@@ -5896,7 +5896,7 @@
       "endDate": "2026-08-31",
       "enrollmentRequired": false,
       "note": "Capital One is offering a 15% transfer bonus to Avianca LifeMiles from August 1 through August 31, 2026. Transfers use the normal 1:1 ratio before the bonus, resulting in 1,150 LifeMiles for every 1,000 Capital One miles transferred.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "One Mile at a Time Capital One to Avianca LifeMiles transfer bonus",
@@ -5923,7 +5923,7 @@
       "endDate": "2026-08-31",
       "enrollmentRequired": false,
       "note": "Turkish Airlines is offering a 40% bonus on eligible Citi ThankYou transfers from August 1 through August 31, 2026 at 23:59 Türkiye time. Bonus miles are capped at 50,000, no extra Status Miles are awarded, and the bonus miles will be credited after the campaign ends.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "Turkish Airlines Citi ThankYou transfer campaign",
@@ -5950,7 +5950,7 @@
       "endDate": "2026-09-27",
       "enrollmentRequired": false,
       "note": "American Express Membership Rewards is offering a 30% transfer bonus to British Airways Club from August 3 through September 27, 2026.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Avios transfer bonus",
@@ -5977,7 +5977,7 @@
       "endDate": "2026-09-27",
       "enrollmentRequired": false,
       "note": "American Express Membership Rewards is offering a 30% transfer bonus to Iberia Club from August 3 through September 27, 2026.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Avios transfer bonus",
@@ -6004,7 +6004,7 @@
       "endDate": "2026-09-27",
       "enrollmentRequired": false,
       "note": "American Express Membership Rewards is offering a 30% transfer bonus to Aer Lingus AerClub from August 3 through September 27, 2026.",
-      "lastVerifiedAt": "2026-08-05T19:02:00Z",
+      "lastVerifiedAt": "2026-08-22T14:18:25Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Avios transfer bonus",
