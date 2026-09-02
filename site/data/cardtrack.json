@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-08-22T14:19:42.677Z",
+  "generatedAt": "2026-09-02T15:58:08.944Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -234,21 +234,21 @@
   "offers": [
     {
       "cardId": "amex-platinum",
-      "bonusAmount": 80000,
+      "bonusAmount": 175000,
       "bonusUnit": "points",
       "channel": "public",
-      "spendRequirement": 8000,
+      "spendRequirement": 12000,
       "spendPeriodMonths": 6,
       "annualFee": 895,
       "annualFeeWaivedFirstYear": false,
-      "status": "standard",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public welcome offer is 80,000 Membership Rewards points after spending $8,000 in eligible purchases within the first 6 months.",
+      "note": "Public American Express application flow shows a welcome offer as high as 175,000 Membership Rewards points after $12,000 in purchases in the first 6 months. Offer may vary by applicant.",
       "sources": [
         {
-          "name": "The Platinum Card by American Express",
+          "name": "The Platinum Card from American Express",
           "url": "https://www.americanexpress.com/us/credit-cards/card/platinum/",
           "sourceType": "issuer"
         }
@@ -256,18 +256,18 @@
     },
     {
       "cardId": "amex-gold",
-      "bonusAmount": 60000,
+      "bonusAmount": 100000,
       "bonusUnit": "points",
       "channel": "public",
       "spendRequirement": 6000,
       "spendPeriodMonths": 6,
       "annualFee": 325,
       "annualFeeWaivedFirstYear": false,
-      "status": "standard",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public welcome offer is 60,000 Membership Rewards points after spending $6,000 in eligible purchases within the first 6 months.",
+      "note": "Public American Express application flow shows a welcome offer as high as 100,000 Membership Rewards points after $6,000 in purchases in the first 6 months. Offer may vary by applicant.",
       "sources": [
         {
           "name": "American Express Gold Card",
@@ -278,18 +278,18 @@
     },
     {
       "cardId": "chase-sapphire-preferred",
-      "bonusAmount": 60000,
+      "bonusAmount": 75000,
       "bonusUnit": "points",
       "channel": "public",
-      "spendRequirement": 4000,
+      "spendRequirement": 5000,
       "spendPeriodMonths": 3,
       "annualFee": 95,
       "annualFeeWaivedFirstYear": false,
-      "status": "standard",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public offer is 60,000 bonus points after spending $4,000 on purchases in the first 3 months from account opening.",
+      "note": "Public Chase offer is 75,000 bonus points after $5,000 in purchases in the first 3 months from account opening.",
       "sources": [
         {
           "name": "Chase Sapphire Preferred",
@@ -300,18 +300,18 @@
     },
     {
       "cardId": "chase-sapphire-reserve",
-      "bonusAmount": 60000,
+      "bonusAmount": 100000,
       "bonusUnit": "points",
       "channel": "public",
-      "spendRequirement": 4000,
+      "spendRequirement": 6000,
       "spendPeriodMonths": 3,
       "annualFee": 795,
       "annualFeeWaivedFirstYear": false,
-      "status": "standard",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public offer is 60,000 bonus points after spending $4,000 on purchases in the first 3 months from account opening.",
+      "note": "Public Chase offer is 100,000 bonus points after $6,000 in purchases in the first 3 months from account opening.",
       "sources": [
         {
           "name": "Chase Sapphire Reserve",
@@ -331,13 +331,18 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public welcome bonus is 75,000 miles once you spend $4,000 on purchases within the first 3 months from account opening.",
+      "note": "Public Capital One offer is 75,000 bonus miles after $4,000 in purchases within the first 3 months from account opening.",
       "sources": [
         {
-          "name": "Capital One Venture X",
+          "name": "Venture X Rewards Credit Card",
           "url": "https://www.capitalone.com/credit-cards/venture-x/",
+          "sourceType": "issuer"
+        },
+        {
+          "name": "Capital One Travel and Miles Cards",
+          "url": "https://www.capitalone.com/credit-cards/travel-and-miles/",
           "sourceType": "issuer"
         }
       ]
@@ -353,12 +358,12 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public welcome bonus is 75,000 miles once you spend $4,000 on purchases within the first 3 months from account opening.",
+      "note": "Public Capital One offer is 75,000 bonus miles after $4,000 in purchases within the first 3 months from account opening.",
       "sources": [
         {
-          "name": "Capital One Venture Rewards",
+          "name": "Venture Rewards Credit Card",
           "url": "https://www.capitalone.com/credit-cards/venture/",
           "sourceType": "issuer"
         }
@@ -375,14 +380,19 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
-      "confidence": "high",
-      "note": "Standard public offer is 60,000 ThankYou Points after spending $4,000 on purchases within the first 3 months of account opening.",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
+      "confidence": "medium",
+      "note": "Approved current editorial sources report the public offer as 60,000 ThankYou Points after $4,000 in purchases within the first 3 months. Citi's public page should be reviewed before import.",
       "sources": [
         {
-          "name": "Citi Strata Premier Card",
-          "url": "https://www.citi.com/credit-cards/citi-strata-premier-credit-card",
-          "sourceType": "issuer"
+          "name": "The Points Guy Citi Strata Premier Card",
+          "url": "https://thepointsguy.com/credit-cards/citi-strata-premier-card",
+          "sourceType": "aggregator"
+        },
+        {
+          "name": "NerdWallet Citi Strata Premier Review",
+          "url": "https://www.nerdwallet.com/credit-cards/reviews/citi-strata-premier",
+          "sourceType": "aggregator"
         }
       ]
     },
@@ -397,75 +407,75 @@
       "annualFeeWaivedFirstYear": false,
       "status": "standard",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public offer is 140,000 bonus points after spending $3,000 on purchases in the first 3 months from account opening.",
+      "note": "Public Chase offer is 140,000 IHG One Rewards bonus points after $3,000 in purchases in the first 3 months from account opening.",
       "sources": [
         {
           "name": "IHG One Rewards Premier Credit Card",
-          "url": "https://creditcards.chase.com/travel-credit-cards/ihg/premier",
+          "url": "https://creditcards.chase.com/travel-credit-cards/ihg-rewards-club/premier",
           "sourceType": "issuer"
         }
       ]
     },
     {
       "cardId": "world-of-hyatt",
-      "bonusAmount": 30000,
+      "bonusAmount": 60000,
       "bonusUnit": "points",
       "channel": "public",
-      "spendRequirement": 3000,
-      "spendPeriodMonths": 3,
+      "spendRequirement": 15000,
+      "spendPeriodMonths": 6,
       "annualFee": 95,
       "annualFeeWaivedFirstYear": false,
-      "status": "standard",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public offer is 30,000 bonus points after spending $3,000 on purchases in the first 3 months, plus 2x points on up to $15,000 in purchases in the first 6 months.",
+      "note": "Public Chase offer is up to 60,000 points: 30,000 after $3,000 in 3 months, plus up to 30,000 more from 2x total points on up to $15,000 in first 6 months.",
       "sources": [
         {
           "name": "World of Hyatt Credit Card",
-          "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt",
+          "url": "https://creditcards.chase.com/travel-credit-cards/world-of-hyatt-credit-card",
           "sourceType": "issuer"
         }
       ]
     },
     {
       "cardId": "marriott-boundless",
-      "bonusAmount": 75000,
-      "bonusUnit": "points",
+      "bonusAmount": 200000,
+      "bonusUnit": "free-night certificate points",
       "channel": "public",
       "spendRequirement": 3000,
       "spendPeriodMonths": 3,
       "annualFee": 95,
       "annualFeeWaivedFirstYear": false,
-      "status": "standard",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public offer is 75,000 bonus points after spending $3,000 on purchases in the first 3 months from account opening.",
+      "note": "Current Chase card listing shows 4 Free Night Awards after $3,000 in eligible purchases within 3 months. Each award is redeemable up to 50,000 points; bonusAmount reflects maximum certificate point value.",
       "sources": [
         {
-          "name": "Marriott Bonvoy Boundless Credit Card",
-          "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy-boundless",
+          "name": "Marriott Bonvoy Credit Cards",
+          "url": "https://creditcards.chase.com/travel-credit-cards/marriott-bonvoy",
           "sourceType": "issuer"
         }
       ]
     },
     {
       "cardId": "marriott-brilliant",
-      "bonusAmount": 95000,
+      "bonusAmount": 150000,
       "bonusUnit": "points",
       "channel": "public",
-      "spendRequirement": 6000,
+      "spendRequirement": 8000,
       "spendPeriodMonths": 6,
       "annualFee": 650,
       "annualFeeWaivedFirstYear": false,
-      "status": "standard",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public welcome offer is 95,000 Marriott Bonvoy bonus points after spending $6,000 in purchases on the card in the first 6 months.",
+      "note": "Public American Express offer is up to 150,000 Marriott Bonvoy points: 100,000 after $6,000 in 6 months, plus 50,000 more after an additional $2,000 within the same 6 months.",
       "sources": [
         {
           "name": "Marriott Bonvoy Brilliant American Express Card",
@@ -476,62 +486,62 @@
     },
     {
       "cardId": "delta-gold",
-      "bonusAmount": 40000,
+      "bonusAmount": 80000,
       "bonusUnit": "miles",
       "channel": "public",
       "spendRequirement": 2000,
       "spendPeriodMonths": 6,
       "annualFee": 150,
       "annualFeeWaivedFirstYear": true,
-      "status": "standard",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public offer is 40,000 bonus miles after spending $2,000 in purchases in the first 6 months. $0 introductory annual fee for the first year, then $150.",
+      "note": "Public American Express application flow shows a welcome offer as high as 80,000 bonus miles after $2,000 in purchases in the first 6 months. Annual fee is $0 introductory first year, then $150.",
       "sources": [
         {
           "name": "Delta SkyMiles Gold American Express Card",
-          "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold/",
+          "url": "https://www.americanexpress.com/us/credit-cards/card/delta-skymiles-gold-american-express-card/",
           "sourceType": "issuer"
         }
       ]
     },
     {
       "cardId": "united-explorer",
-      "bonusAmount": 50000,
+      "bonusAmount": 60000,
       "bonusUnit": "miles",
       "channel": "public",
       "spendRequirement": 3000,
       "spendPeriodMonths": 3,
       "annualFee": 150,
       "annualFeeWaivedFirstYear": true,
-      "status": "standard",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public offer is 50,000 bonus miles after spending $3,000 on purchases in the first 3 months. $0 introductory annual fee for the first year, then $150.",
+      "note": "Public Chase offer is up to 60,000 miles: 50,000 after $3,000 in 3 months plus 10,000 after adding an authorized user in the first 3 months. Annual fee is $0 intro first year, then $150.",
       "sources": [
         {
           "name": "United Explorer Card",
-          "url": "https://creditcards.chase.com/travel-credit-cards/united/explorer",
+          "url": "https://creditcards.chase.com/travel-credit-cards/united/united-explorer",
           "sourceType": "issuer"
         }
       ]
     },
     {
       "cardId": "southwest-priority",
-      "bonusAmount": 50000,
+      "bonusAmount": 60000,
       "bonusUnit": "points",
       "channel": "public",
-      "spendRequirement": 1000,
+      "spendRequirement": 2000,
       "spendPeriodMonths": 3,
       "annualFee": 229,
       "annualFeeWaivedFirstYear": false,
-      "status": "standard",
+      "status": "elevated",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
       "confidence": "high",
-      "note": "Standard public offer is 50,000 points after spending $1,000 on purchases in the first 3 months from account opening.",
+      "note": "Public Chase offer is 60,000 Rapid Rewards points after $2,000 in purchases in the first 3 months from account opening.",
       "sources": [
         {
           "name": "Southwest Rapid Rewards Priority Credit Card",
@@ -542,22 +552,22 @@
     },
     {
       "cardId": "alaska-ascent",
-      "bonusAmount": 60000,
-      "bonusUnit": "miles",
+      "bonusAmount": 70000,
+      "bonusUnit": "points",
       "channel": "public",
-      "spendRequirement": 3000,
+      "spendRequirement": 2500,
       "spendPeriodMonths": 3,
       "annualFee": 95,
       "annualFeeWaivedFirstYear": false,
-      "status": "standard",
+      "status": "limited",
       "expirationDate": null,
-      "lastVerifiedAt": "2026-08-22T14:15:54Z",
-      "confidence": "high",
-      "note": "Standard public offer is 60,000 bonus miles plus companion fare after spending $3,000 or more in purchases within the first 90 days of opening account.",
+      "lastVerifiedAt": "2026-09-02T15:53:00Z",
+      "confidence": "medium",
+      "note": "Bank of America travel-card listing shows a limited-time online offer of 70,000 bonus points and a $99 Companion Fare after $2,500 in purchases within 90 days. Expiration date was not stated.",
       "sources": [
         {
-          "name": "Atmos Rewards Ascent Visa Signature Credit Card",
-          "url": "https://www.bankofamerica.com/credit-cards/products/alaska-airlines-credit-card/",
+          "name": "Bank of America Travel Credit Cards",
+          "url": "https://www.bankofamerica.com/credit-cards/travel-credit-cards/",
           "sourceType": "issuer"
         }
       ]
