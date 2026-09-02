@@ -1,7 +1,7 @@
 {
   "schemaVersion": 5,
   "compatibilityVersion": 2,
-  "generatedAt": "2026-09-02T15:58:08.944Z",
+  "generatedAt": "2026-09-02T16:36:26.113Z",
   "dataStatus": "partial",
   "updatedBy": "cardtrack-admin-publisher",
   "cards": [
@@ -5959,8 +5959,8 @@
       "startDate": "2026-08-03",
       "endDate": "2026-09-27",
       "enrollmentRequired": false,
-      "note": "American Express Membership Rewards is offering a 30% transfer bonus to British Airways Club from August 3 through September 27, 2026.",
-      "lastVerifiedAt": "2026-08-22T14:18:25Z",
+      "note": "American Express Membership Rewards is offering a 30% transfer bonus to British Airways Club through September 27, 2026.",
+      "lastVerifiedAt": "2026-09-02T16:34:00Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Avios transfer bonus",
@@ -5986,8 +5986,8 @@
       "startDate": "2026-08-03",
       "endDate": "2026-09-27",
       "enrollmentRequired": false,
-      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Iberia Club from August 3 through September 27, 2026.",
-      "lastVerifiedAt": "2026-08-22T14:18:25Z",
+      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Iberia Club through September 27, 2026.",
+      "lastVerifiedAt": "2026-09-02T16:34:00Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Avios transfer bonus",
@@ -6013,8 +6013,8 @@
       "startDate": "2026-08-03",
       "endDate": "2026-09-27",
       "enrollmentRequired": false,
-      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Aer Lingus AerClub from August 3 through September 27, 2026.",
-      "lastVerifiedAt": "2026-08-22T14:18:25Z",
+      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Aer Lingus AerClub through September 27, 2026.",
+      "lastVerifiedAt": "2026-09-02T16:34:00Z",
       "sources": [
         {
           "name": "Frequent Miler Amex to Avios transfer bonus",
@@ -6025,6 +6025,136 @@
           "name": "American Express Membership Rewards transfer partners",
           "url": "https://global.americanexpress.com/rewards/transfer",
           "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "transferBonusId": "amex-membership-rewards-hilton-honors-30-october-2026",
+      "sourceProgramId": "american-express-membership-rewards",
+      "destinationProgramId": "hilton-honors",
+      "destinationProgramName": "Hilton Honors",
+      "bonusPercent": 30,
+      "standardRatio": "1:2",
+      "effectiveRatio": "1:2.6",
+      "publicOrTargeted": "public",
+      "startDate": "2026-09-01",
+      "endDate": "2026-10-14",
+      "enrollmentRequired": false,
+      "note": "American Express Membership Rewards is offering a 30% transfer bonus to Hilton Honors through October 14, 2026. The standard 1:2 ratio becomes 1:2.6 during the promotion.",
+      "lastVerifiedAt": "2026-09-02T16:34:00Z",
+      "sources": [
+        {
+          "name": "Frequent Miler Amex to Hilton Honors transfer bonus",
+          "url": "https://frequentmiler.com/amex-membership-rewards-hilton-honors-30-percent-transfer-bonus/",
+          "sourceType": "aggregator"
+        },
+        {
+          "name": "American Express Membership Rewards transfer partners",
+          "url": "https://global.americanexpress.com/rewards/transfer",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "transferBonusId": "chase-sapphire-preferred-air-canada-aeroplan-20-september-2026",
+      "sourceProgramId": "chase-ultimate-rewards-sapphire-preferred",
+      "destinationProgramId": "air-canada-aeroplan",
+      "destinationProgramName": "Air Canada Aeroplan",
+      "bonusPercent": 20,
+      "standardRatio": "1:1",
+      "effectiveRatio": "1:1.2",
+      "publicOrTargeted": "public",
+      "startDate": "2026-08-12",
+      "endDate": "2026-09-30",
+      "enrollmentRequired": false,
+      "note": "Chase Ultimate Rewards is offering a 20% transfer bonus to Air Canada Aeroplan through September 30, 2026 at 11:59 p.m. Eastern Time. A separate Aeroplan credit-card benefit may provide an additional bonus to qualifying cardholders and is not included in the effective ratio shown here.",
+      "lastVerifiedAt": "2026-09-02T16:34:00Z",
+      "sources": [
+        {
+          "name": "Frequent Miler Chase to Air Canada Aeroplan transfer bonus",
+          "url": "https://frequentmiler.com/get-20-bonus-when-transferring-chase-ultimate-rewards-to-air-canada-aeroplan-stack-with-10-cardholder-bonus/",
+          "sourceType": "aggregator"
+        },
+        {
+          "name": "Chase Ultimate Rewards transfer instructions and partners",
+          "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "transferBonusId": "chase-sapphire-reserve-air-canada-aeroplan-20-september-2026",
+      "sourceProgramId": "chase-ultimate-rewards-sapphire-reserve",
+      "destinationProgramId": "air-canada-aeroplan",
+      "destinationProgramName": "Air Canada Aeroplan",
+      "bonusPercent": 20,
+      "standardRatio": "1:1",
+      "effectiveRatio": "1:1.2",
+      "publicOrTargeted": "public",
+      "startDate": "2026-08-12",
+      "endDate": "2026-09-30",
+      "enrollmentRequired": false,
+      "note": "Chase Ultimate Rewards is offering a 20% transfer bonus to Air Canada Aeroplan through September 30, 2026 at 11:59 p.m. Eastern Time. A separate Aeroplan credit-card benefit may provide an additional bonus to qualifying cardholders and is not included in the effective ratio shown here.",
+      "lastVerifiedAt": "2026-09-02T16:34:00Z",
+      "sources": [
+        {
+          "name": "Frequent Miler Chase to Air Canada Aeroplan transfer bonus",
+          "url": "https://frequentmiler.com/get-20-bonus-when-transferring-chase-ultimate-rewards-to-air-canada-aeroplan-stack-with-10-cardholder-bonus/",
+          "sourceType": "aggregator"
+        },
+        {
+          "name": "Chase Ultimate Rewards transfer instructions and partners",
+          "url": "https://www.chase.com/personal/credit-cards/education/basics/how-to-transfer-chase-ultimate-rewards-points",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "transferBonusId": "capital-one-miles-japan-airlines-mileage-bank-30-september-2026",
+      "sourceProgramId": "capital-one-miles",
+      "destinationProgramId": "japan-airlines-mileage-bank",
+      "destinationProgramName": "Japan Airlines Mileage Bank",
+      "bonusPercent": 30,
+      "standardRatio": "2:1.5",
+      "effectiveRatio": "2:1.95",
+      "publicOrTargeted": "public",
+      "startDate": "2026-09-01",
+      "endDate": "2026-09-30",
+      "enrollmentRequired": false,
+      "note": "Capital One Miles is offering a 30% transfer bonus to Japan Airlines Mileage Bank through September 30, 2026 at 11:59 p.m. Eastern Time. The standard 1,000:750 ratio becomes 1,000:975 during the promotion.",
+      "lastVerifiedAt": "2026-09-02T16:34:00Z",
+      "sources": [
+        {
+          "name": "Frequent Miler Capital One to Japan Airlines transfer bonus",
+          "url": "https://frequentmiler.com/capital-one-miles-jal-japan-airlines-30-percent-transfer-bonus/",
+          "sourceType": "aggregator"
+        },
+        {
+          "name": "Capital One miles transfer partners",
+          "url": "https://www.capitalone.com/learn-grow/money-management/venture-miles-transfer-partnerships/",
+          "sourceType": "issuer"
+        }
+      ]
+    },
+    {
+      "transferBonusId": "citi-thankyou-leading-hotels-of-the-world-leaders-club-25-september-2026",
+      "sourceProgramId": "citi-thankyou-points",
+      "destinationProgramId": "leading-hotels-of-the-world-leaders-club",
+      "destinationProgramName": "Leading Hotels of the World Leaders Club",
+      "bonusPercent": 25,
+      "standardRatio": "5:1",
+      "effectiveRatio": "4:1",
+      "publicOrTargeted": "public",
+      "startDate": "2026-08-23",
+      "endDate": "2026-09-19",
+      "enrollmentRequired": false,
+      "note": "Eligible Citi ThankYou Rewards cardholders can receive a 25% transfer bonus to Leading Hotels of the World Leaders Club through September 19, 2026 at 11:59 p.m. Eastern Time. For eligible premium Citi cards, the standard 1,000:200 ratio becomes 1,000:250 during the promotion.",
+      "lastVerifiedAt": "2026-09-02T16:34:00Z",
+      "sources": [
+        {
+          "name": "Frequent Miler Citi to Leading Hotels of the World Leaders Club transfer bonus",
+          "url": "https://frequentmiler.com/citi-thankyou-leading-hotels-of-the-world-lhw-25-percent-transfer-bonus/",
+          "sourceType": "aggregator"
         }
       ]
     }
